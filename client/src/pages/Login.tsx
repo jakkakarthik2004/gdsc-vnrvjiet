@@ -56,7 +56,7 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="p-8 rounded shadow-md">
+      <div className="p-8 rounded-xl shadow-md">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <div className="text-black">
           <div className="mb-2">
@@ -88,7 +88,7 @@ const Login = () => {
           <button
             type="submit"
             onClick={handleSubmit}
-            className="w-full bg-[#186d67] p-2 rounded hover:bg-[#183937]"
+            className="w-full bg-[#0F71F2] p-2 rounded hover:bg-[#0f97f2]"
           >
             Login
           </button>

@@ -28,4 +28,9 @@ export class Events extends Model<Events> {
     type: DataType.STRING,
   })
   venue: string;
+
+  // @Column({
+  //   type: DataType.STRING,
+  // })
+  // image: string;
 }

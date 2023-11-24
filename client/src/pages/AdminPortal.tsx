@@ -5,6 +5,8 @@ import {
   getAllEvents,
   updateEvent,
 } from "../Apis/events";
+import { Calendar } from "react-multi-date-picker";
+import moment from "moment";
 
 interface Event {
   eventId: number;
@@ -31,6 +33,7 @@ function AdminPortal() {
   });
   const [editEvent, setEditEvent] = useState<Event | null>();
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
+  const [dates, setDates] = useState<any>();
 
   async function fetchData() {
     try {
@@ -97,7 +100,7 @@ function AdminPortal() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-white">
       <h2 className="text-2xl font-bold mb-4 ">Admin Portal</h2>
       <button
         onClick={() => setIsCreatingEvent(true)}
@@ -107,7 +110,7 @@ function AdminPortal() {
       </button>
       {isCreatingEvent && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-          <div className="bg-[#1e1e1e] p-4 rounded shadow-md">
+          <div className="bg-[#1e1e1e] mx-10 p-4 rounded shadow-md">
             <span
               className="absolute top-2 right-2 text-gray-600 cursor-pointer"
               onClick={() => setIsCreatingEvent(false)}
@@ -170,12 +173,15 @@ function AdminPortal() {
       )}
       <div>
         <h3 className="text-xl font-semibold my-3">Events List</h3>
-        <div className="flex flex-col gap-3 items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {events.map((event) => (
             <div
               key={event.eventId}
-              className="shadow-lg w-screen hover:scale-105 duration-300 bg-[#1e1e1e] border border-[#323434] p-4"
+              className="shadow-lg max-w-sm hover:scale-105 duration-300 bg-[#1e1e1e] border border-[#323434] p-4"
             >
+              {/* <div className=" h-[222px] overflow-hidden">
+                <img src={event.image} alt="image" className="rounded-lg" />
+              </div> */}
               <h4 className="text-2xl font-semibold mb-3">{event.name}</h4>
               <p>
                 <span className=" font-semibold text-lg">
@@ -184,9 +190,20 @@ function AdminPortal() {
                 {event.description}
               </p>
               <p>
-                <span className=" font-semibold text-lg">When: </span>
+                <span className="font-semibold text-lg">When: </span>
+                {/* <Calendar
+                  weekNumber="2"
+                  value={dates || []}
+                  onChange={(val: any[]) => {
+                    setDates({ ...dates, dates: val });
+                  }}
+                  multiple
+                  sort
+                  minDate={moment().toDate()}
+                /> */}
                 {event.time}
               </p>
+
               <p>
                 <span className=" font-semibold text-lg">Where: </span>
                 {event.venue}
@@ -211,14 +228,16 @@ function AdminPortal() {
       </div>
       {editEvent && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-        <div className="bg-[#1e1e1e] p-4 rounded shadow-md">
+          <div className="bg-[#1e1e1e] mx-10 p-4 rounded shadow-md">
             <span
               className="absolute top-2 right-2 text-gray-600 cursor-pointer"
               onClick={() => setEditEvent(null)}
             >
               &times;
             </span>
-            <h3 className="text-xl font-semibold mb-2 text-white">Edit Event</h3>
+            <h3 className="text-xl font-semibold mb-2 text-white">
+              Edit Event
+            </h3>
             <input
               type="text"
               placeholder="Event Name"

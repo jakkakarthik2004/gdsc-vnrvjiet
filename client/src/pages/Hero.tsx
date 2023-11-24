@@ -10,7 +10,7 @@ function Hero() {
       };
 
   return (
-    <div className="HeroSection flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat"  style={heroStyle}>
+    <div className="HeroSection flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat m-4"  style={heroStyle}>
         <div className="mx-auto text-center mb-5">
             <img className="gdsc_logo mx-auto p-3" src="https://cdn-images-1.medium.com/max/578/1*vZVM7utCuRiZ6-HDsNeYUA@2x.png" width="250"/> 
             <h1 className="text-gray-700 text-5xl">Google Developer Student Clubs</h1>

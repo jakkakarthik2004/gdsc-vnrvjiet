@@ -106,7 +106,7 @@ function AdminPortal() {
         Add New Event
       </button>
       {isCreatingEvent && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-[#1e1e1e] p-4 rounded shadow-md">
             <span
               className="absolute top-2 right-2 text-gray-600 cursor-pointer"

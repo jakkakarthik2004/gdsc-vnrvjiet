@@ -82,7 +82,7 @@ function Home() {
           <p className="text-gray-500 text-lg">
             Discover amazing events and connect with like-minded people.
           </p>
-          <div className="shadow-lg w-fit hover:scale-105 duration-300 bg-slate-200 text-gray-800 border border-[#323434]">
+          <div className="shadow-lg w-fit hover:scale-105 duration-300 bg-slate-200 text-gray-800 border border-[#323434] rounded-md">
             {showSignup ? <Signup /> : <Login />}
           </div>
           <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] text-lg">

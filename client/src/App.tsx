@@ -4,7 +4,7 @@ import Navbar from "./pages/Navbar";
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="bg-slate-50 min-h-screen text-slate-900">
       <Navbar />
       <Root />
     </div>

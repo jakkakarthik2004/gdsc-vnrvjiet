@@ -100,7 +100,7 @@ function AdminPortal() {
   };
 
   return (
-    <div className="p-6 text-white">
+    <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 ">Admin Portal</h2>
       <button
         onClick={() => setIsCreatingEvent(true)}
@@ -110,14 +110,14 @@ function AdminPortal() {
       </button>
       {isCreatingEvent && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-          <div className="bg-[#1e1e1e] mx-10 p-4 rounded shadow-md">
+          <div className="bg-slate-100 mx-20 p-4 rounded shadow-md">
             <span
               className="absolute top-2 right-2 text-gray-600 cursor-pointer"
               onClick={() => setIsCreatingEvent(false)}
             >
               &times;
             </span>
-            <h3 className="text-xl font-semibold mb-5 text-white">
+            <h3 className="text-xl font-semibold mb-5">
               Add New Event
             </h3>
             <input
@@ -127,7 +127,7 @@ function AdminPortal() {
               onChange={(e) =>
                 setNewEvent({ ...newEvent, name: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
               type="text"
@@ -136,7 +136,7 @@ function AdminPortal() {
               onChange={(e) =>
                 setNewEvent({ ...newEvent, description: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
               type="text"
@@ -145,7 +145,7 @@ function AdminPortal() {
               onChange={(e) =>
                 setNewEvent({ ...newEvent, time: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
               type="text"
@@ -154,9 +154,19 @@ function AdminPortal() {
               onChange={(e) =>
                 setNewEvent({ ...newEvent, venue: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
-            <button
+            {/* <input
+              type="file"
+              placeholder="Event Images"
+              value={newEvent.venue}
+              onChange={(e) =>
+                setNewEvent({ ...newEvent, venue: e.target.value })
+              }
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+            /> */}
+            <div>
+          <button
               onClick={handleCreateEvent}
               className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
             >
@@ -169,6 +179,8 @@ function AdminPortal() {
               Cancel
             </button>
           </div>
+          </div>
+          
         </div>
       )}
       <div>
@@ -177,7 +189,7 @@ function AdminPortal() {
           {events.map((event) => (
             <div
               key={event.eventId}
-              className="shadow-lg max-w-sm hover:scale-105 duration-300 bg-[#1e1e1e] border border-[#323434] p-4"
+              className="shadow-lg max-w-sm hover:scale-105 duration-300 bg-white border border-slate-400 rounded-md p-4"
             >
               {/* <div className=" h-[222px] overflow-hidden">
                 <img src={event.image} alt="image" className="rounded-lg" />
@@ -228,14 +240,14 @@ function AdminPortal() {
       </div>
       {editEvent && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-          <div className="bg-[#1e1e1e] mx-10 p-4 rounded shadow-md">
+          <div className="bg-slate-100 mx-20 p-4 rounded shadow-md">
             <span
               className="absolute top-2 right-2 text-gray-600 cursor-pointer"
               onClick={() => setEditEvent(null)}
             >
               &times;
             </span>
-            <h3 className="text-xl font-semibold mb-2 text-white">
+            <h3 className="text-xl font-semibold mb-2 text-slate-900">
               Edit Event
             </h3>
             <input
@@ -245,7 +257,7 @@ function AdminPortal() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, name: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
               type="text"
@@ -254,7 +266,7 @@ function AdminPortal() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, description: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
               type="text"
@@ -263,7 +275,7 @@ function AdminPortal() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, time: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
               type="text"
@@ -272,20 +284,23 @@ function AdminPortal() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, venue: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-[#323434]"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
-            <button
-              onClick={() => handleEditEvent(editEvent.eventId)}
-              className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setEditEvent(null)}
-              className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
-            >
-              Cancel
-            </button>
+            <div>
+              <button
+                onClick={() => handleEditEvent(editEvent.eventId)}
+                className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setEditEvent(null)}
+                className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
+              >
+                Cancel
+              </button>
+            </div>
+            
           </div>
         </div>
       )}

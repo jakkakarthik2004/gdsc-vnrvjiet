@@ -41,7 +41,8 @@ const Signup = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="p-8 rounded shadow-md">
+      <div className="flex mt-32 justify-center">
+      <div className="p-8 rounded shadow-md ">
         <h2 className="text-2xl font-bold mb-4">Sign-up</h2>
         <form onSubmit={handleSubmit} className="text-black">
           <input
@@ -78,6 +79,16 @@ const Signup = () => {
             Register
           </button>
         </form>
+        <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] text-lg mt-5">
+          Already have an account? ‎ 
+            <span
+              className="font-bold cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Log in here.
+            </span>
+          </p>
+      </div>
       </div>
     </div>
   );

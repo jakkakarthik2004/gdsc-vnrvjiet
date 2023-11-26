@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
     const heroStyle = {
@@ -9,6 +10,12 @@ function Hero() {
         height: '500px', 
       };
 
+      const navigate = useNavigate();
+
+      const navigateLogin = () => {
+        navigate("/Login")
+      }
+
   return (
     <div className="HeroSection flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat m-4"  style={heroStyle}>
         <div className="mx-auto text-center mb-5">
@@ -16,7 +23,7 @@ function Hero() {
             <h1 className="text-gray-700 text-5xl">Google Developer Student Clubs</h1>
             <h1 className="text-gray-500 text-xl">Vallurupalli Nageswara Rao Vignana Jyothi Institute of Engineering &Technology.</h1>
         </div>
-        <button className="transition ease-in-out delay-70 hover:-translate-y-1 hover:scale-110 duration-300 bg-[#0F71F2] p-2 px-5 m-3 rounded ring-offset-2 ring-4 ring-[#F2A20C]">Join us.</button>
+        <button className="transition ease-in-out delay-70 hover:-translate-y-1 hover:scale-110 duration-300 bg-[#0F71F2] p-2 px-5 m-3 rounded ring-offset-2 ring-4 ring-[#F2A20C]" onClick={navigateLogin}>Join us.</button>
     </div>
   );
 }

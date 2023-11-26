@@ -54,9 +54,12 @@ const Login = () => {
     }
   };
 
+
   return (
-    <div className="flex items-center justify-center">
-      <div className="p-8 rounded-xl shadow-md">
+    <div>
+       <h1 className="font-bold text-center text-2xl mt-16">Please Log in to access content</h1>
+    <div className="flex mt-16 justify-center"> 
+      <div className="p-8 rounded-xl shadow-lg items-center justify-center">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <div className="text-black">
           <div className="mb-2">
@@ -92,8 +95,20 @@ const Login = () => {
           >
             Login
           </button>
+          
         </div>
+        <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] pt-5 text-lg">
+          New user? ‎ 
+            <span
+              className="font-bold cursor-pointer"
+              onClick={() => navigate("/signup")}
+            >
+              Sign up here
+            </span>
+          </p>
       </div>
+      
+    </div>
     </div>
   );
 };

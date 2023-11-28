@@ -78,14 +78,14 @@ function Home() {
           ))}
         </div>
         <div className="mt-10 text-white flex flex-col gap-4 items-center p-6">
-          <p className="text-xl  text-gray-600 font-semibold">Join us, at GDSC.</p>
+        <p className="text-xl text-gray-600 font-semibold">Join us, at GDSC.</p>
           <p className="text-gray-500 text-lg">
             Discover amazing events and connect with like-minded people.
           </p>
-          <div className="shadow-lg w-fit hover:scale-105 duration-300 bg-slate-200 text-gray-800 border border-[#323434] rounded-md">
+          {/* <div className="shadow-lg w-fit hover:scale-105 duration-300 bg-slate-200 text-gray-800 border border-[#323434] rounded-md">
             {showSignup ? <Signup /> : <Login />}
-          </div>
-          <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] text-lg">
+          </div> */}
+          {/* <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] text-lg">
           {showSignup ? "Already have an account" : "New user?"}{" "}
             <span
               className="font-bold cursor-pointer"
@@ -93,7 +93,7 @@ function Home() {
             >
               {showSignup ? "Log in here" : "Sign up here"}
             </span>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

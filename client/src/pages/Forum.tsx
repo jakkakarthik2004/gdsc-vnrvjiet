@@ -11,7 +11,7 @@ function Forum() {
       };
       
   return (
-    <div className='p-5 mx-20'>
+    <div className='p-5 lg:mx-20 md:mx-4'>
         <div className='flex justify-between items-center '>
         <div>
           <h1 className='text text-3xl font-bold'>Welcome to Forum.</h1>
@@ -38,8 +38,8 @@ function Forum() {
             <button className='text-white bg-[#0F71F2] p-1 rounded hover:ring-2 ring-offset-2 ring-[#0F71F2] mt-4 px-4' onClick={()=>console.log("submit")}> Submit </button>
             </form>
         </div>
-        <div  ref={faqRef}>
-            <h1 className='my-10 font-bold text-3xl' > Previously asked FAQ's :</h1>
+        <div ref={faqRef}>
+            <h1 className='my-10 font-bold text-3xl'> Previously asked FAQ's :</h1>
             
             <div className='items-center justify-center border rounded mt-4 p-4 mx-30 shadow-md bg-white'>
             <p>Nothing to display here 〒▽〒</p>

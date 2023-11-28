@@ -79,7 +79,7 @@ function Home() {
         </div>
         <div className="mt-10 text-white flex flex-col gap-4 items-center p-6">
         <p className="text-xl text-gray-600 font-semibold">Join us, at GDSC.</p>
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 text-lg text-center">
             Discover amazing events and connect with like-minded people.
           </p>
           {/* <div className="shadow-lg w-fit hover:scale-105 duration-300 bg-slate-200 text-gray-800 border border-[#323434] rounded-md">

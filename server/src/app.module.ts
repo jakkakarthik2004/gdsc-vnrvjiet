@@ -9,6 +9,8 @@ import { Events } from './events/Events.model';
 import { EventsModule } from './events/Events.module';
 import { Registrations } from './registrations/registrations.model';
 import { RegistrationsModule } from './registrations/registrations.module';
+import { QuestionsModule } from './questions/Questions.module';
+import { Questions } from './questions/Questions.model';
 
 @Module({
   imports: [
@@ -19,13 +21,14 @@ import { RegistrationsModule } from './registrations/registrations.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      models: [Users, Events, Registrations],
+      models: [Users, Events, Registrations, Questions],
       autoLoadModels: true,
       synchronize: true,
     }),
     UsersModule,
     EventsModule,
-    RegistrationsModule
+    RegistrationsModule,
+    QuestionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

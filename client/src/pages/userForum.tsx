@@ -38,7 +38,7 @@ function Forum() {
   }, []);
 
   return (
-    <div className="p-5 mx-20">
+    <div className="p-5 lg:mx-20 md:mx-4">
       <div className="flex justify-between items-center ">
         <div>
           <h1 className="text text-3xl font-bold">Welcome to Forum.</h1>

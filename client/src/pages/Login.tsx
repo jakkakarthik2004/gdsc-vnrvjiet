@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getUserByMail } from "../Apis/users";
 import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
+import Google from "../images/google";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +37,6 @@ const Login = () => {
 
     try {
       const loggedInUser = await getUserByMail(formData);
-      console.log(loggedInUser, "hi");
       setUser(loggedInUser);
       setFormData({
         email: "",
@@ -53,6 +53,13 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  // const handleGoogleLogin = () => {
+  //   const scope = encodeURIComponent("profile email");
+  //   const authURL = `http://localhost:8000/auth?scope=${scope}`;
+  //   console.log("Authentication URL:", authURL);
+  //   window.open(authURL);
+  // };
 
   return (
     <div className="flex items-center justify-center">
@@ -94,6 +101,12 @@ const Login = () => {
           </button>
         </div>
       </div>
+      {/* <button
+        onClick={handleGoogleLogin}
+        className="mt-4 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-200 transition duration-300 flex gap-3 items-center"
+      >
+        <Google /> Continue with Google
+      </button> */}
     </div>
   );
 };

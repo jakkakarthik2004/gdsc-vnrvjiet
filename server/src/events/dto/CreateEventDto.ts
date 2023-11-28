@@ -12,4 +12,7 @@ export class CreateEventDto {
 
   @ApiProperty()
   time: string;
+
+  @ApiProperty()
+  image: string;
 }

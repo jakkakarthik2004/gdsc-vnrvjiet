@@ -7,6 +7,7 @@ import {
 } from "../Apis/events";
 import { Calendar } from "react-multi-date-picker";
 import moment from "moment";
+// import Files from "../files";
 
 interface Event {
   eventId: number;
@@ -14,6 +15,7 @@ interface Event {
   time: string;
   venue: string;
   description: string;
+  //image: string;
 }
 
 interface NewEvent {
@@ -21,6 +23,7 @@ interface NewEvent {
   time: string;
   venue: string;
   description: string;
+  //image: string;
 }
 
 function AdminPortal() {
@@ -30,6 +33,7 @@ function AdminPortal() {
     time: "",
     venue: "",
     description: "",
+    //image: "",
   });
   const [editEvent, setEditEvent] = useState<Event | null>();
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
@@ -73,6 +77,7 @@ function AdminPortal() {
         time: "",
         venue: "",
         description: "",
+        //image: "",
       });
       setIsCreatingEvent(false);
     } catch (error) {
@@ -108,6 +113,7 @@ function AdminPortal() {
       >
         Add New Event
       </button>
+      {/* <Files /> */}
       {isCreatingEvent && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
           <div className="bg-slate-100 mx-20 p-4 rounded shadow-md">
@@ -117,9 +123,8 @@ function AdminPortal() {
             >
               &times;
             </span>
-            <h3 className="text-xl font-semibold mb-5">
-              Add New Event
-            </h3>
+            <h3 className="text-xl font-semibold mb-5">Add New Event</h3>
+
             <input
               type="text"
               placeholder="Event Name"
@@ -159,28 +164,27 @@ function AdminPortal() {
             {/* <input
               type="file"
               placeholder="Event Images"
-              value={newEvent.venue}
+              value={newEvent.image}
               onChange={(e) =>
-                setNewEvent({ ...newEvent, venue: e.target.value })
+                setNewEvent({ ...newEvent, image: e.target.value })
               }
               className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             /> */}
             <div>
-          <button
-              onClick={handleCreateEvent}
-              className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setIsCreatingEvent(false)}
-              className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
-            >
-              Cancel
-            </button>
+              <button
+                onClick={handleCreateEvent}
+                className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setIsCreatingEvent(false)}
+                className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
-          </div>
-          
         </div>
       )}
       <div>
@@ -300,7 +304,6 @@ function AdminPortal() {
                 Cancel
               </button>
             </div>
-            
           </div>
         </div>
       )}

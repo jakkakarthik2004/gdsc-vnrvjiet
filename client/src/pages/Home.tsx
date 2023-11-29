@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Popup from "./Popup";
-import Signup from "./SignIn";
-import { createUser } from "../Apis/users";
-import Login from "./Login";
-import admin from "../images/admin.png";
-import Hero from "./Hero";
+import React, { useState, useEffect, useRef } from "react";
+import { createUser } from "../Apis/users";import Hero from "./Hero";
+
 
 const cards = [
   {
@@ -64,7 +60,7 @@ const createAdminUser = async () => {
 function Home() {
   const [showPopup, setShowPopup] = useState(true);
   const [showSignup, setShowSignup] = useState(false);
-
+  
   const handleClosePopup = () => {
     setShowPopup(false);
   };
@@ -93,15 +89,14 @@ function Home() {
             </div>
             <div className="flex-grow p-6">
             <h3 className="text-3xl font-extrabold m-4" style={{color: getTitleColor(index) }}>
-            {card.title}
-            </h3>
+                {card.title}
+              </h3>
               <p className="mb-4">{card.description}</p>
             </div>
           </div>
           
           ))}
         </div>
-        
         <div className="mt-10 text-white flex flex-col gap-4 items-center p-6">
         <p className="text-xl text-gray-600 font-semibold">Join us, at GDSC.</p>
           <p className="text-gray-500 text-lg text-center">

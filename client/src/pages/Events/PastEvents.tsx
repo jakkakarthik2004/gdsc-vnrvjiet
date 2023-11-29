@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import AdminPortal from "./AdminPortal";
-import UserPortal from "./UsersPortal";
+import AdminPortal from "./admin/Upcoming-AdminPortal";
+import UserPortal from "./user/Upcoming-UsersPortal";
 import { useLocation } from "react-router-dom";
-import { getUserById } from "../Apis/users";
+import { getUserById } from "../../Apis/users";
 
 function Events() {
   const location = useLocation();

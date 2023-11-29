@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getAllEvents, getEventById } from "../Apis/events";
+import {
+  getAllEvents,
+  getEventById,
+  getPastEvents,
+  getUpcomingEvents,
+} from "../../../Apis/events";
 import {
   getAllRegistrationsByUserId,
   updateRegistration,
-} from "../Apis/registrations";
+} from "../../../Apis/registrations";
 import ConfettiExplosion from "react-confetti-explosion";
-import { getUserById } from "../Apis/users";
-import noEvents from "../images/noEvents.png";
+import { getUserById } from "../../../Apis/users";
+import noEvents from "../noEvents.png";
 
 interface Event {
   eventId: number;
@@ -29,7 +34,7 @@ function UserPortal() {
 
   async function fetchData() {
     try {
-      const fetchedEvents = await getAllEvents();
+      const fetchedEvents = await getPastEvents();
       const user = await getUserById(userId);
       setUserData(user);
       setEvents(fetchedEvents);
@@ -94,7 +99,7 @@ function UserPortal() {
       <div>
         {events.length ? (
           <>
-            <h3 className="text-xl font-semibold mb-4">Available Events</h3>
+            <h3 className="text-xl font-semibold mb-4">Past Events</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {events.map((event) => (
                 <div

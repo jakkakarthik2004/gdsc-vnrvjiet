@@ -3,8 +3,10 @@ import {
   createEvent,
   deleteEventById,
   getAllEvents,
+  getPastEvents,
+  getUpcomingEvents,
   updateEvent,
-} from "../Apis/events";
+} from "../../../Apis/events";
 // import Files from "../files";
 
 interface Event {
@@ -41,7 +43,7 @@ function AdminPortal() {
 
   async function fetchData() {
     try {
-      const fetchedEvents = await getAllEvents();
+      const fetchedEvents = await getPastEvents();
       setEvents(fetchedEvents);
     } catch (error) {
       console.log(error);

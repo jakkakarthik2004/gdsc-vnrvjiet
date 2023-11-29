@@ -1,4 +1,12 @@
-import { Table, Model, Column, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
+import { Events } from 'src/events/Events.model';
 
 @Table
 export class Registrations extends Model<Registrations> {
@@ -7,8 +15,12 @@ export class Registrations extends Model<Registrations> {
   })
   userId: number;
 
+  @ForeignKey(() => Events)
   @Column({
     type: DataType.SMALLINT,
   })
   eventId: number;
+
+  @BelongsTo(() => Events)
+  event: Events;
 }

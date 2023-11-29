@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Registrations } from './registrations.model';
+import { Events } from 'src/events/Events.model';
 
 @Injectable()
 export class RegistrationsService {
@@ -18,6 +19,7 @@ export class RegistrationsService {
         await Registrations.create({ userId, eventId });
         const created = await Registrations.findOne({
           where: { userId, eventId },
+          include: [Events],
         });
         return created;
       }
@@ -28,7 +30,10 @@ export class RegistrationsService {
 
   async getAllRegistrationsByUserId(userId: number): Promise<Registrations[]> {
     try {
-      return await Registrations.findAll({ where: { userId } });
+      return await Registrations.findAll({
+        where: { userId },
+        include: [Events],
+      });
     } catch (error) {
       throw new Error(
         `Failed to get registrations by user ID: ${error.message}`,
@@ -40,7 +45,10 @@ export class RegistrationsService {
     eventId: number,
   ): Promise<Registrations[]> {
     try {
-      return await Registrations.findAll({ where: { eventId } });
+      return await Registrations.findAll({
+        where: { eventId },
+        include: [Events],
+      });
     } catch (error) {
       throw new Error(
         `Failed to get registrations by event ID: ${error.message}`,

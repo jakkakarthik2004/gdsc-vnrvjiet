@@ -10,7 +10,7 @@ import {
 } from "../../../Apis/registrations";
 import ConfettiExplosion from "react-confetti-explosion";
 import { getUserById } from "../../../Apis/users";
-import noEvents from "../noEvents.png";
+
 
 interface Event {
   eventId: number;
@@ -147,7 +147,8 @@ function UserPortal() {
           </>
         ) : (
           <div className="flex items-center justify-center">
-            <img src={noEvents} alt="image" className="w-[75vw] md:w-[40vw]" />
+            <p>No upcoming events for now :(</p>
+            <img src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png" alt="image" className="w-[75vw] md:w-[40vw]" />
           </div>
         )}
       </div>

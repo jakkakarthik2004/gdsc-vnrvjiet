@@ -11,7 +11,7 @@ import {
 } from "../../../Apis/registrations";
 import ConfettiExplosion from "react-confetti-explosion";
 import { getUserById } from "../../../Apis/users";
-import noEvents from "../noEvents.png";
+// import noEvents from "../noEvents.png";
 
 interface Event {
   eventId: number;
@@ -32,12 +32,21 @@ function UserPortal() {
     null
   );
 
+  const [pastEvents, setPastEvents] = useState<Event[]>([]); // Added state for past events
+  
+
   async function fetchData() {
     try {
-      const fetchedEvents = await getPastEvents();
+      const fetchedEvents = await getAllEvents(); // Fetch all events
       const user = await getUserById(userId);
       setUserData(user);
       setEvents(fetchedEvents);
+
+      const pastEvents = fetchedEvents.filter(
+        (event: { endDate: string | number | Date; }) => new Date(event.endDate) < new Date()
+      );
+      setPastEvents(pastEvents);
+
       const registeredEvents = await getAllRegistrationsByUserId(userId);
       setRegisteredEvents(registeredEvents);
     } catch (error) {
@@ -147,8 +156,9 @@ function UserPortal() {
             </div>
           </>
         ) : (
-          <div className="flex items-center justify-center">
-            <img src={noEvents} alt="image" className="w-[75vw] md:w-[40vw]" />
+          <div className="flex items-center justify-center ">
+            <p>No past events for now :(</p>
+            <img src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png" alt="image" className="w-[75vw] md:w-[40vw]" />
           </div>
         )}
       </div>

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { createQuestion, getAnsweredQuestions } from "../Apis/questions";
 
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+
 interface Question {
   questionId: number;
   question: string;
@@ -83,45 +88,37 @@ function UserForum() {
         </form>
       </div>
       <div ref={faqRef}>
-        <h1 className="my-10 font-bold text-3xl"> Previously asked FAQ's :</h1>
-
-        <div className="items-center justify-center border rounded mt-4 p-4 mx-30 shadow-md bg-white">
+        <h1 className="my-10 font-bold xl:text-3xl md:text-xl"> Previously asked FAQ's :</h1>
+       
+        <div className="items-center justify-center rounded mt-4 p-4 mx-30">
+          
           {answeredQuestions !== undefined && answeredQuestions?.length > 0 ? (
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col">
+              
               {answeredQuestions.map((question: Question) => (
                 <div key={question.questionId} className="flex flex-col gap-2">
-                  <p>{question.question}</p>
-                  <p className="border w-fit p-2">{question.answer}</p>
+                   <Accordion>
+                  <AccordionSummary
+                  expandIcon={<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                  <p className="font-bold text-lg">{question.question}</p>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>{question.answer}</Typography>
+                  </AccordionDetails>
+                  </Accordion>
                 </div>
               ))}
             </div>
           ) : (
             <>
               <p>Nothing to display here 〒▽〒</p>
-              <p className="text-xl">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Officia iure deleniti magnam, similique odit reiciendis velit
-                architecto enim nobis optio, dolore voluptates id. Dolorem, eos
-                hic! Reiciendis totam blanditiis autem. Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Eaque consectetur explicabo
-                at, natus similique quasi inventore consequatur hic accusamus
-                earum recusandae laborum ab exercitationem ad. Ex, aliquam?
-                Odit, repudiandae impedit? Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Libero esse labore incidunt quos
-                quas, vel expedita ullam amet est laboriosam magnam modi a.
-                Quidem recusandae dignissimos totam eos eaque illum?Lorem ipsum
-                dolor sit, amet consectetur adipisicing elit. Fugit
-                reprehenderit sit, provident ut a eos aliquam, recusandae
-                praesentium itaque cupiditate tenetur earum laudantium quaerat
-                quae tempore nobis tempora officia! Lorem ipsum dolor, sit amet
-                consectetur adipisicing elit. Cum accusamus ullam natus illum
-                recusandae veritatis ex soluta. Et autem debitis nostrum, totam
-                tenetur enim at. In voluptatibus consectetur fugit
-                exercitationem.
-              </p>
+
             </>
           )}
         </div>
+        
       </div>
     </div>
   );

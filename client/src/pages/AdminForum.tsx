@@ -6,6 +6,11 @@ import {
 } from "../Apis/questions";
 import AnswerModal from "./AnswerModal";
 
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+
 interface Question {
   questionId: number;
   question: string;
@@ -44,8 +49,8 @@ const AdminForum = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className=" underline">View Questions here</h1>
+    <div className="p-3 m-3">
+      <h1 className="text-2xl font-bold text-slate-800 underline my-4">View Questions here</h1>
       {isModalOpen && (
         <AnswerModal
           selectedQuestion={selectedQuestion}
@@ -55,9 +60,9 @@ const AdminForum = () => {
       <div className="flex flex-col gap-4">
         {unAnsweredQuestions.map((question) => (
           <div key={question.questionId} className="flex gap-6">
-            <p>{question.question}</p>
+            <p className="border border-2 rounded shadow-sm px-4 py-2 bg-white">Q. {question.question}</p>
             <button
-              className="text-xs border px-1"
+              className="text-xs border px-4 rounded bg-[#318C07] text-white "
               onClick={() => handleApprove(question)}
             >
               Answer
@@ -66,12 +71,21 @@ const AdminForum = () => {
         ))}
       </div>
 
-      <h1 className=" underline">Answered Questions</h1>
-      <div className="flex flex-col gap-4">
+      <h1 className=" underline text-2xl font-bold text-slate-800 underline my-6">Answered Questions</h1>
+      <div className="flex flex-col border  rounded border-1 border-slate-500">
         {answeredQuestions.map((question) => (
-          <div key={question.questionId} className="flex flex-col gap-2">
-            <p>{question.question}</p>
-            <p className="border w-fit p-2">{question.answer}</p>
+          <div key={question.questionId} className="flex flex-col">
+             <Accordion>
+                  <AccordionSummary
+                  expandIcon={<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header">
+                  <p className="font-bold text-lg">{question.question}</p>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <p>{question.answer}</p>
+                  </AccordionDetails>
+            </Accordion>
           </div>
         ))}
       </div>

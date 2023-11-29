@@ -47,7 +47,7 @@ const Login = () => {
         window.alert("Please check your credentials");
       } else {
         localStorage.setItem("userIdGDSC", loggedInUser.userId);
-        navigate("/Events", { state: { user: loggedInUser } });
+        navigate("/Upcoming-events", { state: { user: loggedInUser } });
       }
     } catch (error) {
       console.log(error);

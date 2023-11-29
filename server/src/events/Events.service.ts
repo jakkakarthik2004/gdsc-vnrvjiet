@@ -30,6 +30,36 @@ export class EventsService {
     }
   }
 
+  async getUpcomingEvents(): Promise<Events[] | undefined> {
+    try {
+      const allEvents = await this.getAllEvents();
+      const currentDate = new Date();
+      const upcomingEvents = allEvents.filter(
+        (event) => new Date(event.endDate) > currentDate,
+      );
+
+      return upcomingEvents;
+    } catch (error) {
+      console.error('Error while getting upcoming events:', error);
+      throw error;
+    }
+  }
+
+  async getPastEvents(): Promise<Events[] | undefined> {
+    try {
+      const allEvents = await this.getAllEvents();
+      const currentDate = new Date();
+      const upcomingEvents = allEvents.filter(
+        (event) => new Date(event.endDate) < currentDate,
+      );
+
+      return upcomingEvents;
+    } catch (error) {
+      console.error('Error while getting past events:', error);
+      throw error;
+    }
+  }
+
   async getEventById(eventId: number): Promise<Events | undefined> {
     try {
       return await this.EventsRepository.findOne({ where: { eventId } });

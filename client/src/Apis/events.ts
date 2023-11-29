@@ -25,6 +25,26 @@ export const getEventById = async (eventId: any) => {
   }
 };
 
+export const getUpcomingEvents = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/Events/get-upcoming-events`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching upcoming events:", error);
+    throw error;
+  }
+};
+
+export const getPastEvents = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/Events/get-past-events`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching past events:", error);
+    throw error;
+  }
+};
+
 export const getAllEvents = async () => {
   try {
     const response = await axios.get(`${API_URL}/Events/get-events`);

@@ -5,14 +5,13 @@ import {
   getAllEvents,
   updateEvent,
 } from "../Apis/events";
-import { Calendar } from "react-multi-date-picker";
-import moment from "moment";
 // import Files from "../files";
 
 interface Event {
   eventId: number;
   name: string;
-  time: string;
+  startDate: string;
+  endDate: string;
   venue: string;
   description: string;
   //image: string;
@@ -20,7 +19,8 @@ interface Event {
 
 interface NewEvent {
   name: string;
-  time: string;
+  startDate: string;
+  endDate: string;
   venue: string;
   description: string;
   //image: string;
@@ -30,14 +30,14 @@ function AdminPortal() {
   const [events, setEvents] = useState<Event[]>([]);
   const [newEvent, setNewEvent] = useState<NewEvent>({
     name: "",
-    time: "",
+    startDate: "",
+    endDate: "",
     venue: "",
     description: "",
     //image: "",
   });
   const [editEvent, setEditEvent] = useState<Event | null>();
   const [isCreatingEvent, setIsCreatingEvent] = useState(false);
-  const [dates, setDates] = useState<any>();
 
   async function fetchData() {
     try {
@@ -57,7 +57,8 @@ function AdminPortal() {
       if (
         !newEvent.name ||
         !newEvent.description ||
-        !newEvent.time ||
+        !newEvent.startDate ||
+        !newEvent.endDate ||
         !newEvent.venue
       ) {
         document.querySelectorAll(".input-validation").forEach((input) => {
@@ -74,7 +75,8 @@ function AdminPortal() {
       setEvents([...events, createdEvent]);
       setNewEvent({
         name: "",
-        time: "",
+        startDate: "",
+        endDate: "",
         venue: "",
         description: "",
         //image: "",
@@ -144,11 +146,20 @@ function AdminPortal() {
               className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
-              type="text"
-              placeholder="Event Date"
-              value={newEvent.time}
+              type="datetime-local"
+              placeholder="Start Date"
+              value={newEvent.startDate}
               onChange={(e) =>
-                setNewEvent({ ...newEvent, time: e.target.value })
+                setNewEvent({ ...newEvent, startDate: e.target.value })
+              }
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+            />
+            <input
+              type="datetime-local"
+              placeholder="End Date"
+              value={newEvent.endDate}
+              onChange={(e) =>
+                setNewEvent({ ...newEvent, endDate: e.target.value })
               }
               className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
@@ -207,17 +218,7 @@ function AdminPortal() {
               </p>
               <p>
                 <span className="font-semibold text-lg">When: </span>
-                {/* <Calendar
-                  weekNumber="2"
-                  value={dates || []}
-                  onChange={(val: any[]) => {
-                    setDates({ ...dates, dates: val });
-                  }}
-                  multiple
-                  sort
-                  minDate={moment().toDate()}
-                /> */}
-                {event.time}
+                {event.startDate} {event.endDate}
               </p>
 
               <p>
@@ -273,11 +274,20 @@ function AdminPortal() {
               className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />
             <input
-              type="text"
-              placeholder="Event Date"
-              value={editEvent.time}
+              type="datetime-local"
+              placeholder="Start Date"
+              value={editEvent.startDate}
               onChange={(e) =>
-                setEditEvent({ ...editEvent, time: e.target.value })
+                setEditEvent({ ...editEvent, startDate: e.target.value })
+              }
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+            />
+            <input
+              type="datetime-local"
+              placeholder="End Date"
+              value={editEvent.endDate}
+              onChange={(e) =>
+                setEditEvent({ ...editEvent, endDate: e.target.value })
               }
               className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
             />

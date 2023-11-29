@@ -20,6 +20,16 @@ export class EventsController {
     return this.EventsService.getAllEvents();
   }
 
+  @Get('/get-upcoming-events')
+  async getUpcomingEvents() {
+    return this.EventsService.getUpcomingEvents();
+  }
+
+  @Get('/get-past-events')
+  async getPastEvents() {
+    return this.EventsService.getPastEvents();
+  }
+
   @Get('/get-eventId/:id')
   async getEventById(@Param('id') eventId: number) {
     return this.EventsService.getEventById(eventId);

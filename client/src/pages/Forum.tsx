@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AdminPortal from "./AdminPortal";
-import UserPortal from "./UsersPortal";
 import { useLocation } from "react-router-dom";
+import AdminForum from "./AdminForum";
+import UserForum from "./userForum";
 import { getUserById } from "../Apis/users";
 
-function Events() {
+function Forum() {
   const location = useLocation();
   const [user, setUser] = useState(location.state?.user);
 
@@ -25,10 +25,10 @@ function Events() {
   }, [user]);
 
   if (user && user.isAdmin) {
-    return <AdminPortal />;
-  } else {
-    return <UserPortal />;
+    return <AdminForum />;
   }
+
+  return <UserForum />;
 }
 
-export default Events;
+export default Forum;

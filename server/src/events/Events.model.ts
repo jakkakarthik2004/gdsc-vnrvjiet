@@ -27,6 +27,16 @@ export class Events extends Model<Events> {
   @Column({
     type: DataType.STRING,
   })
+  startDate: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  endDate: string;
+
+  @Column({
+    type: DataType.STRING,
+  })
   venue: string;
 
   // @Column({

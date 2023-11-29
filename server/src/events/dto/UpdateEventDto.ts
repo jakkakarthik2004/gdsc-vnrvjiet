@@ -14,5 +14,8 @@ export class UpdateEventDto {
   venue: string;
 
   @ApiProperty()
-  time: string;
+  startDate: string;
+
+  @ApiProperty()
+  endDate: string;
 }

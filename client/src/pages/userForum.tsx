@@ -8,7 +8,7 @@ interface Question {
   answer: string;
 }
 
-function Forum() {
+function UserForum() {
   const [question, setQuestion] = useState<string>();
   const faqRef = useRef<HTMLDivElement>(null);
   const userId = localStorage.getItem("userIdGDSC");
@@ -127,4 +127,4 @@ function Forum() {
   );
 }
 
-export default Forum;
+export default UserForum;

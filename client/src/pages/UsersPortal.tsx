@@ -11,7 +11,8 @@ import noEvents from "../images/noEvents.png";
 interface Event {
   eventId: number;
   name: string;
-  time: string;
+  startDate: string;
+  endDate: string;
   venue: string;
   description: string;
   // image: string;
@@ -45,18 +46,22 @@ function UserPortal() {
 
   const handleRegisterForEvent = async (eventId: number) => {
     try {
-      const register = isEventRegistered(eventId);
-      await updateRegistration(userId, eventId);
+      if (userId) {
+        const register = isEventRegistered(eventId);
+        await updateRegistration(userId, eventId);
 
-      if (!register && explodingEvent !== eventId) {
-        setExplodingEvent(eventId);
+        if (!register && explodingEvent !== eventId) {
+          setExplodingEvent(eventId);
 
-        setTimeout(() => {
-          setExplodingEvent(null);
-        }, 5000);
+          setTimeout(() => {
+            setExplodingEvent(null);
+          }, 5000);
+        }
+
+        fetchData();
+      } else {
+        window.alert("Please login to register");
       }
-
-      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -103,7 +108,7 @@ function UserPortal() {
                     {event.description}
                   </p>
                   <p>
-                    <strong>When : </strong> {event.time}
+                    <strong>When : </strong> {event.startDate} {event.endDate}
                   </p>
                   <p>
                     <strong>Where : </strong>

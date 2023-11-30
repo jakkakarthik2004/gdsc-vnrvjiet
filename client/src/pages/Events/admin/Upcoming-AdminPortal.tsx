@@ -6,6 +6,7 @@ import {
   getUpcomingEvents,
   updateEvent,
 } from "../../../Apis/events";
+import { format } from 'date-fns';
 // import Files from "../files";
 
 interface Event {
@@ -27,7 +28,7 @@ interface NewEvent {
   //image: string;
 }
 
-function AdminPortal() {
+function AdminPortalUpcoming() {
   const [events, setEvents] = useState<Event[]>([]);
   const [newEvent, setNewEvent] = useState<NewEvent>({
     name: "",
@@ -220,8 +221,9 @@ function AdminPortal() {
                 {event.description}
               </p>
               <p>
-                <span className="font-semibold text-lg">When: </span>
-                {event.startDate} {event.endDate}
+              <strong>When : </strong>{" "}
+                    {format(new Date(event.startDate), "yyyy-MM-dd HH:mm")} to{" "}
+                    {format(new Date(event.endDate), "yyyy-MM-dd HH:mm")}
               </p>
 
               <p>
@@ -324,4 +326,4 @@ function AdminPortal() {
   );
 }
 
-export default AdminPortal;
+export default AdminPortalUpcoming;

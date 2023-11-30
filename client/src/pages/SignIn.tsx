@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { createUser } from "../Apis/users";
 import { useNavigate } from "react-router-dom";
-import Popup from "./Popup";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -42,53 +41,48 @@ const Signup = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="flex mt-32 justify-center">
-      <div className="p-8 rounded shadow-md ">
-        <h2 className="text-2xl font-bold mb-4">Sign-up</h2>
-        <form onSubmit={handleSubmit} className="text-black">
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="block w-full p-2 border rounded mb-2"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="block w-full p-2 border rounded mb-2 bg-grey-300"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="block w-full p-2 border rounded mb-4 bg-grey-300"
-            required
-          />
-          <button
-            type="submit"
-            className="w-full bg-[#0F71F2] p-2 rounded hover:ring-2 ring-offset-2 ring-[#F2A20C]"
-          >
-            Register
-          </button>
-        </form>
-        <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] text-lg mt-5">
-          Already have an account? ‎ 
-            <span
-              className="font-bold cursor-pointer"
-              onClick={() => navigate("/login")}
+        <div className="p-8 rounded shadow-md ">
+          <h2 className="text-2xl font-bold mb-4">Sign-up</h2>
+          <form onSubmit={handleSubmit} className="text-black">
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="block w-full p-2 border rounded mb-2"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              className="block w-full p-2 border rounded mb-2 bg-grey-300"
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="block w-full p-2 border rounded mb-4 bg-grey-300"
+              required
+            />
+            <button
+              type="submit"
+              className="w-full bg-[#0F71F2] p-2 rounded hover:ring-2 ring-offset-2 ring-[#F2A20C]"
             >
-              Log in here.
-            </span>
+              Register
+            </button>
+          </form>
+          <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] text-lg mt-5" onClick={() => navigate("/login")}>
+            Already have an account? ‎
+            <span className="font-bold cursor-pointer">Log in here.</span>
           </p>
-      </div>
+        </div>
       </div>
     </div>
   );

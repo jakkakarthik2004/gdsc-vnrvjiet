@@ -4,7 +4,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 bg-white border-b-2 border-slate-300 p-3 ">
+    <nav className="sticky top-0 bg-white border-b-2 border-slate-300 p-3 mr-4">
       <div className="block md:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}

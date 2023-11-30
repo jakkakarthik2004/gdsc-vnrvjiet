@@ -73,7 +73,6 @@ function Home() {
     <div>
       <Hero/>
       <div className="p-5  text-slate-800 bg-gray-50">
-        {/* {showPopup && <Popup onClose={handleClosePopup} />} */}
         <div className="text-center m-4">
           <p className="text-4xl text-slate-800 font-bold ">What we do, at GDSC VNRVJIET :</p>
         </div>

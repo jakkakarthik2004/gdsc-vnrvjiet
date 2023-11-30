@@ -2,9 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Signup from "./pages/SignIn";
 import Home from "./pages/Home";
-import Events from "./pages/Events/PastEvents";
+import PastEvents from "./pages/Events/PastEvents";
 import Login from "./pages/Login";
 import Forum from "./pages/Forum";
+import UpcomingEvents from "./pages/Events/UpcomingEvents";
 
 function Root() {
   return (
@@ -13,8 +14,8 @@ function Root() {
         <Route path="/" element={<Home />}/>
         <Route path="/SignUp" element={<Signup />} />
         <Route path="/LogIn" element={<Login />} />
-        <Route path="/Upcoming-events" element={<Events/>} />
-        <Route path="/Past-events" element={<Events/>} />
+        <Route path="/Upcoming-events" element={<UpcomingEvents/>} />
+        <Route path="/Past-events" element={<PastEvents/>} />
         <Route path="/Forum" element={<Forum/>} />
       </Routes>
     </Router>

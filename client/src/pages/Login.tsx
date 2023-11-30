@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { getUserByMail } from "../Apis/users";
 import { useNavigate } from "react-router-dom";
-import Popup from "./Popup";
-import Google from "../images/google";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -43,7 +41,6 @@ const Login = () => {
         password: "",
       });
       if (!loggedInUser) {
-        <Popup message="Please check your credentials" isVisible={true} />;
         window.alert("Please check your credentials");
       } else {
         localStorage.setItem("userIdGDSC", loggedInUser.userId);
@@ -111,14 +108,12 @@ const Login = () => {
               Login
             </button>
           </div>
-          <p className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] pt-5 text-lg">
+          <p
+            className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] pt-5 text-lg"
+            onClick={() => navigate("/signup")}
+          >
             New user? ‎
-            <span
-              className="font-bold cursor-pointer"
-              onClick={() => navigate("/signup")}
-            >
-              Sign up here
-            </span>
+            <span className="font-bold cursor-pointer">Sign up here</span>
           </p>
         </div>
         {/* <button

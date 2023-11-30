@@ -24,7 +24,10 @@ export class QuestionsService {
 
   async getAllQuestions(): Promise<Questions[] | undefined> {
     try {
-      return await this.QuestionsRepository.findAll({ include: [Users] });
+      return await this.QuestionsRepository.findAll({
+        include: [Users],
+        order: [['createdAt', 'DESC']],
+      });
     } catch (error) {
       console.error('Error while getting an Question by ID:', error);
       throw error;
@@ -48,6 +51,7 @@ export class QuestionsService {
       return await this.QuestionsRepository.findAll({
         where: { answered: 0 },
         include: [Users],
+        order: [['createdAt', 'DESC']],
       });
     } catch (error) {
       console.error('Error while getting an Question by ID:', error);
@@ -60,6 +64,7 @@ export class QuestionsService {
       return await this.QuestionsRepository.findAll({
         where: { answered: 1 },
         include: [Users],
+        order: [['createdAt', 'DESC']],
       });
     } catch (error) {
       console.error('Error while getting an Question by ID:', error);

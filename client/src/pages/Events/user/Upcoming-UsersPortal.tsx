@@ -10,7 +10,7 @@ import {
 } from "../../../Apis/registrations";
 import ConfettiExplosion from "react-confetti-explosion";
 import { getUserById } from "../../../Apis/users";
-
+import { format } from 'date-fns';
 
 interface Event {
   eventId: number;
@@ -22,7 +22,7 @@ interface Event {
   // image: string;
 }
 
-function UserPortal() {
+function UserPortalUpcoming() {
   const [registeredEvents, setRegisteredEvents] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const userId = localStorage.getItem("userIdGDSC");
@@ -112,7 +112,9 @@ function UserPortal() {
                     {event.description}
                   </p>
                   <p>
-                    <strong>When : </strong> {event.startDate} {event.endDate}
+                    <strong>When : </strong>{" "}
+                    {format(new Date(event.startDate), "yyyy-MM-dd HH:mm")} to{" "}
+                    {format(new Date(event.endDate), "yyyy-MM-dd HH:mm")}
                   </p>
                   <p>
                     <strong>Where : </strong>
@@ -148,7 +150,11 @@ function UserPortal() {
         ) : (
           <div className="flex items-center justify-center">
             <p>No upcoming events for now :(</p>
-            <img src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png" alt="image" className="w-[75vw] md:w-[40vw]" />
+            <img
+              src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png"
+              alt="image"
+              className="w-[75vw] md:w-[40vw]"
+            />
           </div>
         )}
       </div>
@@ -179,4 +185,4 @@ function UserPortal() {
   );
 }
 
-export default UserPortal;
+export default UserPortalUpcoming;

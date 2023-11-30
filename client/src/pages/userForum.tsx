@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { createQuestion, getAnsweredQuestions } from "../Apis/questions";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
 
 interface Question {
   questionId: number;
@@ -26,7 +26,12 @@ function UserForum() {
   };
 
   const submitQuestion = (e: any) => {
-    createQuestion({ userId, question });
+    if (userId) {
+      createQuestion({ userId, question });
+      window.alert("Question submitted succesfully");
+    } else {
+      window.alert("Please login to ask a question");
+    }
   };
 
   useEffect(() => {
@@ -74,7 +79,7 @@ function UserForum() {
             <h1 className="mr-4 py-3">Ask your question here : </h1>
             <input
               type="text"
-              className="w-full h-12 border rounded p-2 bg-slate-50"
+              className="w-full h-12 border rounded p-2 bg-slate-50 outline-none"
               placeholder="type your question here ..."
               onChange={(e) => setQuestion(e.target.value)}
             ></input>
@@ -88,25 +93,37 @@ function UserForum() {
         </form>
       </div>
       <div ref={faqRef}>
-        <h1 className="my-10 font-bold xl:text-3xl md:text-xl"> Previously asked FAQ's :</h1>
-       
+        <h1 className="my-10 font-bold xl:text-3xl md:text-xl">
+          {" "}
+          Previously asked FAQ's :
+        </h1>
+
         <div className="items-center justify-center rounded mt-4 p-4 mx-30">
-          
           {answeredQuestions !== undefined && answeredQuestions?.length > 0 ? (
             <div className="flex flex-col">
-              
               {answeredQuestions.map((question: Question) => (
                 <div key={question.questionId} className="flex flex-col gap-2">
-                   <Accordion>
-                  <AccordionSummary
-                  expandIcon={<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header">
-                  <p className="font-bold text-lg">{question.question}</p>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{question.answer}</Typography>
-                  </AccordionDetails>
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          width="24"
+                        >
+                          <path d="M0 0h24v24H0z" fill="none" />
+                          <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
+                        </svg>
+                      }
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <p className="font-bold text-lg">{question.question}</p>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{question.answer}</Typography>
+                    </AccordionDetails>
                   </Accordion>
                 </div>
               ))}
@@ -114,11 +131,9 @@ function UserForum() {
           ) : (
             <>
               <p>Nothing to display here 〒▽〒</p>
-
             </>
           )}
         </div>
-        
       </div>
     </div>
   );

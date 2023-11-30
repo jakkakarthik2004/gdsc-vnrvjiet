@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AdminPortal from "./admin/Upcoming-AdminPortal";
-import UserPortal from "./user/Upcoming-UsersPortal";
 import { useLocation } from "react-router-dom";
 import { getUserById } from "../../Apis/users";
+import AdminPortalPast from "./admin/Past-AdminPortal";
+import UserPortalPast from "./user/Past-UsersPortal";
 
-function Events() {
+function PastEvents() {
   const location = useLocation();
   const [user, setUser] = useState(location.state?.user);
 
@@ -25,10 +25,10 @@ function Events() {
   }, [user]);
 
   if (user && user.isAdmin) {
-    return <AdminPortal />;
+    return <AdminPortalPast />;
   } else {
-    return <UserPortal />;
+    return <UserPortalPast />;
   }
 }
 
-export default Events;
+export default PastEvents;

@@ -28,6 +28,8 @@ const AdminForum = () => {
   );
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [fetch, setFetch] = useState(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [deleteQuestion, setDeleteQuestion] = useState<number>();
   const [updatedAnswers, setUpdatedAnswers] = useState<Record<number, string>>(
     {}
   );
@@ -51,9 +53,10 @@ const AdminForum = () => {
     }
   };
 
-  const handleDelete = (question: Question) => {
-    updateQuestion(question.questionId, { answered: 0 });
+  const handleDelete = (questionId: number) => {
+    updateQuestion(questionId, { answered: 0 });
     setFetch(true);
+    setDeleteModal(false);
   };
 
   useEffect(() => {
@@ -81,6 +84,27 @@ const AdminForum = () => {
 
   return (
     <div className="p-3 m-3">
+      {deleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+          <div className="bg-slate-100 xl:mx-18 md:mx-2 p-10 rounded-xl shadow-md">
+            Are you sure you want to delete?
+            <div className="text-white font-bold flex gap-4 justify-center mt-4">
+              <button
+                onClick={() => setDeleteModal(false)}
+                className="bg-[#D92929] rounded-md m-2 p-3"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDelete(deleteQuestion || 0)}
+                className="bg-[#F2A20C] rounded-md m-2 p-3"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <h1 className="text-2xl font-bold text-slate-800 underline my-4">
         View Questions here
       </h1>
@@ -164,8 +188,11 @@ const AdminForum = () => {
                         Edit
                       </button>
                       <button
-                        className="text-xs border px-4 rounded bg-[#318C07] text-white "
-                        onClick={() => handleDelete(question)}
+                        className="text-xs border px-4 rounded bg-[red] text-white "
+                        onClick={() => {
+                          setDeleteModal(true);
+                          setDeleteQuestion(question.questionId);
+                        }}
                       >
                         Delete
                       </button>

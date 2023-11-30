@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users.model';
 import { CreateUserDto } from './CreateUserDto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -19,7 +20,12 @@ export class UsersService {
       if (existingUser) {
         return null;
       }
-      return await this.usersRepository.create(payload);
+      const hashedPassword = await bcrypt.hash(payload.password, 10);
+      const newUser = await this.usersRepository.create({
+        ...payload,
+        password: hashedPassword,
+      });
+      return await newUser.save();
     } catch (error) {
       console.error('Error while adding a user:', error);
       throw error;
@@ -40,9 +46,19 @@ export class UsersService {
     password: string;
   }): Promise<Users | undefined> {
     try {
-      return await this.usersRepository.findOne({
-        where: { email: query.email, password: query.password },
+      const user = await this.usersRepository.findOne({
+        where: { email: query.email },
       });
+
+      if (!user) {
+        return undefined;
+      }
+      const passwordMatch = await bcrypt.compare(query.password, user.password);
+      if (passwordMatch) {
+        return user;
+      } else {
+        return undefined;
+      }
     } catch (error) {
       console.error('Error while getting a user:', error);
       throw error;

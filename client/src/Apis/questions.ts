@@ -2,6 +2,12 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000";
 
+interface UpdateQuestionDto {
+  answer?: string;
+  question?: string;
+  answered?: number;
+}
+
 export const createQuestion = async (questionDto: any) => {
   try {
     const response = await axios.post(
@@ -61,11 +67,14 @@ export const getQuestionById = async (questionId: any) => {
   }
 };
 
-export const updateAnswer = async (questionId: any, newAnswer: any) => {
+export const updateQuestion = async (
+  questionId: any,
+  payload: UpdateQuestionDto
+) => {
   try {
     const response = await axios.put(
       `${API_URL}/Questions/update-answer/${questionId}`,
-      { answer: newAnswer }
+      { payload }
     );
     return response.data;
   } catch (error) {

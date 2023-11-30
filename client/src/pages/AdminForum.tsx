@@ -3,6 +3,7 @@ import {
   getAllQuestions,
   getAnsweredQuestions,
   getUnAnsweredQuestions,
+  updateQuestion,
 } from "../Apis/questions";
 import AnswerModal from "./AnswerModal";
 
@@ -25,10 +26,37 @@ const AdminForum = () => {
   const [unAnsweredQuestions, setUnAnsweredQuestions] = useState<Question[]>(
     []
   );
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [fetch, setFetch] = useState(false);
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [deleteQuestion, setDeleteQuestion] = useState<number>();
+  const [updatedAnswers, setUpdatedAnswers] = useState<Record<number, string>>(
+    {}
+  );
 
   const handleApprove = (question: Question) => {
     setSelectedQuestion(question);
     setIsModalOpen(true);
+  };
+
+  const handleSave = (question: Question) => {
+    try {
+      updateQuestion(question.questionId, {
+        answer: updatedAnswers[question.questionId],
+      });
+      const { [question.questionId]: _, ...remainingAnswers } = updatedAnswers;
+      setUpdatedAnswers(remainingAnswers);
+      setIsEditing(false);
+      setFetch(true);
+    } catch (error) {
+      console.error("Error updating question:", error);
+    }
+  };
+
+  const handleDelete = (questionId: number) => {
+    updateQuestion(questionId, { answered: 0 });
+    setFetch(true);
+    setDeleteModal(false);
   };
 
   useEffect(() => {
@@ -39,16 +67,44 @@ const AdminForum = () => {
 
         const data2 = await getAnsweredQuestions();
         setAnsweredQuestions(data2);
+        const initialUpdatedAnswers: Record<number, string> = {};
+
+        data2.forEach((question: { questionId: number; answer: string }) => {
+          initialUpdatedAnswers[question.questionId] = question.answer || "";
+        });
+
+        setUpdatedAnswers(initialUpdatedAnswers);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     };
-
+    setFetch(false);
     fetchData();
-  }, [isModalOpen == false]);
+  }, [isModalOpen == false, fetch == true]);
 
   return (
     <div className="p-3 m-3">
+      {deleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
+          <div className="bg-slate-100 xl:mx-18 md:mx-2 p-10 rounded-xl shadow-md">
+            Are you sure you want to delete?
+            <div className="text-white font-bold flex gap-4 justify-center mt-4">
+              <button
+                onClick={() => setDeleteModal(false)}
+                className="bg-[#D92929] rounded-md m-2 p-3"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDelete(deleteQuestion || 0)}
+                className="bg-[#F2A20C] rounded-md m-2 p-3"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <h1 className="text-2xl font-bold text-slate-800 underline my-4">
         View Questions here
       </h1>
@@ -77,7 +133,7 @@ const AdminForum = () => {
       <h1 className=" underline text-2xl font-bold text-slate-800 my-6">
         Answered Questions
       </h1>
-      <div className="flex flex-col border  rounded border-1 border-slate-500">
+      <div className="flex flex-col border gap-1 rounded border-1 border-slate-500">
         {answeredQuestions.map((question) => (
           <div key={question.questionId} className="flex flex-col">
             <Accordion>
@@ -98,8 +154,51 @@ const AdminForum = () => {
               >
                 <p className="font-bold text-lg">{question.question}</p>
               </AccordionSummary>
-              <AccordionDetails>
-                <p>{question.answer}</p>
+              <AccordionDetails className="flex justify-between">
+                {isEditing ? (
+                  <div className="w-full">
+                    <textarea
+                      value={updatedAnswers[question.questionId] || ""}
+                      className="border outline-none w-[80%] p-1"
+                      onChange={(e) =>
+                        setUpdatedAnswers((prev) => ({
+                          ...prev,
+                          [question.questionId]: e.target.value,
+                        }))
+                      }
+                    />
+
+                    <div>
+                      <button
+                        className="text-xs border px-4 rounded bg-[#318C07] text-white "
+                        onClick={() => handleSave(question)}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <p>{question.answer}</p>
+                    <div>
+                      <button
+                        className="text-xs border px-4 rounded bg-[#318C07] text-white "
+                        onClick={() => setIsEditing(true)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="text-xs border px-4 rounded bg-[red] text-white "
+                        onClick={() => {
+                          setDeleteModal(true);
+                          setDeleteQuestion(question.questionId);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </>
+                )}
               </AccordionDetails>
             </Accordion>
           </div>

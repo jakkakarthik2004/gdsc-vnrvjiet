@@ -100,7 +100,7 @@ function UserForum() {
 
         <div className="items-center justify-center rounded mt-4 p-4 mx-30">
           {answeredQuestions !== undefined && answeredQuestions?.length > 0 ? (
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-1">
               {answeredQuestions.map((question: Question) => (
                 <div key={question.questionId} className="flex flex-col gap-2">
                   <Accordion>

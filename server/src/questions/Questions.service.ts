@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Questions } from './Questions.model';
 import { CreateQuestionDto } from './dto/CreateQuestionDto';
 import { Users } from 'src/users/users.model';
+import { UpdateQuestionDto } from './dto/UpdateQuestionDto';
 
 @Injectable()
 export class QuestionsService {
@@ -91,9 +92,14 @@ export class QuestionsService {
     }
   }
 
-  async updateAnswer(questionId: number, answer: string): Promise<Questions> {
+  async update(
+    questionId: number,
+    payload: UpdateQuestionDto,
+  ): Promise<Questions> {
+    const data = payload['payload'];
     const question = await this.QuestionsRepository.findByPk(questionId);
-    question.answer = answer;
+    if (data.answer !== undefined) question.answer = data.answer;
+    if (data.answered !== undefined) question.answered = data.answered;
     await question.save();
     return question;
   }

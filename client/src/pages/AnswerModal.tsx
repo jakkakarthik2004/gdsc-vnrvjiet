@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateApproval, updateAnswer } from "../Apis/questions";
+import { updateApproval, updateQuestion } from "../Apis/questions";
 
 interface Props {
   selectedQuestion: {
@@ -14,7 +14,7 @@ const AnswerModal: React.FC<Props> = ({ selectedQuestion, setIsModalOpen }) => {
   const [data, setData] = useState(selectedQuestion?.answer);
 
   const update = () => {
-    updateAnswer(selectedQuestion?.questionId, data);
+    updateQuestion(selectedQuestion?.questionId, {answer: data});
     setIsModalOpen(false);
   };
 

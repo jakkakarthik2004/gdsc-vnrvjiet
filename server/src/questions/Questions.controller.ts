@@ -11,6 +11,7 @@ import { QuestionsService } from './Questions.service';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateQuestionDto } from './dto/CreateQuestionDto';
 import { Questions } from './Questions.model';
+import { UpdateQuestionDto } from './dto/UpdateQuestionDto';
 
 @Controller('Questions')
 @ApiTags('Questions')
@@ -45,15 +46,15 @@ export class QuestionsController {
   }
 
   @Put('/update-answer/:id')
-  async updateAnswer(
+  async update(
     @Param('id') questionId: number,
-    @Body() payload: { answer: string },
+    @Body() payload: UpdateQuestionDto,
   ) {
-    return this.QuestionsService.updateAnswer(questionId, payload.answer);
+    return this.QuestionsService.update(questionId, payload);
   }
 
   @Put('/update-approval/:id')
-  async update(@Param('id') questionId: number) {
+  async updateApproval(@Param('id') questionId: number) {
     return this.QuestionsService.updateApproval(questionId);
   }
 

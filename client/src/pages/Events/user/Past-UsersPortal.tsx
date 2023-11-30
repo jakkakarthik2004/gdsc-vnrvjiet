@@ -124,8 +124,7 @@ function UserPortalPast() {
                     {event.venue}
                   </p>
                   <button
-                    onClick={() => handleRegisterForEvent(event.eventId)}
-                    className="bg-[#0F71F2] rounded px-3 py-1 mt-2 hover:ring-4  "
+                    className="bg-[#b6d4fb] rounded px-3 py-1 mt-2 hover:cursor-not-allowed"
                   >
                     {explodingEvent === event.eventId && (
                       <ConfettiExplosion

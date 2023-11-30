@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createUser } from "../Apis/users";import Hero from "./Hero";
 
+import {motion,useInView, useAnimation, easeIn} from "framer-motion"
+
 
 const cards = [
   {
@@ -69,33 +71,82 @@ function Home() {
     createAdminUser();
   }, []);
 
+  const Reveal = ({children}:any)=>{
+    const ref = useRef(null);
+    const isInView = useInView(ref, {once:true});
+
+    const mainControls=useAnimation();
+    const slideControls=useAnimation();
+
+    useEffect(()=>{
+      if(isInView){
+        //fire animation
+        mainControls.start("visible")
+        slideControls.start("visible")
+      }
+    }, [isInView])
+    
+    return(
+      <div
+      // style={{position:"relative", overflow:"hidden"}}
+      >
+        <motion.div
+          ref={ref}
+          variants={{
+            hidden :{ opacity : 0,y: 75},
+            visible : {opacity:1, y:0},
+          }}
+          initial="hidden"
+          animate={mainControls}
+          transition={{duration: 0.8, delay:0.5}}
+          >
+            {children}
+          </motion.div>
+        </div>
+    )
+  }
+  
+
+ 
+
   return (
     <div>
+      {/* <Reveal children={<Hero/>}/> */}
       <Hero/>
       <div className="p-5  text-slate-800 bg-gray-50">
+      <Reveal>
         <div className="text-center m-4">
           <p className="text-4xl text-slate-800 font-bold ">What we do, at GDSC VNRVJIET :</p>
         </div>
-
+      </Reveal>
+      
         <div className="">
+        <Reveal>
           {cards.map((card, index) => (
             <div key={index}
             className={`flex  w-full bg-gray-100 border m-2 mt-10 p-4 border-slate-200 rounded-sm ${
               index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-            }`}>
+            }`}
+            >
+              <Reveal>
             <div className="flex-shrink-0 h-[222px] overflow-hidden hidden md:block">
               <img src={card.image} alt="image" className="rounded-lg w-full h-full object-cover" />
             </div>
+            </Reveal>
+            <Reveal>
             <div className="flex-grow p-6">
             <h3 className="text-3xl font-extrabold m-4" style={{color: getTitleColor(index) }}>
                 {card.title}
               </h3>
               <p className="mb-4">{card.description}</p>
             </div>
+            </Reveal>
           </div>
           
           ))}
+         </Reveal>
         </div>
+        <Reveal>
         <div className="mt-10 text-white flex flex-col gap-4 items-center p-6">
         <p className="text-xl text-gray-600 font-semibold">Join us, at GDSC.</p>
           <p className="text-gray-500 text-lg text-center">
@@ -114,6 +165,7 @@ function Home() {
             </span>
           </p> */}
         </div>
+        </Reveal>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.int
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   const corsOptions: CorsOptions = {
     origin: 'https://gdsc-vnrvjiet.vercel.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -12,6 +13,7 @@ async function bootstrap() {
     optionsSuccessStatus: 204,
   };
   app.enableCors(corsOptions);
+
   const config = new DocumentBuilder()
     .setTitle('GDSC Event Management')
     .setDescription('API documentation for GDSC Event Management')
@@ -22,7 +24,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT || 3000);
-  console.log("server listening on port ", process.env.PORT)
+  console.log("Server listening on port ", process.env.PORT);
 }
 
 bootstrap();

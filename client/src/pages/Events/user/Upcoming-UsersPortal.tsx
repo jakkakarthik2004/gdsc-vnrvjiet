@@ -30,6 +30,7 @@ function UserPortalUpcoming() {
   const [explodingEvent, setExplodingEvent] = React.useState<number | null>(
     null
   );
+  const [message, setMessage] = useState("Loading...")
 
   async function fetchData() {
     try {
@@ -37,6 +38,7 @@ function UserPortalUpcoming() {
       // const user = await getUserById(userId);
       // setUserData(user);
       setEvents(fetchedEvents.payload);
+      setMessage("No upcoming events for now :(")
       // const registeredEvents = await getAllRegistrationsByUserId(userId);
       // setRegisteredEvents(registeredEvents);
     } catch (error) {
@@ -152,7 +154,7 @@ function UserPortalUpcoming() {
           </>
         ) : (
           <div className="flex items-center justify-center">
-            <p>No upcoming events for now :(</p>
+            <p>{message}</p>
             <img
               src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png"
               alt="image"

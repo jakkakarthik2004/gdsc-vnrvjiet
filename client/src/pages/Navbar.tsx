@@ -61,9 +61,9 @@ function Navbar() {
             <button className="pl-5">
               <a href="/Forum">Forum</a>
             </button>
-            <button className="pl-5">
+            {/* <button className="pl-5">
               <a href="/Login">Login</a>
-            </button>
+            </button> */}
           
         </div>
       </div>

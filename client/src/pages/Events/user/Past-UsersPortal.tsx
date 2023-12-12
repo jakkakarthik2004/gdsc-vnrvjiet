@@ -36,12 +36,12 @@ function UserPortalPast() {
   async function fetchData() {
     try {
       const fetchedEvents = await getPastEvents();
-      const user = await getUserById(userId);
-      setUserData(user);
-      setEvents(fetchedEvents);
+      // const user = await getUserById(userId);
+      // setUserData(user);
+      setEvents(fetchedEvents.payload);
 
-      const registeredEvents = await getAllRegistrationsByUserId(userId);
-      setRegisteredEvents(registeredEvents);
+      // const registeredEvents = await getAllRegistrationsByUserId(userId);
+      // setRegisteredEvents(registeredEvents);
     } catch (error) {
       console.log(error);
     }
@@ -51,32 +51,32 @@ function UserPortalPast() {
     fetchData();
   }, []);
 
-  const handleRegisterForEvent = async (eventId: number) => {
-    try {
-      if (userId) {
-        const register = isEventRegistered(eventId);
-        await updateRegistration(userId, eventId);
+  // const handleRegisterForEvent = async (eventId: number) => {
+  //   try {
+  //     if (userId) {
+  //       const register = isEventRegistered(eventId);
+  //       await updateRegistration(userId, eventId);
 
-        if (!register && explodingEvent !== eventId) {
-          setExplodingEvent(eventId);
+  //       if (!register && explodingEvent !== eventId) {
+  //         setExplodingEvent(eventId);
 
-          setTimeout(() => {
-            setExplodingEvent(null);
-          }, 5000);
-        }
+  //         setTimeout(() => {
+  //           setExplodingEvent(null);
+  //         }, 5000);
+  //       }
 
-        fetchData();
-      } else {
-        window.alert("Please login to register");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //       fetchData();
+  //     } else {
+  //       window.alert("Please login to register");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const isEventRegistered = (eventId: number) => {
-    return registeredEvents.some((event) => event.eventId === eventId);
-  };
+  // const isEventRegistered = (eventId: number) => {
+  //   return registeredEvents.some((event) => event.eventId === eventId);
+  // };
 
   const heroStyle = {
     backgroundImage: `url('https://res.cloudinary.com/startup-grind/image/fetch/c_scale,w_2560/c_crop,h_650,w_2560,y_0.0_mul_h_sub_0.0_mul_650/c_crop,h_650,w_2560/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/https://res.cloudinary.com/startup-grind/image/upload/c_fill%2Cdpr_2.0%2Cf_auto%2Cg_center%2Cq_auto:good/v1/gcs/platform-data-goog/chapter_banners/IOE22-Bevy-ChapterBanner-2560x650_x6zWRuV.png')`,
@@ -94,7 +94,8 @@ function UserPortalPast() {
       >
         <img src="" />
         <h2 className="text-2xl font-bold mb-4 my-auto">
-          Welcome back, {userData?.name}.
+          Welcome 
+          {/* back, {userData?.name}. */}
         </h2>
       </div>
 
@@ -116,14 +117,16 @@ function UserPortalPast() {
                   </p>
                   <p>
                   <strong>When : </strong>{" "}
-                    {format(new Date(event.startDate), "yyyy-MM-dd HH:mm")} to{" "}
-                    {format(new Date(event.endDate), "yyyy-MM-dd HH:mm")}
+                    {/* {format(new Date(event.startDate), "yyyy-MM-dd HH:mm")} to{" "}
+                    {format(new Date(event.endDate), "yyyy-MM-dd HH:mm")} */}
+                    {event.startDate}
+                    {event.endDate}
                   </p>
                   <p>
                     <strong>Where : </strong>
                     {event.venue}
                   </p>
-                  <button
+                  {/* <button
                     onClick={() => handleRegisterForEvent(event.eventId)}
                     className="bg-[#0F71F2] rounded px-3 py-1 mt-2 hover:ring-4  "
                   >
@@ -145,7 +148,7 @@ function UserPortalPast() {
                     {isEventRegistered(event.eventId)
                       ? "Registered !"
                       : "Register"}
-                  </button>
+                  </button> */}
                 </div>
               ))}
             </div>

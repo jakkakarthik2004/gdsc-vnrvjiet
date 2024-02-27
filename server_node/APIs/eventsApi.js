@@ -11,33 +11,39 @@ eventApp.get(
   "/get-past-events",
   expressAsyncHandler(async (request, response) => {
     let eventCollectionObject = await getDBObj("eventCollectionObject");
-    let events = await eventCollectionObject.find({
-        isPast: 1
-    }).toArray();
+    let events = await eventCollectionObject
+      .find({
+        isPast: 1,
+      })
+      .toArray();
+    events.reverse();
     response.send({ message: "events list", payload: events });
   })
 );
 
 eventApp.get(
-    "/get-upcoming-events",
-    expressAsyncHandler(async (request, response) => {
-      let eventCollectionObject = await getDBObj("eventCollectionObject");
-      let events = await eventCollectionObject.find({
-          isPast: 0
-      }).toArray();
-      response.send({ message: "events list", payload: events });
-    })
-  );  
+  "/get-upcoming-events",
+  expressAsyncHandler(async (request, response) => {
+    let eventCollectionObject = await getDBObj("eventCollectionObject");
+    let events = await eventCollectionObject
+      .find({
+        isPast: 0,
+      })
+      .toArray();
+    events.reverse();
+    response.send({ message: "events list", payload: events });
+  })
+);
 
 eventApp.post(
   "/create",
   expressAsyncHandler(async (request, response) => {
     let eventCollectionObject = await getDBObj("eventCollectionObject");
     let neweventObj = request.body;
-    
+
     await eventCollectionObject.insertOne({
-        isPast: 0,
-        ...neweventObj,
+      isPast: 0,
+      ...neweventObj,
     });
     response.send({ message: "New event created" });
   })

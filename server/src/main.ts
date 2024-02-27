@@ -18,13 +18,14 @@ async function bootstrap() {
     .setTitle('GDSC Event Management')
     .setDescription('API documentation for GDSC Event Management')
     .setVersion('1.0')
+    .setBasePath('api')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT || 3000);
-  console.log("Server listening on port ", process.env.PORT);
+  console.log('Server listening on port ', process.env.PORT);
 }
 
 bootstrap();

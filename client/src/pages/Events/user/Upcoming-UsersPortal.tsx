@@ -114,12 +114,11 @@ function UserPortalUpcoming() {
                     <strong>What's Happening : </strong>
                     {event.description}
                   </p>
-                  <p>
+                  <p className="py-2">
                     <strong>When : </strong>{" "}
                     {/* {format(new Date(event.startDate), "yyyy-MM-dd HH:mm")} to{" "}
                     {format(new Date(event.endDate), "yyyy-MM-dd HH:mm")} */}
-                    {event.startDate}
-                    {event.endDate}
+                    {event.startDate}{' - '}{event.endDate}
                   </p>
                   <p>
                     <strong>Where : </strong>

@@ -37,7 +37,7 @@ export class EventsService {
       const upcomingEvents = allEvents.filter(
         (event) => new Date(event.endDate) > currentDate,
       );
-
+      upcomingEvents.reverse();
       return upcomingEvents;
     } catch (error) {
       console.error('Error while getting upcoming events:', error);
@@ -49,11 +49,11 @@ export class EventsService {
     try {
       const allEvents = await this.getAllEvents();
       const currentDate = new Date();
-      const upcomingEvents = allEvents.filter(
+      const pastEvents = allEvents.filter(
         (event) => new Date(event.endDate) < currentDate,
       );
-
-      return upcomingEvents;
+      pastEvents.reverse();
+      return pastEvents;
     } catch (error) {
       console.error('Error while getting past events:', error);
       throw error;

@@ -12,8 +12,8 @@ function Root() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />}/>
-        <Route path="/SignUp" element={<Signup />} />
-        <Route path="/LogIn" element={<Login />} />
+        {/* <Route path="/SignUp" element={<Signup />} /> */}
+        {/* <Route path="/LogIn" element={<Login />} /> */}
         <Route path="/Upcoming-events" element={<UpcomingEvents/>} />
         <Route path="/Past-events" element={<PastEvents/>} />
         <Route path="/Forum" element={<Forum/>} />

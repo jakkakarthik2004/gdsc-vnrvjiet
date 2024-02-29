@@ -17,7 +17,7 @@ export class Registrations extends Model<Registrations> {
 
   @ForeignKey(() => Events)
   @Column({
-    type: DataType.SMALLINT,
+    type: DataType.INTEGER.UNSIGNED,
   })
   eventId: number;
 

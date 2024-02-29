@@ -17,7 +17,7 @@ function UserForum() {
   const [question, setQuestion] = useState<string>();
   const faqRef = useRef<HTMLDivElement>(null);
   const userId = localStorage.getItem("userIdGDSC");
-  const [answeredQuestions, setAnsweredQuestions] = useState<Question[]>();
+  const [answeredQuestions, setAnsweredQuestions] = useState<Question[]>([]);
 
   const handleScrollToFAQ = () => {
     if (faqRef.current) {
@@ -26,19 +26,18 @@ function UserForum() {
   };
 
   const submitQuestion = (e: any) => {
-    if (userId) {
-      createQuestion({ userId, question });
+    // if (userId) {
+      createQuestion({ question });
       window.alert("Question submitted succesfully");
-    } else {
-      window.alert("Please login to ask a question");
-    }
+    // } else {
+      // window.alert("Please login to ask a question");
+    // }
   };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getAnsweredQuestions();
-        setAnsweredQuestions(data);
+        setAnsweredQuestions(data.payload);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
@@ -101,8 +100,8 @@ function UserForum() {
         <div className="items-center justify-center rounded mt-4 p-4 mx-30">
           {answeredQuestions !== undefined && answeredQuestions?.length > 0 ? (
             <div className="flex flex-col gap-1">
-              {answeredQuestions.map((question: Question) => (
-                <div key={question.questionId} className="flex flex-col gap-2">
+              {answeredQuestions.map((question: Question, idx: number) => (
+                <div key={idx} className="flex flex-col gap-2">
                   <Accordion>
                     <AccordionSummary
                       expandIcon={

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import PastEvents from "./pages/Events/PastEvents";
 import Login from "./pages/Login";
 import Forum from "./pages/Forum";
+import Leads from "./pages/Leads";
 import UpcomingEvents from "./pages/Events/UpcomingEvents";
 
 function Root() {
@@ -17,6 +18,7 @@ function Root() {
         <Route path="/Upcoming-events" element={<UpcomingEvents/>} />
         <Route path="/Past-events" element={<PastEvents/>} />
         <Route path="/Forum" element={<Forum/>} />
+        <Route path="/Leads" element={<Leads/>}/>
       </Routes>
     </Router>
   );

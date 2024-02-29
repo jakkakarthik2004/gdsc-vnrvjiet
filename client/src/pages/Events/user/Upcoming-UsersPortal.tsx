@@ -37,7 +37,7 @@ function UserPortalUpcoming() {
       const fetchedEvents = await getUpcomingEvents();
       // const user = await getUserById(userId);
       // setUserData(user);
-      setEvents(fetchedEvents.payload);
+      setEvents(fetchedEvents.payload.reverse());
       setMessage("No upcoming events for now :(")
       // const registeredEvents = await getAllRegistrationsByUserId(userId);
       // setRegisteredEvents(registeredEvents);

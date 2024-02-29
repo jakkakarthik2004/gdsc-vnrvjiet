@@ -39,7 +39,7 @@ function UserPortalPast() {
       const fetchedEvents = await getPastEvents();
       // const user = await getUserById(userId);
       // setUserData(user);
-      setEvents(fetchedEvents.payload);
+      setEvents(fetchedEvents.payload.reverse());
       setMessage("No past events for now :(")
 
       // const registeredEvents = await getAllRegistrationsByUserId(userId);

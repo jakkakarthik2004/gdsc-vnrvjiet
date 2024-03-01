@@ -112,95 +112,15 @@ function AdminPortalPast() {
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 ">Admin Portal</h2>
-      <button
+      {/* <button
         onClick={() => setIsCreatingEvent(true)}
-        className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#183937] my-3"
+        className="bg-[#0F71F2] text-white rounded px-3 py-1 my-3 hover:ring-2 ring-offset-2 ring-[#0F71F2]"
       >
         Add New Event
-      </button>
+      </button> */}
       {/* <Files /> */}
-      {isCreatingEvent && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 ">
-          <div className="bg-slate-100 mx-20 p-4 rounded shadow-md">
-            <span
-              className="absolute top-2 right-2 text-gray-600 cursor-pointer"
-              onClick={() => setIsCreatingEvent(false)}
-            >
-              &times;
-            </span>
-            <h3 className="text-xl font-semibold mb-5">Add New Event</h3>
-
-            <input
-              type="text"
-              placeholder="Event Name"
-              value={newEvent.name}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, name: e.target.value })
-              }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
-            />
-            <input
-              type="text"
-              placeholder="Event Description"
-              value={newEvent.description}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, description: e.target.value })
-              }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
-            />
-            <input
-              type="datetime-local"
-              placeholder="Start Date"
-              value={newEvent.startDate}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, startDate: e.target.value })
-              }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
-            />
-            <input
-              type="datetime-local"
-              placeholder="End Date"
-              value={newEvent.endDate}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, endDate: e.target.value })
-              }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
-            />
-            <input
-              type="text"
-              placeholder="Event Location"
-              value={newEvent.venue}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, venue: e.target.value })
-              }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
-            />
-            {/* <input
-              type="file"
-              placeholder="Event Images"
-              value={newEvent.image}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, image: e.target.value })
-              }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
-            /> */}
-            <div>
-              <button
-                onClick={handleCreateEvent}
-                className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
-              >
-                Save
-              </button>
-              <button
-                onClick={() => setIsCreatingEvent(false)}
-                className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      
+      
       <div>
         <h3 className="text-xl font-semibold my-3">Events List</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -232,7 +152,7 @@ function AdminPortalPast() {
               <div className="mt-2">
                 <button
                   onClick={() => setEditEvent(event)}
-                  className="bg-[#186d67] text-white rounded px-2 py-1 ml-2 hover:bg-[#1e4b48]"
+                  className="bg-[#F2A20C] text-white rounded px-2 py-1 ml-2 hover:bg-[#1e4b48]"
                 >
                   Edit
                 </button>
@@ -266,7 +186,7 @@ function AdminPortalPast() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, name: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-100 text-black"
             />
             <input
               type="text"
@@ -275,7 +195,7 @@ function AdminPortalPast() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, description: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-100 text-black"
             />
             <input
               type="datetime-local"
@@ -284,7 +204,7 @@ function AdminPortalPast() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, startDate: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-100 text-black"
             />
             <input
               type="datetime-local"
@@ -293,7 +213,7 @@ function AdminPortalPast() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, endDate: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-100 text-black"
             />
             <input
               type="text"
@@ -302,18 +222,18 @@ function AdminPortalPast() {
               onChange={(e) =>
                 setEditEvent({ ...editEvent, venue: e.target.value })
               }
-              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-800 text-white"
+              className="border border-[#323434] rounded px-2 py-1 w-[80vw] mb-4 input-validation bg-slate-100 text-black"
             />
             <div>
               <button
                 onClick={() => handleEditEvent(editEvent.eventId)}
-                className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
+                className="bg-[#318C07] text-white rounded px-3 py-1 hover:ring-2 ring-offset-2 ring-[#318C07]"
               >
                 Save
               </button>
               <button
                 onClick={() => setEditEvent(null)}
-                className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
+                className="bg-[#D92929] text-white rounded px-3 py-1 ml-2 hover:ring-2 ring-offset-2 ring-[#D92929]"
               >
                 Cancel
               </button>

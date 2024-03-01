@@ -233,7 +233,7 @@ function AdminPortalUpcoming() {
               <div className="mt-2">
                 <button
                   onClick={() => setEditEvent(event)}
-                  className="bg-[#186d67] text-white rounded px-2 py-1 ml-2 hover:bg-[#1e4b48]"
+                  className="bg-[#F2A20C] text-white rounded px-2 py-1 ml-2 "
                 >
                   Edit
                 </button>
@@ -308,13 +308,13 @@ function AdminPortalUpcoming() {
             <div>
               <button
                 onClick={() => handleEditEvent(editEvent.eventId)}
-                className="bg-[#186d67] text-white rounded px-3 py-1 hover:bg-[#1e4b48]"
+                className="bg-[#318C07] text-white rounded px-3 py-1 hover:ring-2 ring-offset-2 ring-[#318C07]"
               >
                 Save
               </button>
               <button
                 onClick={() => setEditEvent(null)}
-                className="bg-gray-400 text-black rounded px-3 py-1 ml-2 hover:bg-gray-500"
+                className="bg-[#D92929] text-white rounded px-3 py-1 ml-2 hover:ring-2 ring-offset-2 ring-[#D92929]"
               >
                 Cancel
               </button>

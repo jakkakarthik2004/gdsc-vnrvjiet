@@ -182,13 +182,13 @@ const AdminForum = () => {
                     <p>{question.answer}</p>
                     <div>
                       <button
-                        className="text-xs border px-4 rounded bg-[#318C07] text-white "
+                        className="text-sm border px-4 py-1 rounded bg-[#F2A20C] text-white "
                         onClick={() => setIsEditing(true)}
                       >
                         Edit
                       </button>
                       <button
-                        className="text-xs border px-4 rounded bg-[red] text-white "
+                        className="text-sm border px-4 py-1 rounded bg-[#D92929] text-white "
                         onClick={() => {
                           setDeleteModal(true);
                           setDeleteQuestion(question.questionId);

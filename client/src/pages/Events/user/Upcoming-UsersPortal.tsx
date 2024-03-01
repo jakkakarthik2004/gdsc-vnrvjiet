@@ -126,7 +126,7 @@ function UserPortalUpcoming() {
                   </p>
                   {/* <button
                     onClick={() => handleRegisterForEvent(event.eventId)}
-                    className="bg-[#0F71F2] rounded px-3 py-1 mt-2 hover:ring-4  "
+                    className="bg-[#0F71F2] rounded px-3 py-1 mt-2 hover:ring-4 text-white font-semibold  "
                   >
                     {explodingEvent === event.eventId && (
                       <ConfettiExplosion

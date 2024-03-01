@@ -47,15 +47,14 @@ function Navbar() {
         </a>
         <div className="flex flex-col md:flex-row ml-auto text-slate-600">
           <div className="relative">
-            <button
-              className="pl-5"
-              onClick={() => setDropOpen(!dropOpen)}
-              onBlur={() => setDropOpen(false)}
-            >
+            <button className="pl-5" onClick={() => setDropOpen(!dropOpen)}>
               About GDSC <span className="text-lg">&#9662;</span>
             </button>
             {dropOpen && (
-              <div className="absolute right-0 mt-4 w-48 bg-white shadow-lg border-2 border-grey">
+              <div
+                className="absolute right-0 mt-4 w-max bg-white shadow-lg border-2 border-grey"
+                onBlur={() => setDropOpen(false)}
+              >
                 <a
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -63,13 +62,13 @@ function Navbar() {
                   About
                 </a>
                 <a
-                  href="#"
+                  href="/leads"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Leads
                 </a>
                 <a
-                  href="#"
+                  href="/community-guidelines"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Community Guidelines
@@ -81,7 +80,7 @@ function Navbar() {
                   Blog
                 </a>
                 <a
-                  href="#"
+                  href="/solution-challenge"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Solution Challenge
@@ -93,14 +92,11 @@ function Navbar() {
             <a href="/">Home</a>
           </button>
           <button className="pl-5">
-            <a href="/Upcoming-events">Upcoming Events</a>
+            <a href="/upcoming-events">Upcoming Events</a>
           </button>
           <button className="pl-5">
-            <a href="/Past-events">Past events</a>
+            <a href="/past-events">Past events</a>
           </button>
-            <button className="pl-5">
-              <a href="/Leads">Leads</a>
-            </button>
           <button className="pl-5">
             <a href="/Forum">Forum</a>
           </button>

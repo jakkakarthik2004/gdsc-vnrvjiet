@@ -15,7 +15,7 @@ function Root() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/admin-signup" element={<Signup />} /> */}
+        <Route path="/admin-signup" element={<Signup />} />
         <Route path="/admin-login" element={<Login />} />
         <Route path="/upcoming-events" element={<UpcomingEvents />} />
         <Route path="/past-events" element={<PastEvents />} />

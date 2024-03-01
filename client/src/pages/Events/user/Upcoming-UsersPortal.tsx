@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  createEvent,
   getAllEvents,
   getEventById,
   getUpcomingEvents,
@@ -10,7 +11,7 @@ import {
 } from "../../../Apis/registrations";
 import ConfettiExplosion from "react-confetti-explosion";
 import { getUserById } from "../../../Apis/users";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 interface Event {
   eventId: number;
@@ -30,7 +31,7 @@ function UserPortalUpcoming() {
   const [explodingEvent, setExplodingEvent] = React.useState<number | null>(
     null
   );
-  const [message, setMessage] = useState("Loading...")
+  const [message, setMessage] = useState("Loading...");
 
   async function fetchData() {
     try {
@@ -38,7 +39,7 @@ function UserPortalUpcoming() {
       // const user = await getUserById(userId);
       // setUserData(user);
       setEvents(fetchedEvents.payload.reverse());
-      setMessage("No upcoming events for now :(")
+      setMessage("No upcoming events for now :(");
       // const registeredEvents = await getAllRegistrationsByUserId(userId);
       // setRegisteredEvents(registeredEvents);
     } catch (error) {
@@ -93,7 +94,7 @@ function UserPortalUpcoming() {
       >
         <img src="" />
         <h2 className="text-2xl font-bold mb-4 my-auto">
-          Welcome 
+          Welcome
           {/* back, {userData?.name}. */}
         </h2>
       </div>
@@ -118,7 +119,9 @@ function UserPortalUpcoming() {
                     <strong>When : </strong>{" "}
                     {/* {format(new Date(event.startDate), "yyyy-MM-dd HH:mm")} to{" "}
                     {format(new Date(event.endDate), "yyyy-MM-dd HH:mm")} */}
-                    {event.startDate}{' - '}{event.endDate}
+                    {event.startDate}
+                    {" - "}
+                    {event.endDate}
                   </p>
                   <p>
                     <strong>Where : </strong>

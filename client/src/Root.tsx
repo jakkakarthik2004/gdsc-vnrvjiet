@@ -9,6 +9,10 @@ import Leads from "./pages/Leads";
 import UpcomingEvents from "./pages/Events/UpcomingEvents";
 import SolutionChallenge from "./pages/SolutionChallenge";
 import CommunityGuidelines from "./pages/CommunityGuidelines";
+import Leaderboard from "./pages/leaderboard/leaderboard";
+import Enter from "./pages/leaderboard/enter";
+import Score from "./pages/leaderboard/score";
+import Teams from "./pages/leaderboard/Teams";
 
 function Root() {
   return (
@@ -23,6 +27,9 @@ function Root() {
         <Route path="/leads" element={<Leads />} />
         <Route path="/solution-challenge" element={<SolutionChallenge />} />
         <Route path="/community-guidelines" element={<CommunityGuidelines />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/enter" element={<Enter />} />
+        <Route path="/score" element={<Score />} />
       </Routes>
     </Router>
   );

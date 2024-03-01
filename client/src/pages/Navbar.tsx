@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropOpen, setDropOpen] = useState(false);
 
   return (
     <nav className="sticky top-0 bg-white border-b-2 border-slate-300 p-3 mr-4">
@@ -11,18 +12,14 @@ function Navbar() {
           className="flex items-center px-3 py-2 rounded text-black-500 hover:text-black-400 ml-auto"
         >
           <svg
-            className={`fill-current h-3 w-3 ${
-              isOpen ? "hidden" : "block"
-            }`}
+            className={`fill-current h-3 w-3 ${isOpen ? "hidden" : "block"}`}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
           </svg>
           <svg
-            className={`fill-current h-3 w-3 ${
-              isOpen ? "block" : "hidden"
-            }`}
+            className={`fill-current h-3 w-3 ${isOpen ? "block" : "hidden"}`}
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -36,35 +33,77 @@ function Navbar() {
         }`}
       >
         <div className="hidden md:flex md:items-center">
-        <a href="/">
-          <img
-            className="gdsc_logo"
-            src="https://cdn-images-1.medium.com/max/578/1*vZVM7utCuRiZ6-HDsNeYUA@2x.png"
-            width="50"
-            height="50"
-          />
-        </a>
+          <a href="/">
+            <img
+              className="gdsc_logo"
+              src="https://cdn-images-1.medium.com/max/578/1*vZVM7utCuRiZ6-HDsNeYUA@2x.png"
+              width="50"
+              height="50"
+            />
+          </a>
         </div>
         <a href="/">
           <h1 className="text-[#868686] text-lg pl-5">GDSC VNRVJIET.</h1>
         </a>
         <div className="flex flex-col md:flex-row ml-auto text-slate-600">
+          <div className="relative">
+            <button
+              className="pl-5"
+              onClick={() => setDropOpen(!dropOpen)}
+              onBlur={() => setDropOpen(false)}
+            >
+              About GDSC <span className="text-lg">&#9662;</span>
+            </button>
+            {dropOpen && (
+              <div className="absolute right-0 mt-4 w-48 bg-white shadow-lg border-2 border-grey">
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  About
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Leads
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Community Guidelines
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Blog
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Solution Challenge
+                </a>
+              </div>
+            )}
+          </div>
           <button className="pl-5">
-              <a href="/">Home</a>
-            </button>
-            <button className="pl-5">
-              <a href="/Upcoming-events">Upcoming Events</a>
-            </button>
-            <button className="pl-5">
-              <a href="/Past-events">Past events</a>
-            </button>
-            <button className="pl-5">
-              <a href="/Forum">Forum</a>
-            </button>
-            {/* <button className="pl-5">
+            <a href="/">Home</a>
+          </button>
+          <button className="pl-5">
+            <a href="/Upcoming-events">Upcoming Events</a>
+          </button>
+          <button className="pl-5">
+            <a href="/Past-events">Past events</a>
+          </button>
+          <button className="pl-5">
+            <a href="/Forum">Forum</a>
+          </button>
+          {/* <button className="pl-5">
               <a href="/Login">Login</a>
             </button> */}
-          
         </div>
       </div>
     </nav>

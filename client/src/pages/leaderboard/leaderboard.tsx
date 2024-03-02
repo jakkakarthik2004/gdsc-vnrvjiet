@@ -20,7 +20,7 @@ const Leaderboard = () => {
 
   const getData = async () => {
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await getLeaderboard();
       setTeams(response.payload);
       await setLoading(false);
@@ -43,7 +43,7 @@ const Leaderboard = () => {
 
     const intervalId = setInterval(() => {
       getData();
-    }, 20000);
+    }, 120000);
 
     return () => {
       clearInterval(intervalId);
@@ -60,7 +60,9 @@ const Leaderboard = () => {
       <div>
         <div className="flex flex-row ">
           <h1 className="text-2xl font-bold mb-4">Leaderboard</h1>
-          <button className="mx-auto text-2xl" onClick={() => getData()}>🔃</button>
+          <button className="mx-auto text-2xl" onClick={() => getData()}>
+            🔃
+          </button>
         </div>
 
         {loading ? (
@@ -79,31 +81,34 @@ const Leaderboard = () => {
               </tr>
             </thead>
             <tbody>
-              {teams
-                .slice()
-                .sort(
-                  (a: Teams, b: Teams) =>
-                    calculateTotalScore(b) - calculateTotalScore(a)
-                )
-                .map((team: Teams, index: number) => (
-                  <tr key={team._id}>
-                    <td className="border px-4 py-2">{index + 1}</td>
-                    <td className="border px-4 py-2">{team.teamName}</td>
-                    <td className="border px-4 py-2">
-                      {team.metrics.creativity}
-                    </td>
-                    <td className="border px-4 py-2">
-                      {team.metrics.FutureScope}
-                    </td>
-                    <td className="border px-4 py-2">{team.metrics.Ideation}</td>
-                    <td className="border px-4 py-2">
-                      {team.metrics.Presentation}
-                    </td>
-                    <td className="border px-4 py-2">
-                      {calculateTotalScore(team)}
-                    </td>
-                  </tr>
-                ))}
+              {teams &&
+                teams
+                  .slice()
+                  .sort(
+                    (a: Teams, b: Teams) =>
+                      calculateTotalScore(b) - calculateTotalScore(a)
+                  )
+                  .map((team: Teams, index: number) => (
+                    <tr key={team._id}>
+                      <td className="border px-4 py-2">{index + 1}</td>
+                      <td className="border px-4 py-2">{team.teamName}</td>
+                      <td className="border px-4 py-2">
+                        {team.metrics.creativity}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {team.metrics.FutureScope}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {team.metrics.Ideation}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {team.metrics.Presentation}
+                      </td>
+                      <td className="border px-4 py-2">
+                        {calculateTotalScore(team)}
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         )}

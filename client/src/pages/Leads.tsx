@@ -104,7 +104,7 @@ function Leads() {
               index % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'
             }`}
             >
-            <div className={` shrink-0 h-[222px] overflow-hidden `}>
+            <div className={`shrink-0 h-[222px] overflow-hidden`}>
               <img src={testimonials.image} alt="image" className=" shrink-0 rounded-full w-full h-full object-cover" />
             </div>
 

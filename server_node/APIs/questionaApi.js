@@ -33,7 +33,6 @@ questionApp.post(
   expressAsyncHandler(async (request, response) => {
     let questionCollectionObject = await getDBObj("questionCollectionObject");
     let newquestionObj = request.body;
-    
     await questionCollectionObject.insertOne(newquestionObj);
     response.send({ message: "New question created" });
   })

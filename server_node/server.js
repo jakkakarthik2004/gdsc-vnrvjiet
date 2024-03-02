@@ -6,12 +6,14 @@ const cors=require("cors");
 const userApp=require("./APIs/userApi");
 const questionApp = require("./APIs/questionaApi");
 const eventApp = require("./APIs/eventsApi");
+const juryApp = require("./APIs/juryApi");
 
 app.use(cors())
 
 app.use("/users", userApp);
 app.use("/Questions", questionApp);
 app.use("/Events", eventApp);
+app.use("/jury", juryApp);
 
 app.use("/", (req, res) => {
   res.send("<center> GDSC VNRVJIET </center>")

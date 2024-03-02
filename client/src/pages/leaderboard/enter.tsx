@@ -76,15 +76,19 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Time Slot - I
             </th>
+            <th>
+              📑
+            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {teams.map((team, index) => (
-            <tr key={index} onClick={() => handleTeamClick(team)}>
+            <tr key={index}>
               <td className="px-6 py-4 whitespace-nowrap">{team.teamNumber}</td>
               <td className="px-6 py-4 whitespace-nowrap">{team.teamName}</td>
               <td className="px-6 py-4 whitespace-nowrap">{team.teamLead}</td>
               <td className="px-6 py-4 whitespace-nowrap">{team.timeSlot1}</td>
+              <td className="px-6 py-4 whitespace-nowrap "><button className=" px-4 py-2 bg-blue-500 border rounded-lg text-white font-bold" onClick={()=>handleTeamClick(team)}> Grade Team</button></td>
             </tr>
           ))}
         </tbody>

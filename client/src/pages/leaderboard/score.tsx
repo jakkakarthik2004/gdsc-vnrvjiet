@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import { submitEval } from "../../Apis/juries";
+
+const API_URL = process.env.REACT_APP_BACK_URL;
+
 interface Team {
   teamNumber: number;
   teamName: string;
@@ -17,11 +21,10 @@ const Score = () => {
   const location = useLocation();
   const { team, juryName } = location.state;
   const [metrics, setMetrics] = useState({
-    communication: 0,
-    feasibility: 0,
-    implementation: 0,
-    ideation: 0,
-    design: 0,
+    creativity: 0,
+    FutureScope: 0,
+    Presentation: 0,
+    Ideation: 0,
   });
 
   const handleMetricChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,18 +35,21 @@ const Score = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    console.log({
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); 
+    const dataToSend = {
       juryName,
       teamName: team.teamName,
       teamLead: team.teamLead,
       ...metrics,
-    });
+    };
+    submitEval(dataToSend);
   };
 
   return (
     <div className="flex justify-center items-center p-6">
       <div className="gap-6">
+      <form onSubmit={handleSubmit}> 
         <div className="text-xl font-semibold mb-2">{team.teamName}</div>
         <div>
           Jury Name: <b>{juryName}</b>
@@ -55,7 +61,7 @@ const Score = () => {
           <thead>
             <tr className="bg-gray-200">
               <th className="border border-gray-400 px-4 py-2">Metric</th>
-              <th className="border border-gray-400 px-4 py-2">Score</th>
+              <th className="border border-gray-400 px-4 py-2">Score (out of 10)</th>
             </tr>
           </thead>
           <tbody>
@@ -76,11 +82,12 @@ const Score = () => {
           </tbody>
         </table>
         <button
-          onClick={handleSubmit}
+          // onClick={handleSubmit}
           className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
         >
           Submit Metrics
         </button>
+        </form>
       </div>
     </div>
   );

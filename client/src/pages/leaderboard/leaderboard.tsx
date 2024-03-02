@@ -79,7 +79,7 @@ const Leaderboard = () => {
         </div>
 
         {loading ? (
-          <p>Loading...</p>
+          <p>Loading!!...</p>
         ) : (
           <table className="table-auto w-full">
             <thead>

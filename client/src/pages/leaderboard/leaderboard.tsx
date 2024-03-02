@@ -16,15 +16,17 @@ interface Teams {
 const Leaderboard = () => {
   const [teams, setTeams] = useState<Teams[]>([]);
 
+  const getData = async () => {
+    try {
+      const response = await getLeaderboard();
+      setTeams(response);
+    } catch (error) {
+      console.error("Error fetching leaderboard:", error);
+    }
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await getLeaderboard();
-        setTeams(response);
-      } catch (error) {
-        console.error("Error fetching leaderboard:", error);
-      }
-    };
+    
     getData();
   }, []);
 
@@ -35,10 +37,15 @@ const Leaderboard = () => {
 
   return (
     <div className="container mx-auto p-6">
+      <div className="flex flex-row ">
       <h1 className="text-2xl font-bold mb-4">Leaderboard</h1>
+      <button className="mx-auto" onClick={()=>getData()}> Refresh </button>
+      {/* <img src="https://assets-v2.lottiefiles.com/a/b60eaa18-118b-11ee-a837-7f9ff7261f26/PoxLPX9DzF.gif"/> */}
+      </div>
       <table className="table-auto w-full">
         <thead>
           <tr>
+            <th className="px-4 py-2">Sno</th>
             <th className="px-4 py-2">Team Name</th>
             <th className="px-4 py-2">creativity</th>
             <th className="px-4 py-2">futureScope</th>

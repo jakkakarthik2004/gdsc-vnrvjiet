@@ -14,16 +14,17 @@ juryApp.post("/create", expressAsyncHandler(async (request, response) => {
         let { juryName, teamName, teamLead, ...metrics } = request.body;
         let existingJury = await juryCollectionObject.findOne({ juryName });
     
-        if (existingJury) {
-          await juryCollectionObject.updateOne(
-            { juryName },
-            { $set: { teamName, teamLead, metrics } }
-          );
-          response.send({ message: "Jury information updated" });
-        } else {
-          await juryCollectionObject.insertOne({ juryName, teamName, teamLead, metrics });
+        // if (existingJury) {
+        //   await juryCollectionObject.updateOne(
+        //     { juryName },
+        //     { $set: { teamName, teamLead, metrics } }
+        //   );
+        //   response.send({ message: "Jury information updated" });
+        // } else
+        //  {
+          await juryCollectionObject.insertOne({teamName, teamLead, metrics });
           response.send({ message: "Jury created with evaluation" });
-        }
+        // }
       } catch (error) {
         console.error("Error while posting eval data", error);
         response.status(500).send({ error: "An error occurred" });

@@ -71,13 +71,13 @@ const Leaderboard = () => {
           <table className="table-auto w-full">
             <thead>
               <tr>
-                <th className="px-4 py-2">Sno</th>
-                <th className="px-4 py-2">Team Name</th>
-                <th className="px-4 py-2">Creativity</th>
-                <th className="px-4 py-2">Future Scope</th>
-                <th className="px-4 py-2">Ideation</th>
-                <th className="px-4 py-2">Presentation</th>
-                <th className="px-4 py-2">Total Score</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Sno</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Team Name</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Creativity</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Future Scope</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Ideation</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Presentation</th>
+                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">Total Score</th>
               </tr>
             </thead>
             <tbody>
@@ -90,21 +90,21 @@ const Leaderboard = () => {
                   )
                   .map((team: Teams, index: number) => (
                     <tr key={team._id}>
-                      <td className="border px-4 py-2">{index + 1}</td>
-                      <td className="border px-4 py-2">{team.teamName}</td>
-                      <td className="border px-4 py-2">
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">{index + 1}</td>
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">{team.teamName}</td>
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {team.metrics.creativity}
                       </td>
-                      <td className="border px-4 py-2">
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {team.metrics.FutureScope}
                       </td>
-                      <td className="border px-4 py-2">
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {team.metrics.Ideation}
                       </td>
-                      <td className="border px-4 py-2">
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {team.metrics.Presentation}
                       </td>
-                      <td className="border px-4 py-2">
+                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {calculateTotalScore(team)}
                       </td>
                     </tr>

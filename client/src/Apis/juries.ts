@@ -12,3 +12,13 @@ export const submitEval = async(dto:any)=>{
         throw error;
       }
 };
+
+export const getAllEval = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/jury/get-metrics`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    throw error;
+  }
+};

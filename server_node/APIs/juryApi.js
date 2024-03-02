@@ -12,7 +12,7 @@ juryApp.post("/create", expressAsyncHandler(async (request, response) => {
         let juryCollectionObject = await getDBObj("juryCollectionObject");
         console.log(juryCollectionObject)
         let { juryName, teamName, teamLead, ...metrics } = request.body;
-        let existingJury = await juryCollectionObject.findOne({ juryName });
+        // let existingJury = await juryCollectionObject.findOne({ juryName });
     
         // if (existingJury) {
         //   await juryCollectionObject.updateOne(
@@ -35,7 +35,8 @@ juryApp.post("/create", expressAsyncHandler(async (request, response) => {
     expressAsyncHandler(async (request, response) => {
       let juryCollectionObject = await getDBObj("juryCollectionObject");
       let eval = await juryCollectionObject.find().toArray();
-      response.send({ message: "questions list", payload: eval });
+      console.log(eval)
+      response.send({ message: "evaluation list", payload: eval });
     })
   );
 

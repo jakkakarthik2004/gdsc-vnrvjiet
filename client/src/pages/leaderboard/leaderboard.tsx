@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getAllEval } from "../../Apis/juries";
 
 const Leaderboard = () => {
   const [teams, setTeams] = useState([
@@ -8,7 +9,7 @@ const Leaderboard = () => {
       problemStatement: "Statement 1",
       communication: 8,
       feasibility: 7,
-      implementation: 9,
+      implementation: 9, 
       ideation: 6,
       design: 8,
     },

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { submitEval } from "../../Apis/juries";
 
@@ -35,6 +36,8 @@ const Score = () => {
     }));
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
     const dataToSend = {
@@ -43,7 +46,8 @@ const Score = () => {
       teamLead: team.teamLead,
       ...metrics,
     };
-    submitEval(dataToSend);
+    submitEval(dataToSend)
+    navigate("/enter")
   };
 
   return (

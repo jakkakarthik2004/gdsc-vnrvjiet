@@ -79,6 +79,8 @@ const Score = () => {
                     value={value}
                     onChange={handleMetricChange}
                     className="border border-gray-300 p-1"
+                    min={0}
+                    max={10}
                   />
                 </td>
               </tr>

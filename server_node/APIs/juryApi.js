@@ -7,7 +7,9 @@ require("dotenv").config();
 
 juryApp.use(exp.json());
 
-juryApp.post("/create", expressAsyncHandler(async (request, response) => {
+juryApp.post(
+  "/create",
+  expressAsyncHandler(async (request, response) => {
     try {
         let juryCollectionObject = await getDBObj("juryCollectionObject");
         console.log(juryCollectionObject)

@@ -76,9 +76,7 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Time Slot - I
             </th>
-            <th>
-              📑
-            </th>
+            <th>📑</th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -88,8 +86,14 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
               <td className="px-4 py-4 whitespace-nowrap">{team.teamName}</td>
               <td className="px-4 py-4 whitespace-nowrap">{team.teamLead}</td>
               <td className="px-4 py-4 whitespace-nowrap">{team.timeSlot1}</td>
-              <td className="px-4 py-4 whitespace-nowrap "><button className=" px-4 py-2 bg-blue-500 border rounded-lg text-white font-bold" onClick={()=>handleTeamClick(team)}>Grade Team</button></td>
-              
+              <td className="px-4 py-4 whitespace-nowrap ">
+                <button
+                  className=" px-4 py-2 bg-blue-500 border rounded-lg text-white font-bold"
+                  onClick={() => handleTeamClick(team)}
+                >
+                  Grade Team
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -104,7 +108,7 @@ const Enter: React.FC = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         <div className="w-1/4 mr-4">
           <JuriesList juries={juries} setSelectedJury={setSelectedJury} />
         </div>

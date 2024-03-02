@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getLeaderboard } from "../../Apis/juries";
 import { getDate } from "date-fns";
+import acmlogo from '../images/acmlogo.png'
 
 interface Teams {
   _id?: string;
@@ -58,8 +59,20 @@ const Leaderboard = () => {
   return (
     <div className="container mx-auto p-6">
       <div>
+        {/* <div className="flex flex-row items-center  ">
+        <img
+          className="gdsc_logo h-8"
+          src="https://cdn-images-1.medium.com/max/578/1*vZVM7utCuRiZ6-HDsNeYUA@2x.png"
+          width="50"
+          height="50"
+        />
+        <h1 className="px-2 font-bolder"> X </h1>
+      <img src={acmlogo} className="h-10" alt=""  />
+        </div> */}
+      
         <div className="flex flex-row ">
-          <h1 className="text-2xl font-bold mb-4">Leaderboard</h1>
+          <h1 className="text-2xl font-bold mb-4">Webathon Leaderboard</h1>
+          
           <button className="mx-auto text-2xl" onClick={() => getData()}>
             🔃
           </button>

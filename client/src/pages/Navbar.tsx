@@ -92,6 +92,12 @@ function Navbar() {
             <a href="/">Home</a>
           </button>
           <button className="pl-5">
+            <a href="/enter">Evaluate</a>
+          </button>
+          <button className="pl-5">
+            <a href="/leaderboard">Leaderboard</a>
+          </button>
+          <button className="pl-5">
             <a href="/upcoming-events">Upcoming Events</a>
           </button>
           <button className="pl-5">

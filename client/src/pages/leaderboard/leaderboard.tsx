@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getLeaderboard } from "../../Apis/juries";
 
 interface Teams {
-  id?: number;
-  name?: string;
-  creativity: string;
-  ideation: any;
-  presentation: any;
-  futureScope: any;
+  _id?: string;
+  teamName?: string;
+  teamLead?: string;
+  metrics: {
+    creativity: number;
+    ideation: number;
+    presentation: number;
+    futureScope: number;
+  };
 }
 
 const Leaderboard = () => {
@@ -15,37 +18,20 @@ const Leaderboard = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const x = await getLeaderboard();
-      setTeams(x);
-      console.log(x, "hiii");
+      try {
+        const response = await getLeaderboard();
+        setTeams(response);
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+      }
     };
     getData();
   }, []);
 
-  const calculateTotalScore = (team: {
-    id?: number;
-    name?: string;
-    creativity: string;
-    ideation: any;
-    presentation: any;
-    futureScope: any;
-  }) => {
-    const { creativity, futureScope, ideation, presentation } = team;
+  const calculateTotalScore = (team: Teams) => {
+    const { creativity, futureScope, ideation, presentation } = team.metrics;
     return creativity + futureScope + ideation + presentation;
   };
-
-  const teamRows = Array.isArray(teams)
-    ? teams.map((team: Teams) => (
-        <tr key={team.id}>
-          <td className="border px-4 py-2">{team.name}</td>
-          <td className="border px-4 py-2">{team.creativity}</td>
-          <td className="border px-4 py-2">{team.futureScope}</td>
-          <td className="border px-4 py-2">{team.ideation}</td>
-          <td className="border px-4 py-2">{team.presentation}</td>
-          <td className="border px-4 py-2">{calculateTotalScore(team)}</td>
-        </tr>
-      ))
-    : null;
 
   return (
     <div className="container mx-auto p-6">
@@ -62,7 +48,30 @@ const Leaderboard = () => {
             <th className="px-4 py-2">Total Score</th>
           </tr>
         </thead>
-        <tbody>{teamRows}</tbody>
+        <tbody>
+          {teams.length > 0 ? (
+            teams.map((team: Teams) => (
+              <tr key={team._id}>
+                <td className="border px-4 py-2">{team.teamName}</td>
+                <td className="border px-4 py-2">{team.metrics.creativity}</td>
+                <td className="border px-4 py-2">{team.metrics.futureScope}</td>
+                <td className="border px-4 py-2">{team.metrics.ideation}</td>
+                <td className="border px-4 py-2">
+                  {team.metrics.presentation}
+                </td>
+                <td className="border px-4 py-2">
+                  {calculateTotalScore(team)}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td className="border px-4 py-2" colSpan={8}>
+                Loading...
+              </td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );

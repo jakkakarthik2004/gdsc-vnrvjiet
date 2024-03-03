@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Teams from "./Teams";
 import { useNavigate } from "react-router-dom";
+import { getLeaderboard } from "../../Apis/juries";
 
 interface Jury {
   name: string;
@@ -26,7 +27,7 @@ const JuriesList: React.FC<{
         <thead>
           <tr className="bg-gray-200">
             <th className="border border-gray-400 px-4 py-2">Jury Name</th>
-            <th className="border border-gray-400 px-4 py-2">Jury Number</th>
+            <th className="border border-gray-400 px-4 py-2">Panel Number</th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +55,21 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
 }) => {
   const navigate = useNavigate();
 
+  const isSubmitted = async (team: Team) => {
+    const response = await getLeaderboard();
+    const exists = response.payload.some(
+      (x: { teamName: string; teamLead: any }) =>
+        x.teamName === team.teamName && x.teamLead === x.teamLead
+    );
+
+    console.log(exists);
+
+    if (1) {
+      return true;
+    }
+    return false;
+  };
+
   const handleTeamClick = (team: Team) => {
     navigate("/score", { state: { team, juryName } });
   };
@@ -80,22 +96,34 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {teams.map((team, index) => (
-            <tr key={index}>
-              <td className="px-4 py-4 whitespace-nowrap">{team.teamNumber}</td>
-              <td className="px-4 py-4 whitespace-nowrap">{team.teamName}</td>
-              <td className="px-4 py-4 whitespace-nowrap">{team.teamLead}</td>
-              <td className="px-4 py-4 whitespace-nowrap">{team.timeSlot1}</td>
-              <td className="px-4 py-4 whitespace-nowrap ">
-                <button
-                  className=" px-4 py-2 bg-blue-500 border rounded-lg text-white font-bold"
-                  onClick={() => handleTeamClick(team)}
-                >
-                  Grade Team
-                </button>
-              </td>
-            </tr>
-          ))}
+          {teams.map((team, index) => {
+            // const x = isSubmitted(team) as unknown as boolean;
+
+            return (
+              <tr key={index}>
+                <td className="px-4 py-4 whitespace-nowrap">
+                  {team.teamNumber}
+                </td>
+                <td className="px-4 py-4 whitespace-nowrap">{team.teamName}</td>
+                <td className="px-4 py-4 whitespace-nowrap">{team.teamLead}</td>
+                <td className="px-4 py-4 whitespace-nowrap">
+                  {team.timeSlot1}
+                </td>
+                <td className="px-4 py-4 whitespace-nowrap">
+                  <button
+                    // disabled={x}
+                    // className={`px-4 py-2 border rounded-lg font-bold ${
+                    //   x ? "bg-gray-300 text-gray-600" : "bg-blue-500 text-white"
+                    // }`}
+                    className={`px-4 py-2 border rounded-lg font-bold bg-blue-500 text-white}`}
+                    onClick={() => handleTeamClick(team)}
+                  >
+                    Grade Team
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -105,6 +133,21 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
 const Enter: React.FC = () => {
   const [juries] = useState<Jury[]>(Teams);
   const [selectedJury, setSelectedJury] = useState<Jury | null>(null);
+
+  useEffect(() => {
+    const storedSelectedJury = sessionStorage.getItem("selectedJury");
+    if (storedSelectedJury) {
+      setSelectedJury(JSON.parse(storedSelectedJury));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedJury) {
+      sessionStorage.setItem("selectedJury", JSON.stringify(selectedJury));
+    } else {
+      sessionStorage.removeItem("selectedJury");
+    }
+  }, [selectedJury]);
 
   return (
     <div className="container mx-auto">

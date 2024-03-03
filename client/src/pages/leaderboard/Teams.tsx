@@ -1244,7 +1244,7 @@ const Teams = [
     ],
   },
   {
-    name: "MANIDEEP GANGISHETTY",
+    name: "SHIVESH",
     number: "13",
     teams: [
       {

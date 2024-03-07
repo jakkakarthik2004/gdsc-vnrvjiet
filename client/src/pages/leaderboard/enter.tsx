@@ -54,21 +54,52 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
   juryName,
 }) => {
   const navigate = useNavigate();
+  const [response, setResponse] = useState<any>();
+  const [submissionStatus, setSubmissionStatus] = useState<
+    Record<number, boolean>
+  >({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getLeaderboard();
+        setResponse(res.payload);
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const isSubmitted = async (team: Team) => {
-    const response = await getLeaderboard();
-    const exists = response.payload.some(
-      (x: { teamName: string; teamLead: any }) =>
-        x.teamName === team.teamName && x.teamLead === x.teamLead
-    );
-
-    console.log(exists);
-
-    if (1) {
-      return true;
+    try {
+      const isAlreadySubmitted = response?.some(
+        (x: { teamName: string; teamLead: any }) =>
+          x.teamName === team.teamName && x.teamLead === team.teamLead
+      );
+      return isAlreadySubmitted;
+    } catch (error) {
+      console.error("Error checking submission status:", error);
+      return false;
     }
-    return false;
   };
+
+  useEffect(() => {
+    if (response) {
+      Promise.all(teams.map((team) => isSubmitted(team)))
+        .then((results) => {
+          const statusMap: Record<number, boolean> = {};
+          teams.forEach((team, index) => {
+            statusMap[team.teamNumber] = results[index];
+          });
+          setSubmissionStatus(statusMap);
+        })
+        .catch((error) => {
+          console.error("Error fetching submission status:", error);
+        });
+    }
+  }, [response, teams]);
 
   const handleTeamClick = (team: Team) => {
     navigate("/score", { state: { team, juryName } });
@@ -97,8 +128,6 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {teams.map((team, index) => {
-            // const x = isSubmitted(team) as unknown as boolean;
-
             return (
               <tr key={index}>
                 <td className="px-4 py-4 whitespace-nowrap">
@@ -111,11 +140,12 @@ const TeamsList: React.FC<{ teams: Team[]; juryName: string }> = ({
                 </td>
                 <td className="px-4 py-4 whitespace-nowrap">
                   <button
-                    // disabled={x}
-                    // className={`px-4 py-2 border rounded-lg font-bold ${
-                    //   x ? "bg-gray-300 text-gray-600" : "bg-blue-500 text-white"
-                    // }`}
-                    className={`px-4 py-2 border rounded-lg font-bold bg-blue-500 text-white}`}
+                    disabled={submissionStatus[team.teamNumber]}
+                    className={`px-4 py-2 border rounded-lg font-bold ${
+                      submissionStatus[team.teamNumber]
+                        ? "bg-gray-400 text-gray-800"
+                        : "bg-blue-500 text-white"
+                    }`}
                     onClick={() => handleTeamClick(team)}
                   >
                     Grade Team

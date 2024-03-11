@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getUserByMail } from "../Apis/users";
+import { getUserByMail, resetPw } from "../Apis/users";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -108,6 +108,13 @@ const Login = () => {
               Login
             </button>
           </div>
+          <p
+            className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] pt-5 text-lg"
+            onClick={() => navigate("/forgot-password")}
+          >
+            Forgot password? ‎
+            <span className="font-bold cursor-pointer">Reset here</span>
+          </p>
           {/* <p
             className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] pt-5 text-lg"
             onClick={() => navigate("/signup")}

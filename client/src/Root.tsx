@@ -18,6 +18,7 @@ import Leaderboard from "./pages/leaderboard/leaderboard";
 import Enter from "./pages/leaderboard/enter";
 import Score from "./pages/leaderboard/score";
 import accessDenied from "./images/accessDenied.png";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const isAuthenticated = () => {
   return localStorage.getItem("userIdGDSC") == "1";
@@ -44,6 +45,7 @@ function Root() {
         <Route path="/admin-login" element={<Login />} /> */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/upcoming-events" element={<UpcomingEvents />} />
         <Route path="/past-events" element={<PastEvents />} />
         <Route path="/forum" element={<Forum />} />

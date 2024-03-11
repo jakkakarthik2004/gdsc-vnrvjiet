@@ -57,3 +57,50 @@ export const deleteUserById = async (userId: any) => {
     throw error;
   }
 };
+
+export const forgotPw = async (email: any) => {
+  try {
+    const response = await axios.post(`${API_URL}/users/forgot-password`, {
+      data: { email },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting user by ID:", error);
+    throw error;
+  }
+};
+
+export const verifypw = async (otp: any, email: any) => {
+  try {
+    const response = await axios.post(`${API_URL}/users/verify-otp`, {
+      data: { otp, email },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting user by ID:", error);
+    throw error;
+  }
+};
+
+export const resetPw = async (
+  password: string,
+  confirmPassword: string,
+  email: string
+) => {
+  try {
+    if (password !== confirmPassword) {
+      throw new Error("Passwords do not match");
+    }
+
+    const response = await axios.post(`${API_URL}/users/reset-password`, {
+      password,
+      confirmPassword,
+      email,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    throw error;
+  }
+};

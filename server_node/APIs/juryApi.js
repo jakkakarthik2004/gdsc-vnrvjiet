@@ -36,7 +36,6 @@ juryApp.post(
     expressAsyncHandler(async (request, response) => {
       let juryCollectionObject = await getDBObj("juryCollectionObject");
       let eval = await juryCollectionObject.find().toArray();
-      console.log(eval)
       response.send({ message: "evaluation list", payload: eval });
     })
   );

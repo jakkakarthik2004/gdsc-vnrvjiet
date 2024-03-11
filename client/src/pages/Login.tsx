@@ -35,16 +35,16 @@ const Login = () => {
 
     try {
       const loggedInUser = await getUserByMail(formData);
-      setUser(loggedInUser);
+      setUser(loggedInUser.userObj);
       setFormData({
         email: "",
         password: "",
       });
-      if (!loggedInUser) {
+      if (!loggedInUser.userObj) {
         window.alert("Please check your credentials");
       } else {
-        localStorage.setItem("userIdGDSC", loggedInUser.userId);
-        navigate("/upcoming-events", { state: { user: loggedInUser } });
+        localStorage.setItem("userIdGDSC", loggedInUser.userObj.userId);
+        navigate("/enter", { state: { user: loggedInUser.userObj } });
       }
     } catch (error) {
       console.log(error);
@@ -108,13 +108,13 @@ const Login = () => {
               Login
             </button>
           </div>
-          <p
+          {/* <p
             className="cursor-pointer text-[#868686] hover:underline hover:text-[#318C07] pt-5 text-lg"
             onClick={() => navigate("/signup")}
           >
             New user? ‎
             <span className="font-bold cursor-pointer">Sign up here</span>
-          </p>
+          </p> */}
         </div>
         {/* <button
         onClick={handleGoogleLogin}

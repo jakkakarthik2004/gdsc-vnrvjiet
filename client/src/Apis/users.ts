@@ -15,8 +15,9 @@ export const createUser = async (userDto: any) => {
 export const getUserByMail = async (payload: { email: any; password: any }) => {
   try {
     const { email, password } = payload;
-    const response = await axios.get(`${API_URL}/users/get-user-by-mail`, {
-      params: { email, password },
+    const response = await axios.post(`${API_URL}/users/login`, {
+      email,
+      password,
     });
     return response.data;
   } catch (error) {

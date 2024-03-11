@@ -106,9 +106,9 @@ function Navbar() {
           <button className="pl-5">
             <a href="/Forum">Forum</a>
           </button>
-          {/* <button className="pl-5">
-              <a href="/Login">Login</a>
-            </button> */}
+          <button className="pl-5">
+            <a href="/login">Login</a>
+          </button>
         </div>
       </div>
     </nav>

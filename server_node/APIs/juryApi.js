@@ -12,7 +12,6 @@ juryApp.post(
   expressAsyncHandler(async (request, response) => {
     try {
         let juryCollectionObject = await getDBObj("juryCollectionObject");
-        console.log(juryCollectionObject)
         let { juryName, teamName, teamLead, ...metrics } = request.body;
         // let existingJury = await juryCollectionObject.findOne({ juryName });
     

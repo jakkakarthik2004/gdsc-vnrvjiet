@@ -6,29 +6,29 @@ import { getUserById } from "../Apis/users";
 
 function Forum() {
   const location = useLocation();
-  const [user, setUser] = useState(location.state?.user);
+  // const [user, setUser] = useState(location.state?.user);
+  const [user, setUser] = useState();
 
   // useEffect(() => {
   //   const fetchUser = async () => {
-  //     if (!user) {
-  //       try {
-  //         const userId = localStorage.getItem("userIdGDSC");
-  //         const fetchedUser = await getUserById(userId);
-  //         setUser(fetchedUser);
-  //       } catch (error) {
-  //         console.error("Error fetching user:", error);
-  //       }
+  //     try {
+  //       const userId = localStorage.getItem("userIdGDSC");
+  //       const fetchedUser = await getUserById(userId);
+  //       setUser(fetchedUser.user);
+  //     } catch (error) {
+  //       console.error("Error fetching user:", error);
   //     }
   //   };
 
   //   fetchUser();
-  // }, [user]);
+  // }, []);
 
-  if (user && user.isAdmin) {
-    return <AdminForum />;
-  }
-
+  // if (user && (user as any).isAdmin) {
+  //   return <AdminForum />;
+  // }
+  // console.log(user)
   return <UserForum />;
+  
 }
 
 export default Forum;

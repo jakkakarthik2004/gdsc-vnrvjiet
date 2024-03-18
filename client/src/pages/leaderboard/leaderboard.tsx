@@ -4,15 +4,16 @@ import { getDate } from "date-fns";
 import acmlogo from "../images/acmlogo.png";
 
 interface Teams {
-  _id?: string;
-  teamName?: string;
-  teamLead?: string;
-  metrics: {
-    creativity: number;
-    Ideation: number;
-    Presentation: number;
-    FutureScope: number;
-  };
+  _id: number;
+  teamName: string;
+  records: {
+    juryId: number;
+    scores: {
+      [key: string]: number;
+    };
+    totalScore: number;
+    juryName: string;
+  }[];
 }
 
 const Leaderboard = () => {
@@ -43,8 +44,13 @@ const Leaderboard = () => {
   }, []);
 
   const calculateTotalScore = (team: Teams) => {
-    const { creativity, FutureScope, Ideation, Presentation } = team.metrics;
-    return creativity + FutureScope + Ideation + Presentation;
+    const totalScore1 = team.records[0]?.totalScore || 0;
+    const totalScore2 = team.records[1]?.totalScore || 0;
+
+    const totalScore =
+      (totalScore1 + totalScore2) / (totalScore1 && totalScore2 ? 2 : 1);
+
+    return totalScore;
   };
 
   return (
@@ -89,19 +95,13 @@ const Leaderboard = () => {
                   Team Name
                 </th>
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Creativity
+                  Jury 1
                 </th>
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Future Scope
+                  Jury 2
                 </th>
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Ideation
-                </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Presentation
-                </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Total Score
+                  Average
                 </th>
               </tr>
             </thead>
@@ -122,16 +122,10 @@ const Leaderboard = () => {
                         {team.teamName}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.creativity}
+                        {team.records[0]?.totalScore || 0}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.FutureScope}
-                      </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.Ideation}
-                      </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.Presentation}
+                        {team.records[1]?.totalScore || 0}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {calculateTotalScore(team)}

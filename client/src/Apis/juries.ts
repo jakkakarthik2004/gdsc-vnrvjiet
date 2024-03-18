@@ -24,7 +24,7 @@ export const submitEval = async (dto: any) => {
 
 export const getLeaderboard = async () => {
   try {
-    const response = await axios.get(`${API_URL}/jury/get-metrics`);
+    const response = await axios.get(`${API_URL}/score/get-metrics`);
     return response.data;
   } catch (error) {
     console.error("Error getting Leaderboard", error);

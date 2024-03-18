@@ -47,10 +47,8 @@ scoreApp.use(exp.json());
  *       '500':
  *         description: Internal Server Error
  */
-
 scoreApp.post("/post-score", async (request, response) => {
   try {
-    console.log(request);
     const { juryId, teamId, scores } = request.body;
 
     const totalScore = Object.values(scores).reduce(
@@ -73,6 +71,55 @@ scoreApp.post("/post-score", async (request, response) => {
   }
 });
 
+/**
+ * @swagger
+ * /score/get-teams-evaluated-by-jury/{juryId}:
+ *   get:
+ *     summary: Retrieve scores evaluated by a specific jury
+ *     tags: [Score]
+ *     parameters:
+ *       - in: path
+ *         name: juryId
+ *         required: true
+ *         description: ID of the jury for which scores are to be retrieved
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Scores evaluated by the jury retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the success of the operation
+ *                   example: Scores evaluated by jury
+ *                 payload:
+ *                   type: array
+ *                   description: Array containing scores evaluated by the specified jury
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         description: ID of the score document
+ *                       juryId:
+ *                         type: integer
+ *                         description: ID of the jury who evaluated the score
+ *                       teamId:
+ *                         type: integer
+ *                         description: ID of the team being evaluated
+ *                       scores:
+ *                         type: object
+ *                         description: Object containing the scores evaluated by the jury
+ *                       totalScore:
+ *                         type: integer
+ *                         description: Total score calculated from individual scores
+ *       '500':
+ *         description: Internal Server Error
+ */
 scoreApp.get(
   "/get-teams-evaluated-by-jury/:juryId",
   expressAsyncHandler(async (request, response) => {
@@ -85,6 +132,101 @@ scoreApp.get(
       response.send({ message: "Scores evaluated by jury", payload: scores });
     } catch (error) {
       console.error("Error while retrieving scores by jury:", error);
+      response.status(500).send({ error: "Internal Server Error" });
+    }
+  })
+);
+
+/**
+ * @swagger
+ * /score/get-metrics:
+ *   get:
+ *     summary: Retrieve metrics for all teams
+ *     tags: [Score]
+ *     responses:
+ *       '200':
+ *         description: Metrics for all teams retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the success of the operation
+ *                   example: Metrics for all teams
+ *
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+scoreApp.get(
+  "/get-metrics",
+  expressAsyncHandler(async (request, response) => {
+    try {
+      const scoreCollectionObject = await getDBObj("scoreCollectionObject");
+      const teamsMetrics = await scoreCollectionObject
+        .aggregate([
+          {
+            $group: {
+              _id: "$teamId",
+              records: { $push: "$$ROOT" },
+            },
+          },
+          {
+            $unwind: "$records",
+          },
+          {
+            $lookup: {
+              from: "userCollectionObject",
+              localField: "records.juryId",
+              foreignField: "userId",
+              as: "juryInfo",
+            },
+          },
+          {
+            $addFields: {
+              "records.juryName": { $arrayElemAt: ["$juryInfo.name", 0] },
+            },
+          },
+          {
+            $lookup: {
+              from: "teamCollectionObject",
+              localField: "_id",
+              foreignField: "teamId",
+              as: "teamInfo",
+            },
+          },
+          {
+            $addFields: {
+              teamName: { $arrayElemAt: ["$teamInfo.teamName", 0] },
+            },
+          },
+          {
+            $project: {
+              "records.juryId": 1,
+              teamName: 1,
+              "records.juryName": 1,
+              "records.scores": 1,
+              "records.totalScore": 1,
+            },
+          },
+          {
+            $group: {
+              _id: "$_id",
+              teamName: { $first: "$teamName" },
+              records: { $push: "$records" },
+            },
+          },
+        ])
+        .toArray();
+
+      response.send({
+        message: "Metrics for all teams",
+        payload: teamsMetrics,
+      });
+    } catch (error) {
+      console.error("Error while retrieving metrics:", error);
       response.status(500).send({ error: "Internal Server Error" });
     }
   })

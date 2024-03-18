@@ -136,26 +136,26 @@ const getNextSequenceValue = async (sequenceName) => {
   return sequenceDocument.sequence_value;
 };
 
-/**
- * @swagger
- * /team/get-metrics:
- *   get:
- *     summary: Retrieve all team evaluations
- *     tags: [Team]
- *     responses:
- *       '200':
- *         description: A JSON array of team evaluations
- *       '500':
- *         description: Internal Server Error
- */
-teamApp.get(
-  "/get-metrics",
-  expressAsyncHandler(async (request, response) => {
-    let teamCollectionObject = await getDBObj("teamCollectionObject");
-    let evals = await teamCollectionObject.find().toArray();
-    response.send({ message: "Evaluation list", payload: evals });
-  })
-);
+// /**
+//  * @swagger
+//  * /team/get-metrics:
+//  *   get:
+//  *     summary: Retrieve all team evaluations
+//  *     tags: [Team]
+//  *     responses:
+//  *       '200':
+//  *         description: A JSON array of team evaluations
+//  *       '500':
+//  *         description: Internal Server Error
+//  */
+// teamApp.get(
+//   "/get-metrics",
+//   expressAsyncHandler(async (request, response) => {
+//     let teamCollectionObject = await getDBObj("teamCollectionObject");
+//     let evals = await teamCollectionObject.find().toArray();
+//     response.send({ message: "Evaluation list", payload: evals });
+//   })
+// );
 
 /**
  * @swagger

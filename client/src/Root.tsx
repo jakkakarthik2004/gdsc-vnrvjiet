@@ -21,7 +21,7 @@ import accessDenied from "./images/accessDenied.png";
 import ForgotPassword from "./pages/ForgotPassword";
 
 const isAdmin = () => {
-  const userObjGDSC = localStorage.getItem("userRoleGDSC");
+  const userObjGDSC = localStorage.getItem("userObjGDSC");
   if (userObjGDSC) {
     const userRole = JSON.parse(userObjGDSC);
     return userRole && userRole.role == "admin";

@@ -19,6 +19,16 @@ interface Teams {
 const Leaderboard = () => {
   const [teams, setTeams] = useState<Teams[]>([]);
   const [loading, setLoading] = useState(true);
+  const [displayJury1, setDisplayJury1] = useState(false);
+  const [displayJury2, setDisplayJury2] = useState(false);
+
+  const handleJuryClick = (juryNumber: number) => {
+    if (juryNumber === 1) {
+      setDisplayJury1(!displayJury1);
+    } else if (juryNumber === 2) {
+      setDisplayJury2(!displayJury2);
+    }
+  };
 
   const getData = async () => {
     try {
@@ -52,7 +62,7 @@ const Leaderboard = () => {
 
     return totalScore;
   };
-
+  // console.log(displayjury1);
   return (
     <div className="container mx-auto p-6">
       <div>
@@ -94,10 +104,16 @@ const Leaderboard = () => {
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
                   Team Name
                 </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
+                <th
+                  className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2"
+                  onClick={() => handleJuryClick(1)}
+                >
                   Jury 1
                 </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
+                <th
+                  className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2"
+                  onClick={() => handleJuryClick(2)}
+                >
                   Jury 2
                 </th>
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
@@ -122,10 +138,22 @@ const Leaderboard = () => {
                         {team.teamName}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.records[0]?.totalScore || 0}
+                        {team.records[0]?.totalScore !== undefined &&
+                        team.records[0]?.totalScore !== null
+                          ? team.records[0]?.totalScore
+                          : "-"}
+                        {displayJury1 &&
+                          team.records[0]?.juryName &&
+                          ` (${team.records[0]?.juryName})`}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.records[1]?.totalScore || 0}
+                        {team.records[1]?.totalScore !== undefined &&
+                        team.records[1]?.totalScore !== null
+                          ? team.records[1]?.totalScore
+                          : "-"}
+                        {displayJury2 &&
+                          team.records[1]?.juryName &&
+                          ` (${team.records[1]?.juryName})`}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {calculateTotalScore(team)}

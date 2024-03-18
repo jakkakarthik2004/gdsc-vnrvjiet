@@ -10,6 +10,25 @@ require("dotenv").config();
 
 userApp.use(exp.json());
 
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: API endpoints related to users
+ */
+
+/**
+ * @swagger
+ * /users/getusers:
+ *   get:
+ *     summary: Retrieve all users
+ *     tags: [Users]
+ *     responses:
+ *       '200':
+ *         description: A JSON array of users
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.get(
   "/getusers",
   expressAsyncHandler(async (request, response) => {
@@ -19,6 +38,27 @@ userApp.get(
   })
 );
 
+/**
+ * @swagger
+ * /users/get-user/{userId}:
+ *   get:
+ *     summary: Retrieve a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID of the user to retrieve
+ *     responses:
+ *       '200':
+ *         description: A JSON object representing the user
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.get(
   "/get-user/:userId",
   expressAsyncHandler(async (request, response) => {
@@ -26,7 +66,6 @@ userApp.get(
 
     try {
       const userCollectionObject = await getDBObj("userCollectionObject");
-      let users = await userCollectionObject.find().toArray();
       const user = await userCollectionObject.findOne({
         userId: parseInt(userId),
       });
@@ -43,6 +82,31 @@ userApp.get(
   })
 );
 
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     summary: Log in user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Success
+ *       '400':
+ *         description: Invalid user or password
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.post(
   "/login",
   expressAsyncHandler(async (request, response) => {
@@ -74,20 +138,63 @@ userApp.post(
   })
 );
 
+/**
+ * @swagger
+ * /users/create:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: number
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: User created successfully
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.post(
   "/create",
   expressAsyncHandler(async (request, response) => {
-    let userCollectionObject = request.app.get("userCollectionObject");
-    let newUserObj = request.body;
-    let userOfDB = await userCollectionObject.findOne({
+    const userCollectionObject = await getDBObj("userCollectionObject");
+
+    async function getNextUserId() {
+      const sequenceDoc = await userCollectionObject.findOneAndUpdate(
+        { name: "userId" },
+        { $inc: { sequenceValue: 1 } },
+        { returnOriginal: false, upsert: true }
+      );
+      return sequenceDoc.value.sequenceValue;
+    }
+
+    const newUserObj = request.body;
+    const userId = await getNextUserId();
+    newUserObj.userId = userId;
+
+    const userOfDB = await userCollectionObject.findOne({
       email: newUserObj.email,
     });
+
     if (userOfDB !== null) {
       response.send({
         message: "Email has already Exist. Please try to login",
       });
     } else {
-      let hashedPassword = await bcryptjs.hash(newUserObj.password, 6);
+      const hashedPassword = await bcryptjs.hash(newUserObj.password, 6);
       newUserObj.password = hashedPassword;
       await userCollectionObject.insertOne(newUserObj);
       response.send({ message: "New User created" });
@@ -95,31 +202,27 @@ userApp.post(
   })
 );
 
-const generateOTP = () => {
-  return Math.floor(1000 + Math.random() * 9000);
-};
-
-// const sendOTPByEmail = (email, otp, callback) => {
-//   const transporter = nodemailer.createTransport({
-//     service: "Gmail",
-//     auth: {
-//       user: "youremail@gmail.com",
-//       pass: "yourpassword",
-//     },
-//   });
-
-//   const mailOptions = {
-//     from: "youremail@gmail.com",
-//     to: email,
-//     subject: "Password reset OTP",
-//     text: `Your OTP (It is expired after 1 min): ${otp}`,
-//   };
-
-//   transporter.sendMail(mailOptions, callback);
-// };
-
-const OTP = {};
-
+/**
+ * @swagger
+ * /users/forgot-password:
+ *   post:
+ *     summary: Forgot password
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Email sent successfully
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.post(
   "/forgot-password",
   expressAsyncHandler(async (request, response) => {
@@ -162,6 +265,31 @@ userApp.post(
   })
 );
 
+/**
+ * @swagger
+ * /users/verify-otp:
+ *   post:
+ *     summary: Verify OTP
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               otp:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: OTP verified successfully
+ *       '400':
+ *         description: Invalid OTP
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.post("/verify-otp", (request, response) => {
   const enteredOTP = request.body.data.otp.otp;
   const expectedOTP = OTP[request.body.data.email.email];
@@ -172,6 +300,31 @@ userApp.post("/verify-otp", (request, response) => {
   }
 });
 
+/**
+ * @swagger
+ * /users/reset-password:
+ *   post:
+ *     summary: Reset password
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               confirmPassword:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Password reset successful
+ *       '500':
+ *         description: Internal Server Error
+ */
 userApp.post("/reset-password", async (request, response) => {
   try {
     const { password, confirmPassword, email } = request.body;

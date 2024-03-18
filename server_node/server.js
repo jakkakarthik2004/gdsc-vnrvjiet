@@ -6,7 +6,7 @@ const cors = require("cors");
 const userApp = require("./APIs/userApi");
 const questionApp = require("./APIs/questionaApi");
 const eventApp = require("./APIs/eventsApi");
-// const juryApp = require("./APIs/juryApi");
+const scoreApp = require("./APIs/scoreApi");
 const teamApp = require("./APIs/teamApi");
 
 const swaggerUi = require("swagger-ui-express");
@@ -19,7 +19,7 @@ app.use(cors());
 app.use("/users", userApp);
 app.use("/Questions", questionApp);
 app.use("/Events", eventApp);
-// app.use("/jury", juryApp);
+app.use("/score", scoreApp);
 app.use("/team", teamApp);
 
 app.use("/", (req, res) => {

@@ -157,4 +157,40 @@ teamApp.get(
   })
 );
 
+/**
+ * @swagger
+ * /team/get-by-jury/{juryId}:
+ *   get:
+ *     summary: Retrieve teams evaluated by a specific jury
+ *     tags: [Team]
+ *     parameters:
+ *       - in: path
+ *         name: juryId
+ *         required: true
+ *         description: The ID of the jury
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: A JSON array of teams evaluated by the specified jury
+ *       '500':
+ *         description: Internal Server Error
+ */
+teamApp.get(
+  "/get-by-jury/:juryId",
+  expressAsyncHandler(async (request, response) => {
+    try {
+      const juryId = parseInt(request.params.juryId);
+      const teamCollectionObject = await getDBObj("teamCollectionObject");
+      const teams = await teamCollectionObject
+        .find({ juries: { $in: [juryId] } })
+        .toArray();
+      response.send({ message: "Teams evaluated by jury", payload: teams });
+    } catch (error) {
+      console.error("Error while retrieving teams by jury", error);
+      response.status(500).send({ error: "Internal Server Error" });
+    }
+  })
+);
+
 module.exports = teamApp;

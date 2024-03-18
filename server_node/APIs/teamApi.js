@@ -43,7 +43,7 @@ teamApp.post(
   "/create",
   expressAsyncHandler(async (request, response) => {
     try {
-      let teamCollectionObject = await getDBObj("juryCollectionObject");
+      let teamCollectionObject = await getDBObj("teamCollectionObject");
       let { teamName, teamLead, ...metrics } = request.body;
       await teamCollectionObject.insertOne({ teamName, teamLead, metrics });
       response.send({ message: "Team created with evaluation" });
@@ -109,7 +109,7 @@ teamApp.post(
   "/create-many",
   expressAsyncHandler(async (request, response) => {
     try {
-      let teamCollectionObject = await getDBObj("juryCollectionObject");
+      let teamCollectionObject = await getDBObj("teamCollectionObject");
       let teams = request.body.map(async (team) => {
         const teamId = await getNextSequenceValue("teamIdSequence");
         return { ...team, teamId };
@@ -151,7 +151,7 @@ const getNextSequenceValue = async (sequenceName) => {
 teamApp.get(
   "/get-metrics",
   expressAsyncHandler(async (request, response) => {
-    let teamCollectionObject = await getDBObj("juryCollectionObject");
+    let teamCollectionObject = await getDBObj("teamCollectionObject");
     let evals = await teamCollectionObject.find().toArray();
     response.send({ message: "Evaluation list", payload: evals });
   })

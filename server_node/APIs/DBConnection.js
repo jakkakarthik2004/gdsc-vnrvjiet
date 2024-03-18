@@ -41,5 +41,4 @@ async function getDBObj(collection) {
 //   console.log("Sequence collection created successfully.");
 // }
 
-// module.exports = createSequenceCollection;
 module.exports = getDBObj;

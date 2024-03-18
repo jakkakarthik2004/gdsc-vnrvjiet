@@ -10,6 +10,16 @@ require("dotenv").config();
 
 userApp.use(exp.json());
 
+const getNextSequenceValue = async (sequenceName) => {
+  const sequenceCollection = await getDBObj("sequenceCollection");
+  const sequenceDocument = await sequenceCollection.findOneAndUpdate(
+    { _id: sequenceName },
+    { $inc: { sequence_value: 1 } },
+    { returnOriginal: false, upsert: true }
+  );
+  return sequenceDocument.sequence_value;
+};
+
 /**
  * @swagger
  * tags:
@@ -151,8 +161,6 @@ userApp.post(
  *           schema:
  *             type: object
  *             properties:
- *               userId:
- *                 type: number
  *               name:
  *                 type: string
  *               email:
@@ -172,23 +180,13 @@ userApp.post(
   expressAsyncHandler(async (request, response) => {
     const userCollectionObject = await getDBObj("userCollectionObject");
 
-    async function getNextUserId() {
-      const sequenceDoc = await userCollectionObject.findOneAndUpdate(
-        { name: "userId" },
-        { $inc: { sequenceValue: 1 } },
-        { returnOriginal: false, upsert: true }
-      );
-      return sequenceDoc.value.sequenceValue;
-    }
-
-    const newUserObj = request.body;
-    const userId = await getNextUserId();
-    newUserObj.userId = userId;
+    let newUserObj = request.body;
 
     const userOfDB = await userCollectionObject.findOne({
       email: newUserObj.email,
     });
-
+    const userId = await getNextSequenceValue("teamIdSequence");
+    newUserObj = { ...newUserObj, userId };
     if (userOfDB !== null) {
       response.send({
         message: "Email has already Exist. Please try to login",
@@ -198,6 +196,72 @@ userApp.post(
       newUserObj.password = hashedPassword;
       await userCollectionObject.insertOne(newUserObj);
       response.send({ message: "New User created" });
+    }
+  })
+);
+
+/**
+ * @swagger
+ * /users/create-many:
+ *   post:
+ *     summary: Create multiple users
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 password:
+ *                   type: string
+ *                 role:
+ *                   type: string
+ *     responses:
+ *       '200':
+ *         description: Users created successfully
+ *       '500':
+ *         description: Internal Server Error
+ */
+userApp.post(
+  "/create-many",
+  expressAsyncHandler(async (request, response) => {
+    try {
+      const userCollectionObject = await getDBObj("userCollectionObject");
+      const users = request.body;
+
+      for (const user of users) {
+        const userOfDB = await userCollectionObject.findOne({
+          email: user.email,
+        });
+
+        if (userOfDB !== null) {
+          console.log(
+            `User with email ${user.email} already exists. Skipping...`
+          );
+          continue;
+        }
+
+        const userId = await getNextSequenceValue("teamIdSequence");
+
+        const hashedPassword = await bcryptjs.hash(user.password, 6);
+        user.password = hashedPassword;
+
+        user.userId = userId;
+
+        await userCollectionObject.insertOne(user);
+      }
+
+      response.send({ message: "Users created successfully" });
+    } catch (error) {
+      console.error("Error while creating users", error);
+      response.status(500).send({ error: "An error occurred" });
     }
   })
 );
@@ -330,9 +394,11 @@ userApp.post("/reset-password", async (request, response) => {
     const { password, confirmPassword, email } = request.body;
     const hashedPassword = await bcryptjs.hash(password, 6);
     let userCollectionObject = await getDBObj("userCollectionObject");
-
+    if (password != confirmPassword) {
+      response.send("Passwords dont match");
+    }
     const result = await userCollectionObject.updateOne(
-      { email: "jgondipalle@gmail.com" },
+      { email: email },
       { $set: { password: hashedPassword } }
     );
     response.json({

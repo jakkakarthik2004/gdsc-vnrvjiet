@@ -43,7 +43,13 @@ const Login = () => {
       if (!loggedInUser.userObj) {
         window.alert("Please check your credentials");
       } else {
-        localStorage.setItem("userIdGDSC", loggedInUser.userObj.userId);
+        const userObj = {
+          userId: loggedInUser.userObj.userId,
+          role: loggedInUser.userObj.role,
+        };
+        const userObjString = JSON.stringify(userObj);
+        localStorage.setItem("userObjGDSC", userObjString);
+
         navigate("/enter", { state: { user: loggedInUser.userObj } });
       }
     } catch (error) {

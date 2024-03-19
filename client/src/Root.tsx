@@ -20,20 +20,51 @@ import Score from "./pages/leaderboard/score";
 import accessDenied from "./images/accessDenied.png";
 import ForgotPassword from "./pages/ForgotPassword";
 
-const isAuthenticated = () => {
-  return localStorage.getItem("userIdGDSC") == "1";
+const isAdmin = () => {
+  const userObjGDSC = localStorage.getItem("userObjGDSC");
+  if (userObjGDSC) {
+    const userRole = JSON.parse(userObjGDSC);
+    return userRole && userRole.role == "admin";
+  }
+  return false;
+};
+
+const isJury = () => {
+  const userObjGDSC = localStorage.getItem("userObjGDSC");
+  if (userObjGDSC) {
+    const userRole = JSON.parse(userObjGDSC);
+    return userRole && userRole.role == "jury";
+  }
+  return false;
 };
 
 const ProtectedRoute: React.FC<{ element: React.ReactNode; path: string }> = ({
   element,
+  path,
 }) => {
-  return isAuthenticated() ? (
-    <>{element}</>
-  ) : (
-    <div className="flex items-center justify-center">
-      <img className="w-[75vw] md:w-[40vw]" src={accessDenied} />
-    </div>
-  );
+  if (path == "/leaderboard" && !isAdmin()) {
+    return (
+      <div className="flex items-center justify-center">
+        <img
+          className="w-[75vw] md:w-[40vw]"
+          src={accessDenied}
+          alt="Access Denied"
+        />
+      </div>
+    );
+  } else if ((path == "/enter" || path == "/score") && !isJury()) {
+    return (
+      <div className="flex items-center justify-center">
+        <img
+          className="w-[75vw] md:w-[40vw]"
+          src={accessDenied}
+          alt="Access Denied"
+        />
+      </div>
+    );
+  } else {
+    return <>{element}</>;
+  }
 };
 
 function Root() {

@@ -65,7 +65,7 @@ export const forgotPw = async (email: any) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error deleting user by ID:", error);
+    console.error("Error sending otp:", error);
     throw error;
   }
 };
@@ -77,7 +77,7 @@ export const verifypw = async (otp: any, email: any) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error deleting user by ID:", error);
+    console.error("Error verifying otp:", error);
     throw error;
   }
 };

@@ -4,20 +4,31 @@ import { getDate } from "date-fns";
 import acmlogo from "../images/acmlogo.png";
 
 interface Teams {
-  _id?: string;
-  teamName?: string;
-  teamLead?: string;
-  metrics: {
-    creativity: number;
-    Ideation: number;
-    Presentation: number;
-    FutureScope: number;
-  };
+  _id: number;
+  teamName: string;
+  records: {
+    juryId: number;
+    scores: {
+      [key: string]: number;
+    };
+    totalScore: number;
+    juryName: string;
+  }[];
 }
 
 const Leaderboard = () => {
   const [teams, setTeams] = useState<Teams[]>([]);
   const [loading, setLoading] = useState(true);
+  const [displayJury1, setDisplayJury1] = useState(false);
+  const [displayJury2, setDisplayJury2] = useState(false);
+
+  const handleJuryClick = (juryNumber: number) => {
+    if (juryNumber === 1) {
+      setDisplayJury1(!displayJury1);
+    } else if (juryNumber === 2) {
+      setDisplayJury2(!displayJury2);
+    }
+  };
 
   const getData = async () => {
     try {
@@ -43,10 +54,15 @@ const Leaderboard = () => {
   }, []);
 
   const calculateTotalScore = (team: Teams) => {
-    const { creativity, FutureScope, Ideation, Presentation } = team.metrics;
-    return creativity + FutureScope + Ideation + Presentation;
-  };
+    const totalScore1 = team.records[0]?.totalScore || 0;
+    const totalScore2 = team.records[1]?.totalScore || 0;
 
+    const totalScore =
+      (totalScore1 + totalScore2) / (totalScore1 && totalScore2 ? 2 : 1);
+
+    return totalScore;
+  };
+  // console.log(displayjury1);
   return (
     <div className="container mx-auto p-6">
       <div>
@@ -88,20 +104,20 @@ const Leaderboard = () => {
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
                   Team Name
                 </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Creativity
+                <th
+                  className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2"
+                  onClick={() => handleJuryClick(1)}
+                >
+                  Jury 1
+                </th>
+                <th
+                  className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2"
+                  onClick={() => handleJuryClick(2)}
+                >
+                  Jury 2
                 </th>
                 <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Future Scope
-                </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Ideation
-                </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Presentation
-                </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
-                  Total Score
+                  Average
                 </th>
               </tr>
             </thead>
@@ -122,16 +138,22 @@ const Leaderboard = () => {
                         {team.teamName}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.creativity}
+                        {team.records[0]?.totalScore !== undefined &&
+                        team.records[0]?.totalScore !== null
+                          ? team.records[0]?.totalScore
+                          : "-"}
+                        {displayJury1 &&
+                          team.records[0]?.juryName &&
+                          ` (${team.records[0]?.juryName})`}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.FutureScope}
-                      </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.Ideation}
-                      </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
-                        {team.metrics.Presentation}
+                        {team.records[1]?.totalScore !== undefined &&
+                        team.records[1]?.totalScore !== null
+                          ? team.records[1]?.totalScore
+                          : "-"}
+                        {displayJury2 &&
+                          team.records[1]?.juryName &&
+                          ` (${team.records[1]?.juryName})`}
                       </td>
                       <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
                         {calculateTotalScore(team)}

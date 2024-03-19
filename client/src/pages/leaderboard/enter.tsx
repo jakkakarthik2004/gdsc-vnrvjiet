@@ -129,16 +129,16 @@ const TeamsList: React.FC<{
           {teams?.map((team, index) => {
             return (
               <tr key={index}>
-                <td className="px-4 py-4 whitespace-nowrap">{team.teamId}</td>
-                <td className="px-4 py-4 whitespace-nowrap">{team.teamName}</td>
-                <td className="px-4 py-4 whitespace-nowrap">{team.teamLead}</td>
+                <td className="text-sm px-4 py-4 whitespace-nowrap">{team.teamId}</td>
+                <td className="text-sm  px-4 py-4 whitespace-nowrap">{team.teamName}</td>
+                <td className="text-sm px-4 py-4 whitespace-nowrap">{team.teamLead}</td>
                 {/* <td className="px-4 py-4 whitespace-nowrap">
                   {team.timeSlot1}
                 </td> */}
                 <td className="px-4 py-4 whitespace-nowrap">
                   <button
                     disabled={submissionStatus[team.teamId]}
-                    className={`px-4 py-2 border rounded-lg font-bold ${
+                    className={`text-xs px-4 py-2 border rounded-lg font-bold ${
                       submissionStatus[team.teamId]
                         ? "bg-gray-400 text-gray-800"
                         : "bg-blue-500 text-white"

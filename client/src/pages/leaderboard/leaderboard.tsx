@@ -96,33 +96,71 @@ const Leaderboard = () => {
           <button onClick={handleToggleDetailedColumns} className="bg-yellow-400 rounded-md px-3 my-2 text-sm">
             {showDetailedColumns ? "Hide Detailed Metrics" : "Show Detailed Metrics"}
           </button>
+          <div className="overflow-x-auto">
           <table className="table-auto w-full text-xs md:text-sm">
             <thead className="bg-gray-800">
               <tr>
-                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Sno
                 </th>
-                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Team Name
                 </th>
-                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight"
+                <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight"
                   onClick={() => handleJuryClick(1)}>
                   Jury 1
-                </th>
-                {showDetailedColumns && (
-                  <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
-                    Jury 1 Detailed
-                  </th>
+                  <table className="border-t">
+                    <thead>
+                    {showDetailedColumns && (
+                  <>
+                    <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase  ">
+                      creativity 
+                    </th>
+                    <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase">
+                      Future Scope 
+                    </th>
+                    <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                      Presentation 
+                    </th>
+                    <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                      Ideation 
+                    </th>
+                    <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                      Total 
+                    </th>
+                  </>
                 )}
-                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight"
+                    </thead>
+                  </table>
+                </th>
+                <th className="text-center text-xs font-medium text-gray-300 uppercase tracking-tight"
                   onClick={() => handleJuryClick(2)}>
                   Jury 2
+                  <table className="border-t">
+                    <thead>
+                    {showDetailedColumns && (
+                  <>
+                    <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase  ">
+                      creativity 
+                    </th>
+                    <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase">
+                      Future Scope 
+                    </th>
+                    <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                      Presentation 
+                    </th>
+                    <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                      Ideation 
+                    </th>
+                    <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                      Total 
+                    </th>
+                  </>
+                )}
+                    </thead>
+                  </table>
                 </th>
-                {showDetailedColumns && (
-                  <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
-                    Jury 2 Detailed
-                  </th>)}
-                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                <th className=" border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Average
                 </th>
               </tr>
@@ -145,65 +183,68 @@ const Leaderboard = () => {
                       </td>
                       <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                         {team.records[0]?.totalScore !== undefined &&
-                        team.records[0]?.totalScore !== null
+                        team.records[0]?.totalScore !== null && !showDetailedColumns
                           ? team.records[0]?.totalScore
-                          : "-"}
+                          : ""}
                         {displayJury1 &&
                           team.records[0]?.juryName &&
                           ` (${team.records[0]?.juryName})`}
-                      </td>
-                      {showDetailedColumns && (
-                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
-                          {/* Render detailed scores here */}
                           {showDetailedColumns && (
-                            <td className=" px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
-                              {team.records[0]?.scores && (
-                                <ul>
-                                  {Object.entries(team.records[0].scores).map(([metric, score]) => (
-                                    <li key={metric}>
-                                      {metric}: {score}
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </td>
-                          )}
-                        </td>
+                        <>
+                          <td className=" text-xs lg:text-md px-8">
+                            {team.records[0]?.scores?.creativity || "-"}
+                          </td>
+                          <td className="text-xs lg:text-md px-10">
+                            {team.records[0]?.scores?.FutureScope || "-"}
+                          </td>
+                          <td className=" text-xs lg:text-md px-10 ">
+                            {team.records[0]?.scores?.Presentation || "-"}
+                          </td>
+                          <td className="text-xs lg:text-md px-10">
+                            {team.records[0]?.scores?.Ideation || "-"}
+                          </td>
+                          <td className="text-xs lg:text-md pl-4">
+                            {team.records[0]?.totalScore || "-"}
+                          </td>
+                        </>
                       )}
+                      </td>
                       <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                         {team.records[1]?.totalScore !== undefined &&
-                        team.records[1]?.totalScore !== null
+                        team.records[1]?.totalScore !== null && !showDetailedColumns
                           ? team.records[1]?.totalScore
-                          : "-"}
+                          : ''}
                         {displayJury2 &&
                           team.records[1]?.juryName &&
                           ` (${team.records[1]?.juryName})`}
-                      </td>
-                      {showDetailedColumns && (
-                        <td className="border px-1 py-1 text-xs lg:text-md md:px-4 md:py-2">
-                          {/* Render detailed scores here */}
                           {showDetailedColumns && (
-                          <td className=" px-1 py-1 text-xs lg:text-md md:px-2 md:py-2">
-                              {team.records[1]?.scores && (
-                                <ul>
-                                  {Object.entries(team.records[1].scores).map(([metric, score]) => (
-                                    <li key={metric}>
-                                      {metric}: {score}
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </td>
-                          )}
-                        </td>
+                        <>
+                          <td className=" text-xs lg:text-md px-8">
+                            {team.records[1]?.scores?.creativity || "-"}
+                          </td>
+                          <td className="text-xs lg:text-md px-10">
+                            {team.records[1]?.scores?.FutureScope || "-"}
+                          </td>
+                          <td className="  text-xs lg:text-md px-10 ">
+                            {team.records[1]?.scores?.Presentation || "-"}
+                          </td>
+                          <td className=" text-xs lg:text-md px-10">
+                            {team.records[1]?.scores?.Ideation || "-"}
+                          </td>
+                          <td className=" text-xs lg:text-md pl-4">
+                            {team.records[1]?.totalScore || "-"}
+                          </td>
+                        </>
                       )}
-                      <td className="border px-1 py1 text-xs lg:text-nd md:px-4 md:py-2">
+                      </td>
+                      <td className="border px-1 py1 text-xs lg:text-nd md:px-8 md:py-2">
                         {calculateTotalScore(team)}
                       </td>
                     </tr>
                   ))}
             </tbody>
           </table>
+          </div>
         </>
       )}
     </div>

@@ -10,6 +10,11 @@ require("dotenv").config();
 
 userApp.use(exp.json());
 
+const OTP = {};
+const generateOTP = () => {
+  return Math.floor(1000 + Math.random() * 9000);
+};
+
 const getNextSequenceValue = async (sequenceName) => {
   const sequenceCollection = await getDBObj("sequenceCollection");
   const sequenceDocument = await sequenceCollection.findOneAndUpdate(
@@ -291,24 +296,25 @@ userApp.post(
   "/forgot-password",
   expressAsyncHandler(async (request, response) => {
     try {
-      const { email } = request.body.data.email;
+      const { email } = request.body;
 
       const otp = generateOTP();
-      OTP[email] = otp;
 
+      OTP[email] = otp;
+      console.log(email, otp);
       const transporter = nodemailer.createTransport({
         service: "gmail",
         host: "smtp.gmail.com",
         port: 465,
         secure: true,
         auth: {
-          user: "your-email",
-          pass: "app-password",
+          user: process.env.email,
+          pass: process.env.apppassword,
         },
       });
 
       const mailOptions = {
-        from: "your-email",
+        from: process.env.email,
         to: email,
         subject: "Password reset OTP",
         text: `Your OTP (It is expired after 1 min): ${otp}`,

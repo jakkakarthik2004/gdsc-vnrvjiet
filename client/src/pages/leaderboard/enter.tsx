@@ -73,7 +73,7 @@ const TeamsList: React.FC<{
 
   useEffect(() => {
     if (response) {
-      Promise.all(teams.map((team) => isSubmitted(team)))
+      Promise.all(teams?.map((team) => isSubmitted(team)))
         .then((results) => {
           const statusMap: Record<number, boolean> = {};
           teams.forEach((team, index) => {
@@ -106,17 +106,17 @@ const TeamsList: React.FC<{
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2">Teams</h2>
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+      <h2 className="text-sm lg:text-xl font-semibold mb-2">Teams</h2>
+      <table className=" text-xs lg:text-xl min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-800">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Team Number
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Team Name
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
               Team Lead
             </th>
             {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -126,7 +126,7 @@ const TeamsList: React.FC<{
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {teams.map((team, index) => {
+          {teams?.map((team, index) => {
             return (
               <tr key={index}>
                 <td className="px-4 py-4 whitespace-nowrap">{team.teamId}</td>
@@ -145,7 +145,7 @@ const TeamsList: React.FC<{
                     }`}
                     onClick={() => handleTeamClick(team)}
                   >
-                    Grade Team
+                    {submissionStatus[team.teamId]?'Graded':'Grade Team'}
                   </button>
                 </td>
               </tr>
@@ -185,9 +185,13 @@ const Enter: React.FC = () => {
   return (
     <>
       {userData && (
-        <div className="container mx-auto">
-          <div>Jury : {userData.name}</div>
-          <div className="flex flex-col lg:flex-row">
+        <div className="container mx-auto pt-5">
+          <div className="text-center"> 
+          <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded border border-blue-400">Jury</span>
+           {userData.name}  
+          </div> 
+          
+          <div className="flex flex-col lg:flex-row pt-5">
             <div className="w-3/4">
               <TeamsList
                 teams={teams}

@@ -21,6 +21,7 @@ const Leaderboard = () => {
   const [loading, setLoading] = useState(true);
   const [displayJury1, setDisplayJury1] = useState(false);
   const [displayJury2, setDisplayJury2] = useState(false);
+  const [showDetailedColumns, setShowDetailedColumns] = useState(false);
 
   const handleJuryClick = (juryNumber: number) => {
     if (juryNumber === 1) {
@@ -30,12 +31,16 @@ const Leaderboard = () => {
     }
   };
 
+  const handleToggleDetailedColumns = () => {
+    setShowDetailedColumns(!showDetailedColumns);
+  };
+
   const getData = async () => {
     try {
       setLoading(true);
       const response = await getLeaderboard();
       setTeams(response.payload);
-      await setLoading(false);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching leaderboard:", error);
     }
@@ -62,66 +67,67 @@ const Leaderboard = () => {
 
     return totalScore;
   };
-  // console.log(displayjury1);
+
   return (
     <div className="container mx-auto p-6">
-      <div>
-        {/* <div className="flex flex-row items-center  ">
-        <img
-          className="gdsc_logo h-8"
-          src="https://cdn-images-1.medium.com/max/578/1*vZVM7utCuRiZ6-HDsNeYUA@2x.png"
-          width="50"
-          height="50"
-        />
-        <h1 className="px-2 font-bolder"> X </h1>
-      <img src={acmlogo} className="h-10" alt=""  />
-        </div> */}
-
-        <div className="flex flex-row ">
-          <h1 className="text-2xl font-bold mb-4">Webathon Leaderboard</h1>
-
-          <button className="mx-auto text-2xl" onClick={() => getData()}>
-            🔃
-          </button>
+      <div className="flex flex-row ">
+        <h1 className="text-lg lg:text-2xl font-bold mb-4">
+          Webathon 2.0 Leaderboard
+        </h1>
+        <button
+          className="mx-auto text-2xl"
+          onClick={() => getData()}
+          disabled={loading}
+        >
+          🔃
+        </button>
+      </div>
+      {loading ? (
+        <div className="flex items-center justify-center">
+          <p>Loading...</p>
+          <img
+            src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png"
+            alt="image"
+            className="w-[75vw] md:w-[40vw]"
+          />
         </div>
-
-        {loading ? (
-          <div className="flex items-center justify-center">
-            <p>Loading...</p>
-            <img
-              src="https://hadibuttt.github.io/GDSC-Portfolio-Site/img/main.png"
-              alt="image"
-              className="w-[75vw] md:w-[40vw]"
-            />
-          </div>
-        ) : (
-          <table className="table-auto w-full">
-            <thead>
+      ) : (
+        <>
+          <button onClick={handleToggleDetailedColumns} className="bg-yellow-400 rounded-md px-3 my-2 text-sm">
+            {showDetailedColumns ? "Hide Detailed Metrics" : "Show Detailed Metrics"}
+          </button>
+          <table className="table-auto w-full text-xs md:text-sm">
+            <thead className="bg-gray-800">
               <tr>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
+                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Sno
                 </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
+                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Team Name
                 </th>
-                <th
-                  className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2"
-                  onClick={() => handleJuryClick(1)}
-                >
+                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight"
+                  onClick={() => handleJuryClick(1)}>
                   Jury 1
                 </th>
-                <th
-                  className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2"
-                  onClick={() => handleJuryClick(2)}
-                >
+                {showDetailedColumns && (
+                  <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                    Jury 1 Detailed
+                  </th>
+                )}
+                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight"
+                  onClick={() => handleJuryClick(2)}>
                   Jury 2
                 </th>
-                <th className="px-1 py1 text-xs  md:text-lg md:px-4 md:py-2">
+                {showDetailedColumns && (
+                  <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                    Jury 2 Detailed
+                  </th>)}
+                <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Average
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="bg-white">
               {teams &&
                 teams
                   .slice()
@@ -131,13 +137,13 @@ const Leaderboard = () => {
                   )
                   .map((team: Teams, index: number) => (
                     <tr key={team._id}>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
+                      <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                         {index + 1}
                       </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
+                      <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                         {team.teamName}
                       </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
+                      <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                         {team.records[0]?.totalScore !== undefined &&
                         team.records[0]?.totalScore !== null
                           ? team.records[0]?.totalScore
@@ -146,7 +152,25 @@ const Leaderboard = () => {
                           team.records[0]?.juryName &&
                           ` (${team.records[0]?.juryName})`}
                       </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
+                      {showDetailedColumns && (
+                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                          {/* Render detailed scores here */}
+                          {showDetailedColumns && (
+                            <td className=" px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                              {team.records[0]?.scores && (
+                                <ul>
+                                  {Object.entries(team.records[0].scores).map(([metric, score]) => (
+                                    <li key={metric}>
+                                      {metric}: {score}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </td>
+                          )}
+                        </td>
+                      )}
+                      <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                         {team.records[1]?.totalScore !== undefined &&
                         team.records[1]?.totalScore !== null
                           ? team.records[1]?.totalScore
@@ -155,15 +179,33 @@ const Leaderboard = () => {
                           team.records[1]?.juryName &&
                           ` (${team.records[1]?.juryName})`}
                       </td>
-                      <td className="border px-1 py1 text-xs md:text-lg md:px-4 md:py-2">
+                      {showDetailedColumns && (
+                        <td className="border px-1 py-1 text-xs lg:text-md md:px-4 md:py-2">
+                          {/* Render detailed scores here */}
+                          {showDetailedColumns && (
+                          <td className=" px-1 py-1 text-xs lg:text-md md:px-2 md:py-2">
+                              {team.records[1]?.scores && (
+                                <ul>
+                                  {Object.entries(team.records[1].scores).map(([metric, score]) => (
+                                    <li key={metric}>
+                                      {metric}: {score}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </td>
+                          )}
+                        </td>
+                      )}
+                      <td className="border px-1 py1 text-xs lg:text-nd md:px-4 md:py-2">
                         {calculateTotalScore(team)}
                       </td>
                     </tr>
                   ))}
             </tbody>
           </table>
-        )}
-      </div>
+        </>
+      )}
     </div>
   );
 };

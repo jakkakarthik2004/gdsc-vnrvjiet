@@ -232,4 +232,92 @@ scoreApp.get(
   })
 );
 
+/**
+ * @swagger
+ * /score/get-top-10-teams:
+ *   get:
+ *     summary: Retrieve top 10 teams
+ *     tags: [Score]
+ *     responses:
+ *       '200':
+ *         description: Top 10 teams retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the success of the operation
+ *                   example: Top 10 teams
+ *
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+scoreApp.get(
+  "/get-top-10-teams",
+  expressAsyncHandler(async (request, response) => {
+    try {
+      const scoreCollectionObject = await getDBObj("scoreCollectionObject");
+      const topteams = await scoreCollectionObject
+        .aggregate([
+          {
+            $group: {
+              _id: "$teamId",
+              records: { $push: "$$ROOT" },
+              averageScore: { $avg: "$totalScore" },
+            },
+          },
+          {
+            $sort: { averageScore: -1 },
+          },
+          {
+            $limit: 10,
+          },
+          {
+            $lookup: {
+              from: "teamCollectionObject",
+              localField: "_id",
+              foreignField: "teamId",
+              as: "teamInfo",
+            },
+          },
+          {
+            $addFields: {
+              teamName: { $arrayElemAt: ["$teamInfo.teamName", 0] },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              teamId: "$_id",
+              teamName: 1,
+              averageScore: 1,
+              records: {
+                $map: {
+                  input: "$records",
+                  as: "record",
+                  in: {
+                    scores: "$$record.scores",
+                    totalScore: "$$record.totalScore",
+                  },
+                },
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      response.send({
+        message: "Top 10 teams by average total score",
+        payload: topteams,
+      });
+    } catch (error) {
+      console.error("Error while retrieving top teams:", error);
+      response.status(500).send({ error: "Internal Server Error" });
+    }
+  })
+);
+
 module.exports = scoreApp;

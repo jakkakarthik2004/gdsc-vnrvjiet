@@ -19,6 +19,7 @@ import Enter from "./pages/leaderboard/enter";
 import Score from "./pages/leaderboard/score";
 import accessDenied from "./images/accessDenied.png";
 import ForgotPassword from "./pages/ForgotPassword";
+import Analysis from "./pages/leaderboard/analysis";
 
 const isAdmin = () => {
   const userObjGDSC = localStorage.getItem("userObjGDSC");
@@ -42,7 +43,7 @@ const ProtectedRoute: React.FC<{ element: React.ReactNode; path: string }> = ({
   element,
   path,
 }) => {
-  if (path == "/leaderboard" && !isAdmin()) {
+  if ((path == "/leaderboard" || path == "/analysis") && !isAdmin()) {
     return (
       <div className="flex items-center justify-center">
         <img
@@ -87,6 +88,12 @@ function Root() {
           path="/leaderboard"
           element={
             <ProtectedRoute element={<Leaderboard />} path="/leaderboard" />
+          }
+        />
+        <Route
+          path="/analysis"
+          element={
+            <ProtectedRoute element={<Analysis />} path="/analysis" />
           }
         />
         <Route

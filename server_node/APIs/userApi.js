@@ -127,8 +127,10 @@ userApp.post(
   expressAsyncHandler(async (request, response) => {
     let userCollectionObject = await getDBObj("userCollectionObject");
     let userCredObj = request.body;
+    userCredObj.email = userCredObj.email.toLowerCase();
+
     let userOfDB = await userCollectionObject.findOne({
-      email: userCredObj.email,
+      email: { $regex: new RegExp("^" + userCredObj.email + "$", "i") },
     });
     if (userOfDB == null) {
       response.send({ message: "Invalid user" });
@@ -297,7 +299,17 @@ userApp.post(
   expressAsyncHandler(async (request, response) => {
     try {
       const { email } = request.body;
-
+      const lowercaseEmail = email.toLowerCase();
+      const userCollectionObject = await getDBObj("userCollectionObject");
+      const existingUser = await userCollectionObject.findOne({
+        email: { $regex: new RegExp("^" + lowercaseEmail + "$", "i") },
+      });
+      if (!existingUser) {
+        response.send({
+          message: "No account with the provided email",
+          result: false,
+        });
+      }
       const otp = generateOTP();
 
       OTP[email] = otp;
@@ -321,9 +333,10 @@ userApp.post(
 
         OTP: ${otp}
         
-        Kindly enter this OTP on the verification page to confirm your account.
-        Please note that this OTP is valid for only 2 minutes. If you miss the 2-minute window, please request a new OTP.
-        If you did not request this OTP, please ignore this email.`,
+Kindly enter this OTP on the verification page to confirm your account.
+Please note that this OTP is valid for only 2 minutes. If you miss the 2-minute window, please request a new OTP.
+
+If you did not request this OTP, please ignore this email.`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {

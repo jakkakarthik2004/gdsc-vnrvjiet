@@ -141,7 +141,7 @@ userApp.post(
         response.send({ message: "Invalid password" });
       } else {
         let token = jwt.sign({ email: userOfDB.email }, process.env.PVT_KEY, {
-          expiresIn: 6000000,
+          expiresIn: 12000000,
         });
         response.send({
           message: "success",
@@ -317,7 +317,14 @@ userApp.post(
         from: process.env.email,
         to: email,
         subject: "Password reset OTP",
-        text: `Your OTP (It is expired after 1 min): ${otp}`,
+        text: `Please use the following OTP to complete the verification process:
+
+        OTP: ${otp}
+        
+        Kindly enter this OTP on the verification page to confirm your account.
+        Please note that this OTP is valid for only 2 minutes. If you miss the 2-minute window, please request a new OTP.
+        
+        If you did not request this OTP, please ignore this email.`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -326,11 +333,12 @@ userApp.post(
         } else {
           response.json({
             data: "Your OTP has been sent to your email",
+            result: true,
           });
         }
       });
     } catch (error) {
-      response.send({ message: error });
+      response.send({ message: error, result: false });
     }
   })
 );
@@ -366,7 +374,7 @@ userApp.post("/verify-otp", (request, response) => {
   if (enteredOTP == expectedOTP) {
     response.send({ message: "OTP verified successfully", result: true });
   } else {
-    response.status(400).send({ message: "Invalid OTP", result: true });
+    response.status(400).send({ message: "Invalid OTP", result: false });
   }
 });
 

@@ -9,7 +9,7 @@ function ForgotPassword() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otpSent, setOtpSent] = useState(false);
-  const [verified, setVerified] = useState(false);
+  const [verified, setVerified] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 

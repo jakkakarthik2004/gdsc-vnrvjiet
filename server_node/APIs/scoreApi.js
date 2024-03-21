@@ -33,13 +33,13 @@ scoreApp.use(exp.json());
  *               scores:
  *                 type: object
  *                 properties:
- *                   metric1:
+ *                   implementation:
  *                     type: number
- *                   metric2:
+ *                   businessPerspective:
  *                     type: number
- *                   metric3:
+ *                   uiux:
  *                     type: number
- *                   metric4:
+ *                   creativity:
  *                     type: number
  *     responses:
  *       '200':
@@ -51,10 +51,17 @@ scoreApp.post("/post-score", async (request, response) => {
   try {
     const { juryId, teamId, scores } = request.body;
 
-    const totalScore = Object.values(scores).reduce(
-      (acc, curr) => acc + curr,
-      0
-    );
+    const weights = {
+      implementation: 1.3,
+      businessPerspective: 0.8,
+      uiux: 0.7,
+      creativity: 1.25,
+    };
+
+    let totalScore = 0;
+    for (const metric in scores) {
+      totalScore += scores[metric] * weights[metric];
+    }
 
     const scoreCollectionObject = await getDBObj("scoreCollectionObject");
     await scoreCollectionObject.insertOne({
@@ -67,6 +74,80 @@ scoreApp.post("/post-score", async (request, response) => {
     response.send({ message: "Score posted successfully" });
   } catch (error) {
     console.error("Error while posting score:", error);
+    response.status(500).send({ error: "Internal Server Error" });
+  }
+});
+
+/**
+ * @swagger
+ * /score/post-multiple-scores:
+ *   post:
+ *     summary: Post multiple scores
+ *     tags: [Score]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               type: object
+ *               properties:
+ *                 juryId:
+ *                   type: number
+ *                 teamId:
+ *                   type: number
+ *                 scores:
+ *                   type: object
+ *                   properties:
+ *                     implementation:
+ *                       type: number
+ *                     businessPerspective:
+ *                       type: number
+ *                     uiux:
+ *                       type: number
+ *                     creativity:
+ *                       type: number
+ *     responses:
+ *       '200':
+ *         description: Scores posted successfully
+ *       '500':
+ *         description: Internal Server Error
+ */
+scoreApp.post("/post-multiple-scores", async (request, response) => {
+  try {
+    const scoreData = request.body;
+
+    const scoreCollectionObject = await getDBObj("scoreCollectionObject");
+
+    await Promise.all(
+      scoreData.map(async (score) => {
+        const { juryId, teamId, scores } = score;
+
+        const weights = {
+          implementation: 1.3,
+          businessPerspective: 0.8,
+          uiux: 0.7,
+          creativity: 1.25,
+        };
+
+        let totalScore = 0;
+        for (const metric in scores) {
+          totalScore += scores[metric] * weights[metric];
+        }
+
+        await scoreCollectionObject.insertOne({
+          juryId,
+          teamId,
+          scores,
+          totalScore,
+        });
+      })
+    );
+
+    response.send({ message: "Scores posted successfully" });
+  } catch (error) {
+    console.error("Error while posting scores:", error);
     response.status(500).send({ error: "Internal Server Error" });
   }
 });

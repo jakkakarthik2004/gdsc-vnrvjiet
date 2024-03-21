@@ -130,16 +130,16 @@ const Leaderboard = () => {
                         {showDetailedColumns && (
                           <>
                             <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase  ">
-                              creativity
+                              Implementation
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase">
-                              Future Scope
+                              Business Perspective
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
-                              Presentation
+                              UI / UX
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
-                              Ideation
+                              Creativity
                             </th>
                             <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase ">
                               Total
@@ -159,16 +159,16 @@ const Leaderboard = () => {
                         {showDetailedColumns && (
                           <>
                             <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase  ">
-                              creativity
+                              Implementation
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase">
-                              Future Scope
+                              Business Perspective
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
-                              Presentation
+                              UI / UX
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
-                              Ideation
+                              Creativity
                             </th>
                             <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase ">
                               Total
@@ -211,16 +211,17 @@ const Leaderboard = () => {
                           {showDetailedColumns && (
                             <>
                               <td className=" text-xs lg:text-md px-8">
-                                {team.records[0]?.scores?.creativity || "-"}
+                                {team.records[0]?.scores?.implementation || "-"}
                               </td>
                               <td className="text-xs lg:text-md px-10">
-                                {team.records[0]?.scores?.FutureScope || "-"}
+                                {team.records[0]?.scores?.businessPerspective ||
+                                  "-"}
                               </td>
                               <td className=" text-xs lg:text-md px-10 ">
-                                {team.records[0]?.scores?.Presentation || "-"}
+                                {team.records[0]?.scores?.uiux || "-"}
                               </td>
                               <td className="text-xs lg:text-md px-10">
-                                {team.records[0]?.scores?.Ideation || "-"}
+                                {team.records[0]?.scores?.creativity || "-"}
                               </td>
                               <td className="text-xs lg:text-md pl-4">
                                 {team.records[0]?.totalScore || "-"}
@@ -240,16 +241,17 @@ const Leaderboard = () => {
                           {showDetailedColumns && (
                             <>
                               <td className=" text-xs lg:text-md px-8">
-                                {team.records[1]?.scores?.creativity || "-"}
+                                {team.records[1]?.scores?.implementation || "-"}
                               </td>
                               <td className="text-xs lg:text-md px-10">
-                                {team.records[1]?.scores?.FutureScope || "-"}
+                                {team.records[1]?.scores?.businessPerspective ||
+                                  "-"}
                               </td>
                               <td className="  text-xs lg:text-md px-10 ">
-                                {team.records[1]?.scores?.Presentation || "-"}
+                                {team.records[1]?.scores?.uiux || "-"}
                               </td>
                               <td className=" text-xs lg:text-md px-10">
-                                {team.records[1]?.scores?.Ideation || "-"}
+                                {team.records[1]?.scores?.creativity || "-"}
                               </td>
                               <td className=" text-xs lg:text-md pl-4">
                                 {team.records[1]?.totalScore || "-"}

@@ -20,10 +20,10 @@ const Score = () => {
   const location = useLocation();
   const { team, juryId, juryName } = location.state;
   const [metrics, setMetrics] = useState({
+    implementation: 0,
+    businessPerspective: 0,
+    uiux: 0,
     creativity: 0,
-    FutureScope: 0,
-    Presentation: 0,
-    Ideation: 0,
   });
 
   const handleMetricChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,10 +40,10 @@ const Score = () => {
     e.preventDefault();
 
     const scores = {
+      implementation: metrics.implementation,
+      businessPerspective: metrics.businessPerspective,
+      uiux: metrics.uiux,
       creativity: metrics.creativity,
-      FutureScope: metrics.FutureScope,
-      Presentation: metrics.Presentation,
-      Ideation: metrics.Ideation,
     };
 
     const dataToSend = {

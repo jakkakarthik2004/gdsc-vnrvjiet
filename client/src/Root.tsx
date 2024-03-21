@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Signup from "./pages/SignIn";
 import Home from "./pages/Home";
@@ -18,8 +19,10 @@ import Leaderboard from "./pages/leaderboard/leaderboard";
 import Enter from "./pages/leaderboard/enter";
 import Score from "./pages/leaderboard/score";
 import accessDenied from "./images/accessDenied.png";
+import deniedAccess from "./images/deniedaccess.png"
 import ForgotPassword from "./pages/ForgotPassword";
 import Analysis from "./pages/leaderboard/analysis";
+
 
 const isAdmin = () => {
   const userObjGDSC = localStorage.getItem("userObjGDSC");
@@ -43,26 +46,38 @@ const ProtectedRoute: React.FC<{ element: React.ReactNode; path: string }> = ({
   element,
   path,
 }) => {
+  const navigate = useNavigate();
   if ((path == "/leaderboard" || path == "/analysis") && !isAdmin()) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="relative">
         <img
-          className="w-[75vw] md:w-[40vw]"
-          src={accessDenied}
+          className="w-screen"
+          src={deniedAccess}
           alt="Access Denied"
         />
+        <div className="absolute inset-0 flex flex-col items-center justify-center pt-10 text-sm md:text-2xl font-bold">
+          <p className="text-center">If you're a Jury, you can Evaluate
+           <button className="text-blue-500 px-2 hover:underline" onClick={()=>navigate('/enter')}>from here.</button></p>
+        </div>
       </div>
     );
   } else if ((path == "/enter" || path == "/score") && !isJury()) {
+    
+    
     return (
-      <div className="flex items-center justify-center">
+      <div className="relative">
         <img
-          className="w-[75vw] md:w-[40vw]"
-          src={accessDenied}
+          className="w-screen"
+          src={deniedAccess}
           alt="Access Denied"
         />
+        <div className="absolute inset-0 flex flex-col items-center justify-center pt-10 text-sm md:text-2xl font-bold">
+          <p className="text-center">If you're an admin, you can access 
+           <button className="text-blue-500 px-2 hover:underline" onClick={()=>navigate('/leaderboard')}>Leaderboard</button></p>
+        </div>
       </div>
     );
+     
   } else {
     return <>{element}</>;
   }

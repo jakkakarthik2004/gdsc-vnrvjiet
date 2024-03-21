@@ -301,7 +301,7 @@ userApp.post(
       const otp = generateOTP();
 
       OTP[email] = otp;
-      console.log(email, otp);
+
       const transporter = nodemailer.createTransport({
         service: "gmail",
         host: "smtp.gmail.com",

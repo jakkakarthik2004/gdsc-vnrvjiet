@@ -15,7 +15,7 @@ function ForgotPassword() {
 
   const handleSendOtp = async () => {
     try {
-      await forgotPw({ email: email });
+      await forgotPw(email);
       setOtpSent(true);
       setErrorMessage("");
     } catch (error) {
@@ -44,10 +44,11 @@ function ForgotPassword() {
 
   return (
     <div className=" flex flex-col items-center">
-      
       {!otpSent ? (
         <div className="mt-16 justify-center bg-gray-200 p-8 rounded ">
-          <h2 className="text-center text-2xl font-bold pb-3" >Forgot Password?</h2>
+          <h2 className="text-center text-2xl font-bold pb-3">
+            Forgot Password?
+          </h2>
           <div>
             <label>Email:</label>
             <input
@@ -58,13 +59,20 @@ function ForgotPassword() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <button className=" w-24 bg-green-600 text-white font-bold rounded p-2 m-2 r hover:ring ring-green-400 ring-offset-2 transition" onClick={handleSendOtp}>Send OTP</button>
+          <button
+            className=" w-24 bg-green-600 text-white font-bold rounded p-2 m-2 r hover:ring ring-green-400 ring-offset-2 transition"
+            onClick={handleSendOtp}
+          >
+            Send OTP
+          </button>
         </div>
       ) : (
         <div className=" mt-16 justify-center flex flex-col bg-gray-200 rounded-xl p-10">
-          <h2 className="text-center text-2xl font-bold pb-3" >Verify your OTP</h2>
+          <h2 className="text-center text-2xl font-bold pb-3">
+            Verify your OTP
+          </h2>
           <div>
-          <label>Enter OTP:</label>
+            <label>Enter OTP:</label>
             <input
               className="rounded m-3 p-3"
               type="text"
@@ -72,12 +80,19 @@ function ForgotPassword() {
               onChange={(e) => setOtp(e.target.value)}
             />
           </div>
-          <button className="bg-blue-400 p-2 m-2 font-bold rounded hover:ring ring-blue-600 ring-offset-2 transition"  onClick={handleVerifyOtp}>Verify OTP</button>
+          <button
+            className="bg-blue-400 p-2 m-2 font-bold rounded hover:ring ring-blue-600 ring-offset-2 transition"
+            onClick={handleVerifyOtp}
+          >
+            Verify OTP
+          </button>
         </div>
       )}
       {verified && (
         <div className=" text-center mt-16 justify-center flex flex-col bg-gray-200 rounded-xl p-10">
-          <h1 className="text-center text-2xl font-bold pb-3">Set a new password :</h1>
+          <h1 className="text-center text-2xl font-bold pb-3">
+            Set a new password :
+          </h1>
           <div className="">
             <label>New Password:</label>
             <input
@@ -96,9 +111,12 @@ function ForgotPassword() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          <button 
-          className="bg-green-500 p-2 m-2 font-bold rounded hover:ring ring-green-600 ring-offset-2 transition"
-          onClick={handleResetPassword}>submit</button>
+          <button
+            className="bg-green-500 p-2 m-2 font-bold rounded hover:ring ring-green-600 ring-offset-2 transition"
+            onClick={handleResetPassword}
+          >
+            submit
+          </button>
         </div>
       )}
     </div>

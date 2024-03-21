@@ -51,19 +51,6 @@ interface props {
   darkMode: boolean;
 }
 
-const createAdminUser = async () => {
-  try {
-    await createUser({
-      name: "admin",
-      email: "admin@gmail.com",
-      password: "adminpassword",
-      isAdmin: 1,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function Home() {
   const [showPopup, setShowPopup] = useState(true);
   const [showSignup, setShowSignup] = useState(false);
@@ -71,10 +58,6 @@ function Home() {
   const handleClosePopup = () => {
     setShowPopup(false);
   };
-
-  useEffect(() => {
-    createAdminUser();
-  }, []);
 
   const Reveal = ({ children }: any) => {
     const ref = useRef(null);
@@ -114,7 +97,7 @@ function Home() {
   return (
     <div>
       {/* <Reveal children={<Hero/>}/> */}
-      <Hero/>
+      <Hero />
       <div className="p-5  text-slate-800 bg-gray-50">
         <Reveal>
           <div className="text-center m-4">

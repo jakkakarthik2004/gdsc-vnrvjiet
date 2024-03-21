@@ -58,10 +58,10 @@ export const deleteUserById = async (userId: any) => {
   }
 };
 
-export const forgotPw = async (email: any) => {
+export const forgotPw = async (email: string) => {
   try {
     const response = await axios.post(`${API_URL}/users/forgot-password`, {
-      data: { email },
+      email: email,
     });
     return response.data;
   } catch (error) {

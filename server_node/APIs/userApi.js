@@ -323,7 +323,6 @@ userApp.post(
         
         Kindly enter this OTP on the verification page to confirm your account.
         Please note that this OTP is valid for only 2 minutes. If you miss the 2-minute window, please request a new OTP.
-        
         If you did not request this OTP, please ignore this email.`,
       };
 

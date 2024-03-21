@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { submitEval } from "../../Apis/juries";
+import toast from "react-hot-toast";
 
 interface Team {
   teamId: number;
@@ -55,6 +56,9 @@ const Score = () => {
     console.log(dataToSend);
 
     submitEval(dataToSend);
+    toast.success(`Graded team ${team.teamName} !`, 
+      {style:{background:'#86efac'}}
+      );
     navigate("/enter");
   };
 

@@ -84,7 +84,7 @@ const Leaderboard = () => {
           🔃
         </button>
         <button
-          className="mx-auto text-2xl"
+          className="mx-auto bg-blue-500 text-white font-bold rounded-md px-3 my-2 text-sm"
           onClick={() => navigate("/analysis")}
           disabled={loading}
         >
@@ -113,10 +113,10 @@ const Leaderboard = () => {
           <div className="overflow-x-auto">
             <table className="table-auto w-full text-xs md:text-sm">
               <thead className="bg-gray-800">
-                <tr>
-                  <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
-                    Sno
-                  </th>
+              <tr>
+                <th className="text-center border-x w-10 text-xs font-medium text-gray-300 uppercase tracking-tight">
+                  Sno
+                </th>
                   <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Team Name
                   </th>
@@ -129,19 +129,19 @@ const Leaderboard = () => {
                       <thead>
                         {showDetailedColumns && (
                           <>
-                            <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase  ">
+                            <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase w-min ">
                               Implementation
                             </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase">
+                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               Business Perspective
                             </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               UI / UX
                             </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               Creativity
                             </th>
-                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               Total
                             </th>
                           </>
@@ -158,19 +158,19 @@ const Leaderboard = () => {
                       <thead>
                         {showDetailedColumns && (
                           <>
-                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase  ">
+                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase w-min ">
                               Implementation
                             </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase">
+                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               Business Perspective
                             </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               UI / UX
                             </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               Creativity
                             </th>
-                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase ">
+                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
                               Total
                             </th>
                           </>
@@ -178,7 +178,7 @@ const Leaderboard = () => {
                       </thead>
                     </table>
                   </th>
-                  <th className=" border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                  <th className=" w-28 border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Average
                   </th>
                 </tr>

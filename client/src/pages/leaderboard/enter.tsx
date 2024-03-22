@@ -135,7 +135,7 @@ const TeamsList: React.FC<{
                 {/* <td className="px-4 py-4 whitespace-nowrap">
                   {team.timeSlot1}
                 </td> */}
-                <td className="px-4 py-4 whitespace-nowrap">
+                <td className="px-4 py-4 whitespace-nowrap text-center">
                   <button
                     disabled={submissionStatus[team.teamId]}
                     className={`text-xs px-4 py-2 border rounded-lg font-bold ${
@@ -145,7 +145,7 @@ const TeamsList: React.FC<{
                     }`}
                     onClick={() => handleTeamClick(team)}
                   >
-                    {submissionStatus[team.teamId]?'Graded':'Grade Team'}
+                    {submissionStatus[team.teamId] ? "Graded" : "Grade Team"}
                   </button>
                 </td>
               </tr>

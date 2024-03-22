@@ -114,19 +114,14 @@ const Leaderboard = () => {
             <table className="table-auto w-full text-xs md:text-sm">
               <thead className="bg-gray-800">
               <tr>
-                <th className="text-center border-x w-[10px] text-xs font-medium text-gray-300 uppercase tracking-tight">
+                <th className="text-center border-x w-10 text-xs font-medium text-gray-300 uppercase tracking-tight">
                   Sno
                 </th>
-                  <th className="w-[150px] text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
-                <tr>
-                  <th className="text-center border-x w-10 text-xs font-medium text-gray-300 uppercase tracking-tight">
-                    Sno
-                  </th>
                   <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Team Name
                   </th>
                   <th
-                    className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight w-1/5"
+                    className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight"
                     onClick={() => handleJuryClick(1)}
                   >
                     Jury 1
@@ -134,7 +129,7 @@ const Leaderboard = () => {
                       <thead>
                         {showDetailedColumns && (
                           <>
-                            <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase w-[min] ">
+                            <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase w-min ">
                               Implementation
                             </th>
                             <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
@@ -155,7 +150,7 @@ const Leaderboard = () => {
                     </table>
                   </th>
                   <th
-                    className="text-center text-xs font-medium text-gray-300 uppercase tracking-tight w-1/5"
+                    className="text-center text-xs font-medium text-gray-300 uppercase tracking-tight"
                     onClick={() => handleJuryClick(2)}
                   >
                     Jury 2
@@ -183,7 +178,7 @@ const Leaderboard = () => {
                       </thead>
                     </table>
                   </th>
-                  <th className=" w-28 border-x text-center text-xs font-medium text-gray-300 uppercase tracking-tight">
+                  <th className=" w-28 border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Average
                   </th>
                 </tr>
@@ -215,14 +210,14 @@ const Leaderboard = () => {
                             ` (${team.records[0]?.juryName})`}
                           {showDetailedColumns && (
                             <>
-                              <td className=" text-xs lg:text-md px-8 w-[30px]">
+                              <td className=" text-xs lg:text-md px-8">
                                 {team.records[0]?.scores?.implementation || "-"}
                               </td>
-                              <td className="text-xs lg:text-md px-12">
+                              <td className="text-xs lg:text-md px-10">
                                 {team.records[0]?.scores?.businessPerspective ||
                                   "-"}
                               </td>
-                              <td className=" text-xs lg:text-md px-10">
+                              <td className=" text-xs lg:text-md px-10 ">
                                 {team.records[0]?.scores?.uiux || "-"}
                               </td>
                               <td className="text-xs lg:text-md px-10">
@@ -248,7 +243,7 @@ const Leaderboard = () => {
                               <td className=" text-xs lg:text-md px-8">
                                 {team.records[1]?.scores?.implementation || "-"}
                               </td>
-                              <td className="text-xs lg:text-md px-12">
+                              <td className="text-xs lg:text-md px-10">
                                 {team.records[1]?.scores?.businessPerspective ||
                                   "-"}
                               </td>

@@ -1,8 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import GetUserIcon from "./GetUserIcon";
+import { getUserById } from "../Apis/users";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
+  const [showSignout, setShowSignout] = useState(false);
+  const userObjGDSC = localStorage.getItem("userObjGDSC");
+  const userId = userObjGDSC ? JSON.parse(userObjGDSC).userId : null;
+  const [user, setUser] = useState<{ name: string }>();
+
+  useEffect(() => {
+    const getData = async () => {
+      if (userId) {
+        const loggedInUser = await getUserById(userId);
+        setUser(loggedInUser.user);
+      }
+    };
+    getData();
+  }, [userId]);
 
   return (
     <nav className="sticky top-0 bg-white border-b-2 border-slate-300 p-3 mr-4">
@@ -56,7 +72,7 @@ function Navbar() {
                 onBlur={() => setDropOpen(false)}
               >
                 <a
-                  href="#"
+                  href="/"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   About
@@ -106,9 +122,34 @@ function Navbar() {
           <button className="pl-5">
             <a href="/Forum">Forum</a>
           </button>
-          <button className="pl-5">
-            <a href="/login">Login</a>
-          </button>
+          {userObjGDSC == null ? (
+            <button className="pl-5 relative">
+              <a href="/login">Login</a>
+            </button>
+          ) : (
+            <div className="relative">
+              {" "}
+              <button
+                className="pl-5 pr-10"
+                onClick={() => setShowSignout((prevState) => !prevState)}
+              >
+                <GetUserIcon user={user} />
+                {showSignout && user && (
+                  <div className="border absolute z-99 bg-white rounded-sm mt-2 p-2 max-w-full">
+                    <div className="font-bold">{user.name}</div>
+                    <button
+                      className="bg-green-600 text-white font-bold w-fit m-2 r hover:ring ring-green-400 ring-offset-2 transition"
+                      onClick={() => {
+                        localStorage.removeItem("userObjGDSC");
+                      }}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </nav>

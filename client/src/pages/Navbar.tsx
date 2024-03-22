@@ -63,7 +63,7 @@ function Navbar() {
         </a>
         <div className="flex flex-col md:flex-row ml-auto text-center text-slate-600">
           <div className="relative">
-            <button className="pl-5" onClick={() => setDropOpen(!dropOpen)}>
+            <button className="pl-5 pt-2" onClick={() => setDropOpen(!dropOpen)}>
               About GDSC <span className="text-lg">&#9662;</span>
             </button>
             {dropOpen && (
@@ -135,7 +135,7 @@ function Navbar() {
               >
                 <GetUserIcon user={user} />
                 {showSignout && user && (
-                  <div className="border rounded-lg absolute bg-white mt-1 p-1">
+                  <div className="border w-[100px] rounded-lg absolute bg-white mt-1 p-1">
                     <div className="font-bold">{user.name}</div>
                     <button
                       className="bg-red-600 text-sm text-white font-bold w-fit p-1 m-1 rounded-md hover:ring ring-red-400 ring-offset-2 transition"

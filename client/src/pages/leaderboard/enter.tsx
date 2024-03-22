@@ -105,18 +105,19 @@ const TeamsList: React.FC<{
   };
 
   return (
-    <div>
-      <h2 className="text-sm lg:text-xl font-semibold mb-2">Teams</h2>
-      <table className=" text-xs lg:text-xl min-w-full divide-y divide-gray-200">
+    <div className="flex justify-center w-screen">
+    <div className="">
+      <h2 className="text-sm lg:text-xl text-center font-semibold mb-2">Teams</h2>
+      <table className=" text-xs lg:text-xl w-full divide-y divide-gray-200">
         <thead className="bg-gray-800">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider text-center w-1/6">
+            <th className="px-1 md:px-6 md:py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider text-center w-[10px] md:w-1/6">
               Team Number
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider w-1/4">
+            <th className="px-1 md:px-6 md:py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider w-1/4">
               Team Name
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider w-1/5">
+            <th className="px-1 md:px-6 md:py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider w-1/5">
               Team Lead
             </th>
             {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -129,16 +130,16 @@ const TeamsList: React.FC<{
           {teams?.map((team, index) => {
             return (
               <tr key={index}>
-                <td className="text-sm px-4 py-4 whitespace-nowrap text-center">{team.teamId}</td>
-                <td className="text-sm  px-4 py-4 whitespace-nowrap">{team.teamName}</td>
-                <td className="text-sm px-4 py-4 whitespace-nowrap">{team.teamLead}</td>
+                <td className="text:xs md:text-sm px-2 py-2 whitespace-nowrap text-center">{team.teamId}</td>
+                <td className="text-xs md:text-sm  px-2 py-2 whitespace-nowrap">{team.teamName}</td>
+                <td className="text-xs md:text-sm px-2 py-2 whitespace-nowrap">{team.teamLead}</td>
                 {/* <td className="px-4 py-4 whitespace-nowrap">
                   {team.timeSlot1}
                 </td> */}
-                <td className="px-4 py-4 whitespace-nowrap text-center">
+                <td className="px-1 py-2 md:px-6 md:py-3  whitespace-nowrap text-center ">
                   <button
                     disabled={submissionStatus[team.teamId]}
-                    className={`text-xs px-4 py-2 border rounded-lg font-bold ${
+                    className={`text-[10px] md:text-sm px-1 py-2 md:px-6 md:py-3 border rounded-lg font-bold ${
                       submissionStatus[team.teamId]
                         ? "bg-gray-400 text-gray-800"
                         : "bg-blue-500 text-white"
@@ -153,6 +154,7 @@ const TeamsList: React.FC<{
           })}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

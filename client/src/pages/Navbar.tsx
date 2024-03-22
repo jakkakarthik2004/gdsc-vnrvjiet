@@ -135,15 +135,15 @@ function Navbar() {
               >
                 <GetUserIcon user={user} />
                 {showSignout && user && (
-                  <div className="border absolute z-99 bg-white rounded-sm mt-2 p-2 max-w-full">
+                  <div className="border rounded-lg absolute bg-white mt-1 p-1">
                     <div className="font-bold">{user.name}</div>
                     <button
-                      className="bg-green-600 text-white font-bold w-fit m-2 r hover:ring ring-green-400 ring-offset-2 transition"
+                      className="bg-red-600 text-sm text-white font-bold w-fit p-1 m-1 rounded-md hover:ring ring-red-400 ring-offset-2 transition"
                       onClick={() => {
                         localStorage.removeItem("userObjGDSC");
                       }}
                     >
-                      Sign Out
+                      Log Out
                     </button>
                   </div>
                 )}

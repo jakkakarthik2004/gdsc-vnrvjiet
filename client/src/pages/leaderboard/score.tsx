@@ -21,10 +21,10 @@ const Score = () => {
   const location = useLocation();
   const { team, juryId, juryName } = location.state;
   const [metrics, setMetrics] = useState({
-    implementation: 0,
+    creativity: 0,
     businessPerspective: 0,
     uiux: 0,
-    creativity: 0,
+    implementation: 0,
   });
 
   const handleMetricChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,7 +85,9 @@ const Score = () => {
             <tbody>
               {Object.entries(metrics).map(([metric, value]) => (
                 <tr key={metric}>
-                  <td className="border border-gray-400 px-4 py-2">{metric}</td>
+                  <td className="border border-gray-400 px-4 py-2">
+                    {metric.charAt(0).toUpperCase() + metric.slice(1)}
+                  </td>
                   <td className="border border-gray-400 px-4 py-2">
                     <input
                       type="number"
@@ -105,7 +107,7 @@ const Score = () => {
             // onClick={handleSubmit}
             className="bg-blue-500 text-white px-4 py-2 rounded mt-2"
           >
-            Submit Metrics
+            Submit
           </button>
         </form>
       </div>

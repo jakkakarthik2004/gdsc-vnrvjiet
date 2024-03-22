@@ -49,36 +49,31 @@ const ProtectedRoute: React.FC<{ element: React.ReactNode; path: string }> = ({
   if ((path == "/leaderboard" || path == "/analysis") && !isAdmin()) {
     return (
       <div className="">
-        <img className="w-screen" src={deniedAccess} alt="Access Denied" />
-        <div className=" inset-0 flex flex-col items-center justify-center pt-10 text-sm md:text-2xl font-bold">
-          <p className="text-center">
-            If you're a Jury, you can Evaluate
-            <button
-              className="text-blue-500 px-2 hover:underline"
-              onClick={() => navigate("/enter")}
-            >
-              from here.
-            </button>
-          </p>
+        <div className="inset-0 flex flex-col items-center justify-center pt-10 text-sm md:text-2xl font-bold">
+          <p className="text-center">If you're a Jury, you can Evaluate
+           <button className="text-blue-500 px-2 hover:underline" onClick={()=>navigate('/enter')}>from here.</button></p>
+           <img
+          className="w-screen"
+          src={deniedAccess}
+          alt="Access Denied"
+        />
         </div>
       </div>
     );
   } else if ((path == "/enter" || path == "/score") && !isJury()) {
     return (
       <div className="">
-        <img className="w-screen" src={deniedAccess} alt="Access Denied" />
-        <div className="inset-0 flex flex-col items-center justify-center pt-10 text-sm md:text-2xl font-bold">
-          <p className="text-center">
-            If you're an admin, you can access
-            <button
-              className="text-blue-500 px-2 hover:underline"
-              onClick={() => navigate("/leaderboard")}
-            >
-              Leaderboard
-            </button>
-          </p>
-        </div>
+      
+      <div className="inset-0 flex flex-col items-center justify-center pt-10 text-sm md:text-2xl font-bold">
+        <p className="text-center">If you're an admin, you can access 
+         <button className="text-blue-500 px-2 hover:underline" onClick={()=>navigate('/leaderboard')}>Leaderboard</button></p>
+         <img
+        className="w-screen"
+        src={deniedAccess}
+        alt="Access Denied"
+      />
       </div>
+    </div>
     );
   } else {
     return <>{element}</>;

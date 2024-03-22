@@ -20,22 +20,7 @@ interface Teams {
 const Leaderboard = () => {
   const [teams, setTeams] = useState<Teams[]>([]);
   const [loading, setLoading] = useState(true);
-  const [displayJury1, setDisplayJury1] = useState(false);
-  const [displayJury2, setDisplayJury2] = useState(false);
-  const [showDetailedColumns, setShowDetailedColumns] = useState(false);
   const navigate = useNavigate();
-
-  const handleJuryClick = (juryNumber: number) => {
-    if (juryNumber === 1) {
-      setDisplayJury1(!displayJury1);
-    } else if (juryNumber === 2) {
-      setDisplayJury2(!displayJury2);
-    }
-  };
-
-  const handleToggleDetailedColumns = () => {
-    setShowDetailedColumns(!showDetailedColumns);
-  };
 
   const getData = async () => {
     try {
@@ -62,12 +47,7 @@ const Leaderboard = () => {
 
   const calculateTotalScore = (team: Teams) => {
     const totalScore1 = team.records[0]?.totalScore || 0;
-    const totalScore2 = team.records[1]?.totalScore || 0;
-
-    const totalScore =
-      (totalScore1 + totalScore2) / (totalScore1 && totalScore2 ? 2 : 1);
-
-    return totalScore;
+    return totalScore1;
   };
 
   return (
@@ -102,14 +82,6 @@ const Leaderboard = () => {
         </div>
       ) : (
         <>
-          <button
-            onClick={handleToggleDetailedColumns}
-            className="bg-yellow-400 rounded-md px-3 my-2 text-sm"
-          >
-            {showDetailedColumns
-              ? "Hide Detailed Metrics"
-              : "Show Detailed Metrics"}
-          </button>
           <div className="overflow-x-auto">
             <table className="table-auto w-full text-xs md:text-sm">
               <thead className="bg-gray-800">
@@ -120,63 +92,23 @@ const Leaderboard = () => {
                   <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Team Name
                   </th>
-                  <th
-                    className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight"
-                    onClick={() => handleJuryClick(1)}
-                  >
-                    Jury 1
-                    <table className="border-t">
-                      <thead>
-                        {showDetailedColumns && (
-                          <>
-                            <th className=" px-2 text-left text-xs font-medium text-gray-300 uppercase w-min ">
-                              Implementation
-                            </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              Business Perspective
-                            </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              UI / UX
-                            </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              Creativity
-                            </th>
-                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              Total
-                            </th>
-                          </>
-                        )}
-                      </thead>
-                    </table>
+                  <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
+                    Jury
                   </th>
-                  <th
-                    className="text-center text-xs font-medium text-gray-300 uppercase tracking-tight"
-                    onClick={() => handleJuryClick(2)}
-                  >
-                    Jury 2
-                    <table className="border-t">
-                      <thead>
-                        {showDetailedColumns && (
-                          <>
-                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase w-min ">
-                              Implementation
-                            </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              Business Perspective
-                            </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              UI / UX
-                            </th>
-                            <th className="border-x border-gray-400 px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              Creativity
-                            </th>
-                            <th className="px-2 text-left text-xs font-medium text-gray-300 uppercase w-min">
-                              Total
-                            </th>
-                          </>
-                        )}
-                      </thead>
-                    </table>
+                  <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
+                    Implementation
+                  </th>
+                  <th className="border-x border-gray-400 text-center text-xs font-medium text-gray-300 uppercase">
+                    Business Perspective
+                  </th>
+                  <th className="border-x border-gray-400 text-center text-xs font-medium text-gray-300 uppercase">
+                    UI / UX
+                  </th>
+                  <th className="border-x border-gray-400 text-center text-xs font-medium text-gray-300 uppercase">
+                    Creativity
+                  </th>
+                  <th className="text-center text-xs font-medium text-gray-300 uppercase">
+                    Total
                   </th>
                   <th className=" w-28 border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Average
@@ -200,66 +132,24 @@ const Leaderboard = () => {
                           {team.teamName}
                         </td>
                         <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
-                          {team.records[0]?.totalScore !== undefined &&
-                          team.records[0]?.totalScore !== null &&
-                          !showDetailedColumns
-                            ? team.records[0]?.totalScore
-                            : ""}
-                          {displayJury1 &&
-                            team.records[0]?.juryName &&
-                            ` (${team.records[0]?.juryName})`}
-                          {showDetailedColumns && (
-                            <>
-                              <td className=" text-xs lg:text-md px-8">
-                                {team.records[0]?.scores?.implementation || "-"}
-                              </td>
-                              <td className="text-xs lg:text-md px-10">
-                                {team.records[0]?.scores?.businessPerspective ||
-                                  "-"}
-                              </td>
-                              <td className=" text-xs lg:text-md px-10 ">
-                                {team.records[0]?.scores?.uiux || "-"}
-                              </td>
-                              <td className="text-xs lg:text-md px-10">
-                                {team.records[0]?.scores?.creativity || "-"}
-                              </td>
-                              <td className="text-xs lg:text-md pl-4">
-                                {team.records[0]?.totalScore || "-"}
-                              </td>
-                            </>
-                          )}
+                          {team.records[0]?.juryName || "-"}
                         </td>
                         <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
-                          {team.records[1]?.totalScore !== undefined &&
-                          team.records[1]?.totalScore !== null &&
-                          !showDetailedColumns
-                            ? team.records[1]?.totalScore
-                            : ""}
-                          {displayJury2 &&
-                            team.records[1]?.juryName &&
-                            ` (${team.records[1]?.juryName})`}
-                          {showDetailedColumns && (
-                            <>
-                              <td className=" text-xs lg:text-md px-8">
-                                {team.records[1]?.scores?.implementation || "-"}
-                              </td>
-                              <td className="text-xs lg:text-md px-10">
-                                {team.records[1]?.scores?.businessPerspective ||
-                                  "-"}
-                              </td>
-                              <td className="  text-xs lg:text-md px-10 ">
-                                {team.records[1]?.scores?.uiux || "-"}
-                              </td>
-                              <td className=" text-xs lg:text-md px-10">
-                                {team.records[1]?.scores?.creativity || "-"}
-                              </td>
-                              <td className=" text-xs lg:text-md pl-4">
-                                {team.records[1]?.totalScore || "-"}
-                              </td>
-                            </>
-                          )}
+                          {team.records[0]?.scores?.implementation || "-"}
                         </td>
-                        <td className="border px-1 py1 text-xs lg:text-nd md:px-8 md:py-2">
+                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                          {team.records[0]?.scores?.businessPerspective || "-"}
+                        </td>
+                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                          {team.records[0]?.scores?.uiux || "-"}
+                        </td>
+                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                          {team.records[0]?.scores?.creativity || "-"}
+                        </td>
+                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                          {team.records[0]?.totalScore || "-"}
+                        </td>
+                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                           {calculateTotalScore(team)}
                         </td>
                       </tr>

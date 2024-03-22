@@ -40,8 +40,11 @@ function GetUserIcon(props: { user: any }) {
       context.fillStyle = "#ffffff";
       context.fillRect(0, 0, size, size);
 
+      context.beginPath();
+      context.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+      context.closePath();
       context.fillStyle = `${color}50`;
-      context.fillRect(0, 0, size, size);
+      context.fill();
 
       context.fillStyle = color;
       context.textBaseline = "middle";
@@ -49,7 +52,7 @@ function GetUserIcon(props: { user: any }) {
       context.font = `${size / 2}px Roboto`;
       context.fillText(name, size / 2, size / 2);
     }
-    console.log(canvas.toDataURL);
+
     return canvas.toDataURL();
   };
 

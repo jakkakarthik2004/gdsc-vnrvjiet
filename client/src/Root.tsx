@@ -15,7 +15,7 @@ import Leads from "./pages/Leads";
 import UpcomingEvents from "./pages/Events/UpcomingEvents";
 import SolutionChallenge from "./pages/SolutionChallenge";
 import CommunityGuidelines from "./pages/CommunityGuidelines";
-import Leaderboard from "./pages/leaderboard/leaderboard";
+import Leaderboard from "./pages/leaderboard/leaderboard-multiplejurues";
 import Enter from "./pages/leaderboard/enter";
 import Score from "./pages/leaderboard/score";
 import accessDenied from "./images/accessDenied.png";

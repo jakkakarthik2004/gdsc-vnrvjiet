@@ -113,10 +113,10 @@ const Leaderboard = () => {
           <div className="overflow-x-auto">
             <table className="table-auto w-full text-xs md:text-sm">
               <thead className="bg-gray-800">
-                <tr>
-                  <th className="text-center border-x w-10 text-xs font-medium text-gray-300 uppercase tracking-tight">
-                    Sno
-                  </th>
+              <tr>
+                <th className="text-center border-x w-10 text-xs font-medium text-gray-300 uppercase tracking-tight">
+                  Sno
+                </th>
                   <th className="text-center border-x text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Team Name
                   </th>

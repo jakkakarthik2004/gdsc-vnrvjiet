@@ -92,7 +92,7 @@ userApp.get(
       response.send({ message: "User found", user: user });
     } catch (error) {
       console.error("Error fetching user:", error);
-      response.status(500).send({ message: "Error fetching user" });
+      response.send({ message: "Error fetching user" });
     }
   })
 );

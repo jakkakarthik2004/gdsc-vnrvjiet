@@ -49,7 +49,7 @@ function GetUserIcon(props: { user: any }) {
       context.fillStyle = color;
       context.textBaseline = "middle";
       context.textAlign = "center";
-      context.font = `${size / 2}px Roboto`;
+      context.font = `${size / 2}px Arial`;
       context.fillText(name, size / 2, size / 2);
     }
 
@@ -62,6 +62,7 @@ function GetUserIcon(props: { user: any }) {
         <img
           src={createImageFromInitials(35, props.user.name, "#007FFF")}
           alt=""
+          className="rounded-3xl border-2 border-blue-500"
         />
       )}
     </div>

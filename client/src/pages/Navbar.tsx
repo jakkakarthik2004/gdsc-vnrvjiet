@@ -61,7 +61,7 @@ function Navbar() {
         <a href="/">
           <h1 className="text-[#868686] text-lg pl-5">GDSC VNRVJIET.</h1>
         </a>
-        <div className="flex flex-col md:flex-row ml-auto text-slate-600">
+        <div className="flex flex-col md:flex-row ml-auto text-center text-slate-600">
           <div className="relative">
             <button className="pl-5" onClick={() => setDropOpen(!dropOpen)}>
               About GDSC <span className="text-lg">&#9662;</span>

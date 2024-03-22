@@ -31,6 +31,8 @@ teamApp.use(exp.json());
  *                 type: string
  *               teamLead:
  *                 type: string
+ *               problemStatement:
+ *                 type: string
  *               juries:
  *                 type: number[]
  *     responses:
@@ -44,7 +46,7 @@ teamApp.post(
   expressAsyncHandler(async (request, response) => {
     try {
       let teamCollectionObject = await getDBObj("teamCollectionObject");
-      let { teamName, teamLead, ...metrics } = request.body;
+      let { teamName, teamLead, problemStatement, ...metrics } = request.body;
       await teamCollectionObject.insertOne({ teamName, teamLead, metrics });
       response.send({ message: "Team created with evaluation" });
     } catch (error) {
@@ -73,6 +75,8 @@ teamApp.post(
  *                   type: string
  *                 teamLead:
  *                   type: string
+ *                 problemStatement:
+ *                   type: string
  *                 juries:
  *                   type: array
  *                   items:
@@ -97,6 +101,8 @@ teamApp.post(
  *                       teamName:
  *                         type: string
  *                       teamLead:
+ *                         type: string
+ *                       problemStatement:
  *                         type: string
  *                       juries:
  *                         type: array

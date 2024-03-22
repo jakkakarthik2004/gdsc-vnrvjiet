@@ -110,9 +110,9 @@ const Leaderboard = () => {
                   <th className="text-center text-xs font-medium text-gray-300 uppercase">
                     Total
                   </th>
-                  <th className=" w-28 border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
+                  {/* <th className=" w-28 border-x text-left text-xs font-medium text-gray-300 uppercase tracking-tight">
                     Average
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -149,9 +149,9 @@ const Leaderboard = () => {
                         <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                           {team.records[0]?.totalScore || "-"}
                         </td>
-                        <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
+                        {/* <td className="border px-1 py1 text-xs lg:text-md md:px-4 md:py-2">
                           {calculateTotalScore(team)}
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
               </tbody>

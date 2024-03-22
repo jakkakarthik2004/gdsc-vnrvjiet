@@ -53,12 +53,10 @@ const Score = () => {
       scores,
     };
 
-    console.log(dataToSend);
-
     submitEval(dataToSend);
-    toast.success(`Graded team ${team.teamName} !`, 
-      {style:{background:'#86efac'}}
-      );
+    toast.success(`Graded team ${team.teamName} !`, {
+      style: { background: "#86efac" },
+    });
     navigate("/enter");
   };
 
@@ -92,7 +90,7 @@ const Score = () => {
                     <input
                       type="number"
                       name={metric}
-                      value={value}
+                      value={value === 0 ? "" : value}
                       onChange={handleMetricChange}
                       className="border border-gray-300 p-1"
                       min={0}

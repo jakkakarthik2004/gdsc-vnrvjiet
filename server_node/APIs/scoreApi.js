@@ -284,9 +284,25 @@ scoreApp.get(
             },
           },
           {
+            $lookup: {
+              from: "teamCollectionObject",
+              localField: "_id",
+              foreignField: "teamId",
+              as: "problemStatement",
+            },
+          },
+          {
+            $addFields: {
+              problemStatement: {
+                $arrayElemAt: ["$teamInfo.problemStatement", 0],
+              },
+            },
+          },
+          {
             $project: {
               "records.juryId": 1,
               teamName: 1,
+              problemStatement: 1,
               "records.juryName": 1,
               "records.scores": 1,
               "records.totalScore": 1,
@@ -296,6 +312,7 @@ scoreApp.get(
             $group: {
               _id: "$_id",
               teamName: { $first: "$teamName" },
+              problemStatement: { $first: "$problemStatement" },
               records: { $push: "$records" },
             },
           },

@@ -32,6 +32,16 @@ export const getLeaderboard = async () => {
   }
 };
 
+export const getLeaderboardFinal = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/score/get-metrics-round2`);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting Leaderboard", error);
+    throw error;
+  }
+};
+
 export const getTeamEvaluatedbyJury = async (juryId:number) => {
   try {
     const response = await axios.get(`${API_URL}/score/get-teams-evaluated-by-jury/${juryId}`);

@@ -17,6 +17,7 @@ import SolutionChallenge from "./pages/SolutionChallenge";
 import CommunityGuidelines from "./pages/CommunityGuidelines";
 import Leaderboard from "./pages/leaderboard/leaderboard-multiplejurues";
 import FinalLeaderboard from "./pages/leaderboard/leaderboard"
+import LeaderboardRound2 from "./pages/leaderboard/leaderboard-finalround"
 import Enter from "./pages/leaderboard/enter";
 import Score from "./pages/leaderboard/score";
 import accessDenied from "./images/accessDenied.png";
@@ -100,7 +101,7 @@ function Root() {
         <Route
           path="/leaderboard"
           element={
-            <ProtectedRoute element={<FinalLeaderboard />} path="/leaderboard" />
+            <ProtectedRoute element={<LeaderboardRound2 />} path="/leaderboard" />
           }
         />
         <Route

@@ -418,4 +418,121 @@ scoreApp.get(
   })
 );
 
+/**
+ * @swagger
+ * /score/get-metrics-round2:
+ *   get:
+ *     summary: Retrieve metrics for all teams
+ *     tags: [Score]
+ *     responses:
+ *       '200':
+ *         description: Metrics for all teams retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: A message indicating the success of the operation
+ *                   example: Metrics for all teams
+ *
+ *       '500':
+ *         description: Internal Server Error
+ */
+
+scoreApp.get(
+  "/get-metrics-round2",
+  expressAsyncHandler(async (request, response) => {
+    try {
+      const scoreCollectionObject = await getDBObj("scoreCollectionObject");
+      const teamsMetrics = await scoreCollectionObject
+        .aggregate([
+          {
+            $match: {
+              "records.juryId": { $in: [172, 173] }
+            },
+          },
+          {
+            $group: {
+              _id: "$teamId",
+              records: { $push: "$$ROOT" },
+            },
+          },
+          {
+            $unwind: "$records",
+          },
+          {
+            $lookup: {
+              from: "userCollectionObject",
+              localField: "records.juryId",
+              foreignField: "userId",
+              as: "juryInfo",
+            },
+          },
+          {
+            $addFields: {
+              "records.juryName": { $arrayElemAt: ["$juryInfo.name", 0] },
+            },
+          },
+          {
+            $lookup: {
+              from: "teamCollectionObject",
+              localField: "_id",
+              foreignField: "teamId",
+              as: "teamInfo",
+            },
+          },
+          {
+            $addFields: {
+              teamName: { $arrayElemAt: ["$teamInfo.teamName", 0] },
+            },
+          },
+          {
+            $lookup: {
+              from: "teamCollectionObject",
+              localField: "_id",
+              foreignField: "teamId",
+              as: "problemStatement",
+            },
+          },
+          {
+            $addFields: {
+              problemStatement: {
+                $arrayElemAt: ["$teamInfo.problemStatement", 0],
+              },
+            },
+          },
+          {
+            $project: {
+              "records.juryId": 1,
+              teamName: 1,
+              problemStatement: 1,
+              "records.juryName": 1,
+              "records.scores": 1,
+              "records.totalScore": 1,
+            },
+          },
+          {
+            $group: {
+              _id: "$_id",
+              teamName: { $first: "$teamName" },
+              problemStatement: { $first: "$problemStatement" },
+              records: { $push: "$records" },
+            },
+          },
+        ])
+        .toArray();
+
+      response.send({
+        message: "Metrics for all teams",
+        payload: teamsMetrics,
+      });
+    } catch (error) {
+      console.error("Error while retrieving metrics:", error);
+      response.status(500).send({ error: "Internal Server Error" });
+    }
+  })
+);
+
 module.exports = scoreApp;

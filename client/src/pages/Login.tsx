@@ -49,8 +49,10 @@ const Login = () => {
         };
         const userObjString = JSON.stringify(userObj);
         localStorage.setItem("userObjGDSC", userObjString);
-
-        navigate("/enter", { state: { user: loggedInUser.userObj } });
+        if (userObj.role == "jury")
+          navigate("/enter", { state: { user: loggedInUser.userObj } });
+        if (userObj.role == "admin")
+          navigate("/leaderboard", { state: { user: loggedInUser.userObj } });
       }
     } catch (error) {
       console.log(error);

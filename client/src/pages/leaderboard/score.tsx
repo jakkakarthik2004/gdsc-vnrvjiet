@@ -60,6 +60,18 @@ const Score = () => {
     navigate("/enter");
   };
 
+  // Mapping function for displaying metric labels
+  const displayMetricLabel = (metric: string) => {
+    switch (metric) {
+      case "businessPerspective":
+        return "Business Perspective";
+      case "uiux":
+        return "UI/UX";
+      default:
+        return metric.charAt(0).toUpperCase() + metric.slice(1);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center p-6">
       <div className="gap-6">
@@ -84,18 +96,20 @@ const Score = () => {
               {Object.entries(metrics).map(([metric, value]) => (
                 <tr key={metric}>
                   <td className="border border-gray-400 px-4 py-2">
-                    {metric.charAt(0).toUpperCase() + metric.slice(1)}
+                    {displayMetricLabel(metric)}
                   </td>
                   <td className="border border-gray-400 px-4 py-2">
-                    <input
-                      type="number"
-                      name={metric}
-                      value={value === 0 ? "" : value}
-                      onChange={handleMetricChange}
-                      className="border border-gray-300 p-1"
-                      min={0}
-                      max={10}
-                    />
+                    <div className="flex items-center justify-center">
+                      <input
+                        type="number"
+                        name={metric}
+                        value={value === 0 ? "" : value}
+                        onChange={handleMetricChange}
+                        className="border border-gray-300 p-1"
+                        min={0}
+                        max={10}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}

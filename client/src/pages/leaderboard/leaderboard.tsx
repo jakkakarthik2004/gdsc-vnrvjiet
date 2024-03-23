@@ -115,7 +115,7 @@ const Leaderboard = () => {
                   </th> */}
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white text-center">
                 {teams &&
                   teams
                     .slice()

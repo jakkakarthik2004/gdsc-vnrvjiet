@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GetUserIcon from "./GetUserIcon";
 import { getUserById } from "../Apis/users";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +10,7 @@ function Navbar() {
   const userObjGDSC = localStorage.getItem("userObjGDSC");
   const userId = userObjGDSC ? JSON.parse(userObjGDSC).userId : null;
   const [user, setUser] = useState<{ name: string }>();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -19,6 +21,11 @@ function Navbar() {
     };
     getData();
   }, [userId]);
+
+  const handleLogOut = async () => {
+    await localStorage.removeItem("userObjGDSC");
+    // navigate("/login");
+  };
 
   return (
     <nav className="sticky top-0 bg-white border-b-2 border-slate-300 p-3 mr-4">
@@ -63,7 +70,10 @@ function Navbar() {
         </a>
         <div className="flex flex-col md:flex-row ml-auto text-center text-slate-600">
           <div className="relative">
-            <button className="pl-5 pt-2" onClick={() => setDropOpen(!dropOpen)}>
+            <button
+              className="pl-5 pt-2"
+              onClick={() => setDropOpen(!dropOpen)}
+            >
               About GDSC <span className="text-lg">&#9662;</span>
             </button>
             {dropOpen && (
@@ -140,7 +150,7 @@ function Navbar() {
                     <button
                       className="bg-red-600 text-sm text-white font-bold w-fit p-1 m-1 rounded-md hover:ring ring-red-400 ring-offset-2 transition"
                       onClick={() => {
-                        localStorage.removeItem("userObjGDSC");
+                        handleLogOut();
                       }}
                     >
                       Log Out

@@ -53,6 +53,8 @@ const Login = () => {
           navigate("/enter", { state: { user: loggedInUser.userObj } });
         if (userObj.role == "admin")
           navigate("/leaderboard", { state: { user: loggedInUser.userObj } });
+          if (userObj.role == "user")
+          navigate("/upcoming-events", { state: { user: loggedInUser.userObj } });
       }
     } catch (error) {
       console.log(error);

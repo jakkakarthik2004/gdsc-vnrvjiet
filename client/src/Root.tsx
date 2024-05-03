@@ -101,7 +101,7 @@ function Root() {
         <Route
           path="/leaderboard"
           element={
-            <ProtectedRoute element={<LeaderboardRound2 />} path="/leaderboard" />
+            <ProtectedRoute element={<Leaderboard />} path="/leaderboard" />
           }
         />
         <Route

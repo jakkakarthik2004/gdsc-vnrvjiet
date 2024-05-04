@@ -45,7 +45,7 @@ function AdminPortalPast() {
   async function fetchData() {
     try {
       const fetchedEvents = await getPastEvents();
-      setEvents(fetchedEvents);
+      setEvents(fetchedEvents.payload);
     } catch (error) {
       console.log(error);
     }

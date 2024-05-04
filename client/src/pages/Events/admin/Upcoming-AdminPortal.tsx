@@ -44,7 +44,7 @@ function AdminPortalUpcoming() {
   async function fetchData() {
     try {
       const fetchedEvents = await getUpcomingEvents();
-      setEvents(fetchedEvents);
+      setEvents(fetchedEvents.payload);
     } catch (error) {
       console.log(error);
     }

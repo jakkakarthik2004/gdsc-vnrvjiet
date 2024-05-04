@@ -12,7 +12,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 
 interface Question {
-  questionId: number;
+  _id: number;
   question: string;
   answer: string;
 }
@@ -41,10 +41,10 @@ const AdminForum = () => {
 
   const handleSave = (question: Question) => {
     try {
-      updateQuestion(question.questionId, {
-        answer: updatedAnswers[question.questionId],
+      updateQuestion(question._id, {
+        answer: updatedAnswers[question._id],
       });
-      const { [question.questionId]: _, ...remainingAnswers } = updatedAnswers;
+      const { [question._id]: _, ...remainingAnswers } = updatedAnswers;
       setUpdatedAnswers(remainingAnswers);
       setIsEditing(false);
       setFetch(true);
@@ -53,8 +53,8 @@ const AdminForum = () => {
     }
   };
 
-  const handleDelete = (questionId: number) => {
-    updateQuestion(questionId, { answered: 0 });
+  const handleDelete = (_id: number) => {
+    updateQuestion(_id, { answered: 0 });
     setFetch(true);
     setDeleteModal(false);
   };
@@ -63,14 +63,15 @@ const AdminForum = () => {
     const fetchData = async () => {
       try {
         const data1 = await getUnAnsweredQuestions();
-        setUnAnsweredQuestions(data1);
+        setUnAnsweredQuestions(data1.payload);
 
-        const data2 = await getAnsweredQuestions();
+        const x = await getAnsweredQuestions();
+        const data2 = x.payload;
         setAnsweredQuestions(data2);
         const initialUpdatedAnswers: Record<number, string> = {};
 
-        data2.forEach((question: { questionId: number; answer: string }) => {
-          initialUpdatedAnswers[question.questionId] = question.answer || "";
+        data2.forEach((question: { _id: number; answer: string }) => {
+          initialUpdatedAnswers[question._id] = question.answer || "";
         });
 
         setUpdatedAnswers(initialUpdatedAnswers);
@@ -116,7 +117,7 @@ const AdminForum = () => {
       )}
       <div className="flex flex-col gap-4">
         {unAnsweredQuestions.map((question) => (
-          <div key={question.questionId} className="flex gap-6">
+          <div key={question._id} className="flex gap-6">
             <p className="border rounded shadow-sm px-4 py-2 bg-white">
               Q. {question.question}
             </p>
@@ -135,7 +136,7 @@ const AdminForum = () => {
       </h1>
       <div className="flex flex-col border gap-1 rounded border-1 border-slate-500">
         {answeredQuestions.map((question) => (
-          <div key={question.questionId} className="flex flex-col">
+          <div key={question._id} className="flex flex-col">
             <Accordion>
               <AccordionSummary
                 expandIcon={
@@ -158,12 +159,12 @@ const AdminForum = () => {
                 {isEditing ? (
                   <div className="w-full">
                     <textarea
-                      value={updatedAnswers[question.questionId] || ""}
+                      value={updatedAnswers[question._id] || ""}
                       className="border outline-none w-[80%] p-1"
                       onChange={(e) =>
                         setUpdatedAnswers((prev) => ({
                           ...prev,
-                          [question.questionId]: e.target.value,
+                          [question._id]: e.target.value,
                         }))
                       }
                     />
@@ -191,7 +192,7 @@ const AdminForum = () => {
                         className="text-sm border px-4 py-1 rounded bg-[#D92929] text-white "
                         onClick={() => {
                           setDeleteModal(true);
-                          setDeleteQuestion(question.questionId);
+                          setDeleteQuestion(question._id);
                         }}
                       >
                         Delete

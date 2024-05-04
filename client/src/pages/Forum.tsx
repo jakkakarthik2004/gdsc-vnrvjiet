@@ -5,9 +5,11 @@ import UserForum from "./userForum";
 import { getUserById } from "../Apis/users";
 
 function Forum() {
-  const location = useLocation();
-  // const [user, setUser] = useState(location.state?.user);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userObjGDSC") || "null") as {
+      role: string;
+    } | null
+  );
 
   // useEffect(() => {
   //   const fetchUser = async () => {
@@ -23,12 +25,10 @@ function Forum() {
   //   fetchUser();
   // }, []);
 
-  // if (user && (user as any).isAdmin) {
-  //   return <AdminForum />;
-  // }
-  // console.log(user)
+  if (user && user.role === "admin") {
+    return <AdminForum />;
+  }
   return <UserForum />;
-  
 }
 
 export default Forum;

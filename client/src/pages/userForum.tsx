@@ -16,7 +16,12 @@ interface Question {
 function UserForum() {
   const [question, setQuestion] = useState<string>();
   const faqRef = useRef<HTMLDivElement>(null);
-  const userId = localStorage.getItem("userIdGDSC");
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userObjGDSC") || "null") as {
+      userId: number;
+    } | null
+  );
+  const userId = user ? user.userId : null;
   const [answeredQuestions, setAnsweredQuestions] = useState<Question[]>([]);
 
   const handleScrollToFAQ = () => {
@@ -26,13 +31,14 @@ function UserForum() {
   };
 
   const submitQuestion = (e: any) => {
-    // if (userId) {
-      createQuestion({ question });
+    if (userId) {
+      createQuestion({ question: question, isAnswered: 0, answer: "" });
       window.alert("Question submitted succesfully");
-    // } else {
-      // window.alert("Please login to ask a question");
-    // }
+    } else {
+      window.alert("Please login to ask a question");
+    }
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {

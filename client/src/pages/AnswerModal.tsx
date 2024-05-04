@@ -3,7 +3,7 @@ import { updateApproval, updateQuestion } from "../Apis/questions";
 
 interface Props {
   selectedQuestion: {
-    questionId: number;
+    _id: number;
     question: string;
     answer: string;
   } | null;
@@ -14,13 +14,13 @@ const AnswerModal: React.FC<Props> = ({ selectedQuestion, setIsModalOpen }) => {
   const [data, setData] = useState(selectedQuestion?.answer);
 
   const update = () => {
-    updateQuestion(selectedQuestion?.questionId, {answer: data});
+    updateQuestion(selectedQuestion?._id, {answer: data});
     setIsModalOpen(false);
   };
 
   const submit = async () => {
     await update();
-    updateApproval(selectedQuestion?.questionId);
+    updateApproval(selectedQuestion?._id);
     setIsModalOpen(false);
     window.location.reload();
   };

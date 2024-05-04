@@ -5,8 +5,11 @@ import AdminPortalUpcoming from "./admin/Upcoming-AdminPortal";
 import UserPortalUpcoming from "./user/Upcoming-UsersPortal";
 
 function UpcomingEvents() {
-  const location = useLocation();
-  const [user, setUser] = useState(location.state?.user);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userObjGDSC") || "null") as {
+      role: string;
+    } | null
+  );
 
   // useEffect(() => {
   //   const fetchUser = async () => {
@@ -24,7 +27,7 @@ function UpcomingEvents() {
   //   fetchUser();
   // }, [user]);
 
-  if (user && user.isAdmin) {
+  if (user && user.role === "admin") {
     return <AdminPortalUpcoming />;
   } else {
     return <UserPortalUpcoming />;

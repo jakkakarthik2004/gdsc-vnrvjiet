@@ -11,7 +11,7 @@ interface UpdateQuestionDto {
 export const createQuestion = async (questionDto: any) => {
   try {
     const response = await axios.post(
-      `${API_URL}/Questions/create`,
+      `${API_URL}/questions/create`,
       questionDto
     );
     return response.data;
@@ -23,7 +23,7 @@ export const createQuestion = async (questionDto: any) => {
 
 export const getAllQuestions = async () => {
   try {
-    const response = await axios.get(`${API_URL}/Questions/get-Questions`);
+    const response = await axios.get(`${API_URL}/questions/get-Questions`);
     return response.data;
   } catch (error) {
     console.error("Error fetching questions:", error);
@@ -34,7 +34,7 @@ export const getAllQuestions = async () => {
 export const getAnsweredQuestions = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}/Questions/get-answered-questions`
+      `${API_URL}/questions/get-answered-questions`
     );
     return response.data;
   } catch (error) {
@@ -46,7 +46,7 @@ export const getAnsweredQuestions = async () => {
 export const getUnAnsweredQuestions = async () => {
   try {
     const response = await axios.get(
-      `${API_URL}/Questions/get-unanswered-questions`
+      `${API_URL}/questions/get-unanswered-questions`
     );
     return response.data;
   } catch (error) {
@@ -58,7 +58,7 @@ export const getUnAnsweredQuestions = async () => {
 export const getQuestionById = async (questionId: any) => {
   try {
     const response = await axios.get(
-      `${API_URL}/Questions/get-QuestionId/${questionId}`
+      `${API_URL}/questions/get-QuestionId/${questionId}`
     );
     return response.data;
   } catch (error) {
@@ -73,7 +73,7 @@ export const updateQuestion = async (
 ) => {
   try {
     const response = await axios.put(
-      `${API_URL}/Questions/update-answer/${questionId}`,
+      `${API_URL}/questions/update-answer/${questionId}`,
       { payload }
     );
     return response.data;
@@ -85,8 +85,9 @@ export const updateQuestion = async (
 
 export const updateApproval = async (questionId: any) => {
   try {
+    console.log(questionId);
     const response = await axios.put(
-      `${API_URL}/Questions/update-approval/${questionId}`
+      `${API_URL}/questions/update-approval/${questionId}`
     );
     return response.data;
   } catch (error) {
@@ -98,7 +99,7 @@ export const updateApproval = async (questionId: any) => {
 export const deleteQuestionById = async (questionId: any) => {
   try {
     const response = await axios.delete(
-      `${API_URL}/Questions/delete-by-id/${questionId}`
+      `${API_URL}/questions/delete-by-id/${questionId}`
     );
     return response.data;
   } catch (error) {

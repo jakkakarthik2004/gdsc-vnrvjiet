@@ -7,6 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import CheckUsers from "./pages/Events/admin/CheckUsers";
+import Register from "./pages/Events/user/Register";
 import Signup from "./pages/SignIn";
 import Home from "./pages/Home";
 import PastEvents from "./pages/Events/PastEvents";
@@ -91,6 +92,7 @@ function Root() {
         {/* <Route path="/admin-signup" element={<Signup />} />
         <Route path="/admin-login" element={<Login />} /> */}
         <Route path="/signup" element={<Signup />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/upcoming-events" element={<UpcomingEvents />} />

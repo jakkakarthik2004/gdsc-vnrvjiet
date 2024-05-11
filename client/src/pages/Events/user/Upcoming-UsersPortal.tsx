@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 import {
   createEvent,
   getAllEvents,
@@ -24,6 +25,7 @@ interface Event {
 }
 
 function UserPortalUpcoming() {
+  const navigate = useNavigate();
   const [registeredEvents, setRegisteredEvents] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const userId = localStorage.getItem("userIdGDSC");
@@ -45,6 +47,9 @@ function UserPortalUpcoming() {
     } catch (error) {
       console.log(error);
     }
+  }
+  function gotoRegister(){
+    navigate("/register")
   }
 
   useEffect(() => {
@@ -149,7 +154,10 @@ function UserPortalUpcoming() {
                     {isEventRegistered(event.eventId)
                       ? "Registered !"
                       : "Register"}
-                  </button> */}
+                  </button> */} 
+                  <div className="mt-2">
+                  <button onClick={gotoRegister} type="button" className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Register</button>
+                  </div>
                 </div>
               ))}
             </div>

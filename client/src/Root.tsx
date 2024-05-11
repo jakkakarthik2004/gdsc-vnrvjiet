@@ -6,6 +6,7 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+import CheckUsers from "./pages/Events/admin/CheckUsers";
 import Signup from "./pages/SignIn";
 import Home from "./pages/Home";
 import PastEvents from "./pages/Events/PastEvents";
@@ -115,6 +116,10 @@ function Root() {
         <Route
           path="/score"
           element={<ProtectedRoute element={<Score />} path="/score" />}
+        />
+        <Route
+          path="/checkuser"
+          element={<ProtectedRoute element={<CheckUsers />} path="/checkuser" />}
         />
       </Routes>
     </Router>

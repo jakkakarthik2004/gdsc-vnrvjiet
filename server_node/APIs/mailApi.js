@@ -57,8 +57,8 @@ const sendEmail = async (email, orderId, paymentId) => {
   mailApp.post("/order", async(req, res) => {
     try {
         const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY_ID,
-            key_secret: process.env.RAZORPAY_SECRET
+            key_id: "rzp_test_8KuaEG6YpYMWAp",
+            key_secret: "q8KEghPtcWSoLFVyz586NDRz"
         })
         if(!req.body) {
             return res.status(400).send("Bad Request");
@@ -82,7 +82,7 @@ const sendEmail = async (email, orderId, paymentId) => {
   
     const {razorpay_order_id, razorpay_payment_id, razorpay_signature, email} = req.body
   
-    const sha = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
+    const sha = crypto.createHmac("sha256", "q8KEghPtcWSoLFVyz586NDRz");
   
     sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
   

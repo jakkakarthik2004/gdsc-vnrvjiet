@@ -17,7 +17,7 @@ function CheckUsers() {
         function success(result: string) {
             scanner.clear();
             setScanResult(result);
-            
+            console.log(scanResult);
         }
 
         function error(erro: any) {
@@ -28,7 +28,7 @@ function CheckUsers() {
       };
     }, []);
   async function handleAllow(result: string) {
-    let posted = {email:result}
+    let posted = {rollno:result}
     let res = await axios.put(`${process.env.REACT_APP_BACK_URL}/registration/register`, posted);
     console.log(result);
     setMsg(JSON.stringify(res.data.message));

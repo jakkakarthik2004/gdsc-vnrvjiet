@@ -10,12 +10,14 @@ registrationApp.use(exp.json());
 registrationApp.put('/register',expressAsyncHandler(async(req,res)=>{
     let scannercollection = await getDBObj("scannerCollection");
     const newRegister = req.body;
-    const dbuser = await scannercollection.findOne({email:newRegister.email});
+    console.log(newRegister)
+    const dbuser = await scannercollection.findOne({rollno:newRegister.rollno});
+    console.log(dbuser)
     if(dbuser!==null)
         {
             if(dbuser.entered===false){
                 res.send({message:"Allow To Workshop"})
-                await scannercollection.updateOne({email:newRegister.email},{$set:{entered:true}});
+                await scannercollection.updateOne({rollno:newRegister.rollno},{$set:{entered:true}});
             }
             else
             res.send({message:"Already Scanned Dont Allow to enter"})
@@ -26,5 +28,14 @@ registrationApp.put('/register',expressAsyncHandler(async(req,res)=>{
     }
 }
 ))
+
+registrationApp.post('/register',expressAsyncHandler(async(req,res)=>{
+    let scannercollection = await getDBObj("scannerCollection");
+    const newRegister = req.body;
+    console.log(newRegister);
+    newRegister.entered = false;
+    await scannercollection.insertOne(newRegister);
+    res.send({message : "Successfully Registered"})
+}))
 
 module.exports=registrationApp;

@@ -15,8 +15,8 @@ mailApp.use(exp.urlencoded({ extended:false }));
 mailApp.use(bodyParser.json({ limit: '10mb', extended: true }))
 mailApp.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 
-const sendEmail = async (email, orderId, paymentId) => {
-    const qrCode = await QRCode.toDataURL(email);
+const sendEmail = async (email, orderId, paymentId , rollno) => {
+    const qrCode = await QRCode.toDataURL(rollno);
     qrCodeImage=new Buffer.from(qrCode.split("base64,")[1], "base64")
     try {
         const transporter = nodemailer.createTransport({
@@ -80,7 +80,7 @@ const sendEmail = async (email, orderId, paymentId) => {
   
   mailApp.post("/validate", async (req, res) => {
   
-    const {razorpay_order_id, razorpay_payment_id, razorpay_signature, email} = req.body
+    const {razorpay_order_id, razorpay_payment_id, razorpay_signature, email , rollno} = req.body
   
     const sha = crypto.createHmac("sha256", "q8KEghPtcWSoLFVyz586NDRz");
   
@@ -91,7 +91,7 @@ const sendEmail = async (email, orderId, paymentId) => {
     if (digest!== razorpay_signature) {
         return res.status(400).json({msg: " Transaction is not legit!"});
     }
-    await sendEmail(email, razorpay_order_id, razorpay_payment_id);
+    await sendEmail(email, razorpay_order_id, razorpay_payment_id , rollno);
     res.json({msg: " Transaction is legit!", orderId: razorpay_order_id,paymentId: razorpay_payment_id});
   })
 

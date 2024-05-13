@@ -31,7 +31,7 @@ const sendEmail = async (email, orderId, paymentId , rollno) => {
         });
         const mailOptions = {
             from: {
-                name: "B15 Product Pricetracker",
+                name: "GDSC WORKSHOP REGISTERED",
                 address: "b15productpricetracker@gmail.com"
             },
             to: `${email}`,

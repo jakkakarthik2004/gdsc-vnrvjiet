@@ -49,7 +49,7 @@ function UserPortalUpcoming() {
     }
   }
   function gotoRegister(event: Event){
-    navigate("/register",{state:event})
+    navigate(`../register/${event.name}`,{state:event})
   }
 
   useEffect(() => {

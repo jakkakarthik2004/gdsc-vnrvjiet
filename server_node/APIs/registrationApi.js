@@ -16,11 +16,11 @@ registrationApp.put('/register',expressAsyncHandler(async(req,res)=>{
     if(dbuser!==null)
         {
             if(dbuser.entered===false){
-                res.send({message:"Allow To Workshop"})
+                res.send({message:"Allow To Workshop" , payload : dbuser})
                 await scannercollection.updateOne({rollno:newRegister.rollno},{$set:{entered:true}});
             }
             else
-            res.send({message:"Already Scanned Dont Allow to enter"})
+            res.send({message:"Already Scanned Dont Allow to enter" , payload:dbuser})
         }
     else{
         console.log(newRegister);

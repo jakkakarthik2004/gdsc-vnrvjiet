@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { useLocation , useParams } from "react-router-dom";
 import axios from "axios";
+import {
+  createEvent,
+  getAllEvents,
+  getEventById,
+  getUpcomingEvents,
+} from "../../../Apis/events";
 // import { BrowserRouter as Router } from "react-router-dom";
 // interface UserState {
 //   email: string;
 // }
+interface Event {
+  eventId: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  venue: string;
+  description: string;
+  // image: string;
+}
 
 interface FormData {
   rollno: string;
@@ -16,6 +31,38 @@ interface FormData {
 }
 
 const PaymentGatewayRazorpay: React.FC = () => {
+  const params = useParams();
+  const eventname = params.eventname;
+
+  const [states, setStates] = useState<Event>();
+  const [events, setEvents] = useState<Event[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedEvents = await getUpcomingEvents();
+        setEvents(fetchedEvents.payload.reverse());
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (!events || events.length === 0) return;
+
+    const foundEvent = events.find(event => event.name === eventname);
+    if (foundEvent) {
+      setStates(foundEvent);
+      console.log(states)
+    } else {
+      console.log(`Event with name ${eventname} not found.`);
+    }
+  }, [events, eventname]);
+
+
+
   const {
     register,
     handleSubmit,
@@ -24,10 +71,10 @@ const PaymentGatewayRazorpay: React.FC = () => {
 
   const handleFormSubmit = (formData: FormData) => {
     console.log(formData);
-    formData.event = state.name;
+    if(states)
+    formData.event = states.name;
     paymentHandler(formData);
   };
-  let {state} = useLocation();
   // const [user, setUser] = useState<UserState>({
   //   email: "",
   // });
@@ -123,8 +170,8 @@ const PaymentGatewayRazorpay: React.FC = () => {
     <>
     
       <div className="product ml-3 mt-3">
-        <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">{state.name}</h1>
-        <p className="text-center mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-blue-400">{state.description}</p>
+        <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">{states?.name}</h1>
+        <p className="text-center mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-blue-400">{states?.description}</p>
         <form  onSubmit={handleSubmit(handleFormSubmit)} className="max-w-sm mx-auto">
         <div className="w-72 mt-3 ml-3">
         <div className="relative mt-6 mb-8 w-full min-w-[200px] h-10">

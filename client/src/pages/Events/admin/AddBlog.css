@@ -1,0 +1,142 @@
+.drop-container {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 120%;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px dashed #555;
+    color: #444;
+    cursor: pointer;
+    transition: 400ms ease-in-out, border 400ms ease-in-out;
+  }
+  
+  .drop-container:hover {
+    background: #eee;
+    border-color: #111;
+  }
+  
+  .drop-container:hover .drop-title {
+    color: #222;
+  }
+  
+  .drop-title {
+    color: #444;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    transition: color .2s ease-in-out;
+  }
+  
+  input[type=file] {
+    width: 350px;
+    max-width: 100%;
+    color: #444;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #555;
+  }
+  
+  input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+  }
+
+
+
+  .q1-editor{
+    overflow: scroll;
+    background: white;
+    height: 13rem;
+  }
+
+  .containers{
+    width: 84%;
+    margin-inline:auto;
+  }
+
+.create-post {
+    width: 50%;
+    margin-inline: auto;
+    height: calc(100vh - 12rem);
+    display: grid;
+    place-items: center;
+    margin-top: 4rem;
+  }
+.create-post h2{
+    margin-bottom: 2rem;
+}
+.forms{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+
+
+.helo{
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    resize: none;
+}
+
+.q1-editor{
+    overflow: scroll;
+    background: white;
+    height: 13rem;
+  }
+  .q1-editor::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+    background-color: #ffffff;
+  }
+  .q1-editor::-webkit-scrollbar-thumb {
+    background-color: #121212;
+    border-radius: 100px;
+  }
+
+  .btns{
+    display: inline-block;
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 0.6rem;
+    background: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 300ms ease;
+  }
+
+  .btns.primarys{
+    background-color: #6f6af8;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  .btns:hover{
+    background: #0c0c22;
+    color: white;
+  }
+
+
+
+@media screen and (max-width:800px){
+    .create-post{
+        width: 100%;
+    }
+}

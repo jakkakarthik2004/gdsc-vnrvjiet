@@ -2,6 +2,7 @@ const exp = require("express");
 const app = exp();
 const path = require("path");
 const cors = require("cors");
+const upload = require('express-fileupload')
 
 require("dotenv").config()
 
@@ -13,6 +14,7 @@ const scoreApp = require("./APIs/scoreApi");
 const teamApp = require("./APIs/teamApi");
 const registrationApp = require('./APIs/registrationApi');
 const mailApp = require("./APIs/mailApi");
+const blogApp = require("./APIs/blogApi");
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swaggerSpec");
@@ -20,8 +22,12 @@ const swaggerSpec = require("./swaggerSpec");
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.use(exp.json({extended:true}));
+app.use(exp.urlencoded({ extended: true }));
 app.use(cors());
-app.use(exp.json());
+app.use(upload())
+app.use('/uploads', exp.static(__dirname+'/uploads'))
+
 
 app.use("/users", userApp);
 app.use("/Questions", questionApp);
@@ -30,6 +36,7 @@ app.use("/score", scoreApp);
 app.use("/team", teamApp);
 app.use("/registration",registrationApp);
 app.use("/sendmail",mailApp)
+app.use("/addblog",blogApp);
 
 app.use("/", (req, res) => {
   res.send("<center>GDSC VNRVJIET </center>");

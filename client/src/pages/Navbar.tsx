@@ -4,6 +4,7 @@ import { getUserById } from "../Apis/users";
 import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  
   const [isOpen, setIsOpen] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
   const [showSignout, setShowSignout] = useState(false);
@@ -11,7 +12,6 @@ function Navbar() {
   const userId = userObjGDSC ? JSON.parse(userObjGDSC).userId : null;
   const [user, setUser] = useState<{ name: string }>();
   // const navigate = useNavigate();
-
   useEffect(() => {
     const getData = async () => {
       if (userId) {
@@ -24,6 +24,7 @@ function Navbar() {
 
   const handleLogOut = async () => {
     await localStorage.removeItem("userObjGDSC");
+    
     // navigate("/login");
   };
 
@@ -100,7 +101,7 @@ function Navbar() {
                   Community Guidelines
                 </a>
                 <a
-                  href="#"
+                  href="/blogs"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Blog

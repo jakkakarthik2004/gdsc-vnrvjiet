@@ -14,3 +14,12 @@ code {
     monospace;
 }
 
+body::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+  background-color: #302f2f;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 100px;
+}

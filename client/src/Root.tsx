@@ -26,6 +26,7 @@ import accessDenied from "./images/accessDenied.png";
 import deniedAccess from "./images/deniedaccess.png";
 import ForgotPassword from "./pages/ForgotPassword";
 import Analysis from "./pages/leaderboard/analysis";
+import Blog from "./pages/Events/Blog";
 
 const isAdmin = () => {
   const userObjGDSC = localStorage.getItem("userObjGDSC");
@@ -94,6 +95,7 @@ function Root() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/upcoming-events/:eventname" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/blogs" element={<Blog />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/upcoming-events" element={<UpcomingEvents />} />
         <Route path="/past-events" element={<PastEvents />} />

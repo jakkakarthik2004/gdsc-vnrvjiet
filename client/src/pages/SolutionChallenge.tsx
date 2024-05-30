@@ -1,7 +1,9 @@
 import React from "react";
 import sollutionChallengeImage from "../images/sollutionChallengeImage.png";
 import "./SolutionChallenge.css";
-import winnerHero from "../images/winners-hero.png";
+// import SignLanguageConvertor
+
+
 function SolutionChallenge() {
   return (
     <div>
@@ -37,7 +39,7 @@ function SolutionChallenge() {
             Global Top 100 teams have offically been announced.
           </p>
         </div>
-        {/* <div className="child12"><img alt="" src={sollutionChallengeImage} /></div> */}
+        <div className="child12"><img alt="" src="https://developers.google.com/static/community/images/gdsc-solution-challenge/homepage-hero.webp" /></div>
       </div>
       <div className="parent2 my-10">
         <div className="child21">
@@ -79,9 +81,10 @@ function SolutionChallenge() {
       <p className="text-3xl text-slate-800 font-bold my-5 text-center">
         Winner's prototype
       </p>
-      <video className="m-5 mx-auto " controls>
-        <source src=""></source>
+      <video width="600" className="d-block mx-auto m-5" controls>
+        <source src={`${process.env.PUBLIC_URL}/SignLanguageConvertor.mp4`} type="video/mp4" />
       </video>
+
       <div className="grid grid-cols-3 gap-4">
         <img src="https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-dsc/event_wrapup/Screenshot%25202024-02-23%2520230854.png" />
         <img src="https://res.cloudinary.com/startup-grind/image/upload/c_limit,dpr_2,f_auto,g_center,h_1440,q_auto:good,w_2048/v1/gcs/platform-data-dsc/event_wrapup/Screenshot%25202024-02-23%2520233920.png" />

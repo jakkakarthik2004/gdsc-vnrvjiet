@@ -26,6 +26,10 @@ import accessDenied from "./images/accessDenied.png";
 import deniedAccess from "./images/deniedaccess.png";
 import ForgotPassword from "./pages/ForgotPassword";
 import Analysis from "./pages/leaderboard/analysis";
+import WebDev from "./pages/Domain Info/WebDev";
+import CompetitiveProgramming from "./pages/Domain Info/CompetitiveProgramming";
+import ML from "./pages/Domain Info/ML";
+import Management from "./pages/Domain Info/Management";
 
 const isAdmin = () => {
   const userObjGDSC = localStorage.getItem("userObjGDSC");
@@ -101,6 +105,10 @@ function Root() {
         <Route path="/leads" element={<Leads />} />
         <Route path="/solution-challenge" element={<SolutionChallenge />} />
         <Route path="/community-guidelines" element={<CommunityGuidelines />} />
+        <Route path="/web-development" element={<WebDev />} />
+        <Route path="/competitive-programming" element={<CompetitiveProgramming />} />
+        <Route path="/machine-learning" element={<ML />} />
+        <Route path="/management" element={<Management />} />
         <Route
           path="/leaderboard"
           element={
